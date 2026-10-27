@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Industria Monir — Tradición Textil, Hilatura & Fibras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-black: #141413;
+      --color-charcoal: #1F1F1D;
+      --color-dark-gray: #2B2A27;
+      --color-gray: #686762;
+      --color-medium-gray: #9E9C95;
+      --color-warm-brown: #8C6D46;
+      --color-brown: #A68759;
+      --color-tan: #C4A77D;
+      --color-sand: #DDD0C0;
+      --color-cream: #F2ECE1;
+      --color-off-white: #FAF7F2;
+      --color-white: #FFFFFF;
+
+      --font-display: 'EB Garamond', Georgia, serif;
+      --font-elegant: 'Lora', Garamond, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+
+      --nav-height: 76px;
+      --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-cinema: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      overflow-x: hidden;
+      background: var(--color-black);
+      color: var(--color-off-white);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-off-white);
+      color: var(--color-charcoal);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Textura micro-grain sutil para realismo */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--color-black); }
+    ::-webkit-scrollbar-thumb { background: var(--color-warm-brown); border-radius: 2px; }
+
+    /* ============================================
+       INTRO LOADER ELEGANTE
+       ============================================ */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--color-black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s var(--transition-cinema), transform 0.8s var(--transition-cinema);
+    }
+    .loader-overlay.fade-out {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+    .loader-logo {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      color: var(--color-tan);
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: loaderFadeIn 1s var(--transition-cinema) 0.2s forwards;
+    }
+    .loader-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-tan), transparent);
+      margin-top: 20px;
+      animation: loaderLine 1.4s var(--transition-cinema) 0.6s forwards;
+    }
+    .loader-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: var(--color-medium-gray);
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      margin-top: 18px;
+      opacity: 0;
+      animation: loaderFadeIn 0.8s var(--transition-cinema) 1.2s forwards;
+    }
+    @keyframes loaderFadeIn { to { opacity: 1; transform: translateY(0); } }
+    @keyframes loaderLine { to { width: 160px; } }
+
+    /* ============================================
+       TRANSICIÓN CINEMÁTICA ENTRE SUB-PORTALES (100% RESPONSIVE)
+       ============================================ */
+    .portal-transition-curtain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      width: 100dvw;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 99990;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .curtain-panel-top, .curtain-panel-bottom {
+      width: 100%;
+      height: 0%;
+      background: #0D0D0C;
+      position: relative;
+      will-change: height;
+    }
+    .curtain-panel-top { 
+      top: 0; 
+      border-bottom: 1px solid rgba(196,167,125,0.3); 
+    }
+    .curtain-panel-bottom { 
+      bottom: 0; 
+      margin-top: auto; 
+      border-top: 1px solid rgba(196,167,125,0.3); 
+    }
+
+    .curtain-brand-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 5.5vw, 2.5rem);
+      letter-spacing: clamp(0.12em, 2vw, 0.28em);
+      text-transform: uppercase;
+      color: var(--color-tan);
+      opacity: 0;
+      z-index: 99995;
+      pointer-events: none;
+      text-align: center;
+      width: 90%;
+      max-width: 480px;
+      word-break: break-word;
+      line-height: 1.2;
+    }
+
+    /* ============================================
+       NAVBAR & DRAWER RESPONSIVE
+       ============================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 4vw, 60px);
+      transition: all 0.4s var(--transition-smooth);
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(20, 20, 19, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: rgba(196, 167, 125, 0.15);
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 500;
+      color: var(--color-white);
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      text-decoration: none;
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .nav-brand span.sub {
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-tan);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2.5vw, 36px);
+      list-style: none;
+    }
+    .nav-link {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      transition: color 0.3s;
+      position: relative;
+      padding: 6px 0;
+      background: none;
+      border: none;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-tan);
+      transition: width 0.35s var(--transition-smooth);
+    }
+    .nav-link:hover { color: var(--color-white); }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: var(--color-tan); }
+    .nav-link.active::after { width: 100%; }
+
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--color-black);
+      background: var(--color-tan);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 11px 24px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.35s var(--transition-smooth);
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .nav-cta:hover {
+      background: var(--color-white);
+      transform: translateY(-1px);
+    }
+
+    /* Botón Hamburguesa Táctil (Mínimo 48px) */
+    .burger-btn {
+      display: none;
+      width: 48px;
+      height: 48px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1010;
+      align-items: center;
+      justify-content: center;
+    }
+    .burger-box {
+      width: 24px;
+      height: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .burger-bar {
+      width: 100%;
+      height: 1.5px;
+      background: var(--color-white);
+      transition: all 0.35s var(--transition-smooth);
+      transform-origin: center;
+    }
+    .burger-btn.open .burger-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+      background: var(--color-tan);
+    }
+    .burger-btn.open .burger-bar:nth-child(2) { opacity: 0; }
+    .burger-btn.open .burger-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+      background: var(--color-tan);
+    }
+
+    /* Drawer Mobile con desenfoque */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(85vw, 380px);
+      height: 100dvh;
+      background: rgba(20, 20, 19, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1005;
+      padding: 95px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform: translateX(100%);
+      transition: transform 0.45s var(--transition-cinema);
+      border-left: 1px solid rgba(196,167,125,0.18);
+    }
+    .mobile-drawer.open {
+      transform: translateX(0%);
+    }
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1004;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--transition-smooth);
+    }
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .drawer-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .drawer-link-btn {
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      color: rgba(255,255,255,0.8);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s;
+    }
+    .drawer-link-btn span.num {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: var(--color-warm-brown);
+    }
+    .drawer-link-btn.active, .drawer-link-btn:hover {
+      color: var(--color-tan);
+      transform: translateX(6px);
+    }
+
+    @media (max-width: 992px) {
+      .nav-links { display: none; }
+      .burger-btn { display: flex; }
+    }
+
+    /* ============================================
+       HERO PRINCIPAL & INNER HEROES (100dvh)
+       ============================================ */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 90dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: calc(var(--nav-height) + 20px) 24px 60px;
+      background: var(--color-black);
+    }
+    .hero.sub-hero {
+      min-height: 52dvh;
+      padding-top: calc(var(--nav-height) + 30px);
+      padding-bottom: 40px;
+      background: linear-gradient(180deg, #1C1B19 0%, var(--color-black) 100%);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 35%, #2B2A26 0%, #141413 70%);
+      opacity: 0.95;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(20,20,19,0.5) 0%, rgba(20,20,19,0.85) 100%);
+    }
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.45;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--color-tan);
+      text-transform: uppercase;
+      letter-spacing: 0.42em;
+      margin-bottom: 22px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      font-weight: 400;
+      color: var(--color-white);
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+    .hero-title em {
+      font-family: var(--font-elegant);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--color-sand);
+    }
+    .hero-subtitle {
+      font-family: var(--font-elegant);
+      font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 24px;
+    }
+    .hero-line {
+      width: 50px;
+      height: 1px;
+      background: var(--color-tan);
+      margin: 24px auto;
+    }
+    .hero-desc {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 36px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--color-black);
+      background: var(--color-tan);
+      padding: 14px 34px;
+      border: 1px solid var(--color-tan);
+      cursor: pointer;
+      transition: all 0.35s var(--transition-smooth);
+      min-height: 48px;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--color-white);
+      border-color: var(--color-white);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--color-tan);
+      background: transparent;
+      padding: 14px 32px;
+      border: 1px solid rgba(196, 167, 125, 0.4);
+      cursor: pointer;
+      transition: all 0.35s var(--transition-smooth);
+      min-height: 48px;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      background: rgba(196, 167, 125, 0.1);
+      border-color: var(--color-tan);
+      color: var(--color-white);
+    }
+
+    @media (max-width: 540px) {
+      .btn-group { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-outline { width: 100%; }
+    }
+
+    /* ============================================
+       MARQUEE CORPORATIVO
+       ============================================ */
+    .marquee-wrapper {
+      overflow: hidden;
+      padding: 24px 0;
+      background: var(--color-black);
+      border-top: 1px solid rgba(196, 167, 125, 0.15);
+      border-bottom: 1px solid rgba(196, 167, 125, 0.15);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      animation: marqueeRun 28s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.4);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      text-transform: uppercase;
+    }
+    .marquee-item span.dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-tan);
+      opacity: 0.6;
+    }
+    @keyframes marqueeRun {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ============================================
+       SECCIONES GENERALES
+       ============================================ */
+    .section {
+      padding: clamp(65px, 9vw, 120px) clamp(20px, 5vw, 60px);
+      position: relative;
+    }
+    .section-dark {
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+    .section-cream {
+      background: var(--color-cream);
+      color: var(--color-charcoal);
+    }
+    .section-white {
+      background: var(--color-white);
+      color: var(--color-charcoal);
+    }
+    .section-charcoal {
+      background: var(--color-charcoal);
+      color: var(--color-white);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: clamp(40px, 6vw, 75px);
+    }
+    .section-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--color-warm-brown);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-dark .section-eyebrow,
+    .section-charcoal .section-eyebrow {
+      color: var(--color-tan);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-title em {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      color: var(--color-warm-brown);
+    }
+    .section-dark .section-title em,
+    .section-charcoal .section-title em {
+      color: var(--color-sand);
+    }
+    .section-line {
+      width: 44px;
+      height: 1px;
+      background: var(--color-tan);
+      margin: 18px auto;
+    }
+    .section-subtitle {
+      font-family: var(--font-elegant);
+      font-size: 1.1rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--color-gray);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .section-dark .section-subtitle,
+    .section-charcoal .section-subtitle {
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ============================================
+       PRODUCT CARDS (Estilo Fiel al Original)
+       ============================================ */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: clamp(24px, 3vw, 36px);
+    }
+    .product-card {
+      background: var(--color-white);
+      border: 1px solid rgba(196, 167, 125, 0.18);
+      overflow: hidden;
+      transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .section-dark .product-card,
+    .section-charcoal .product-card {
+      background: #1B1B19;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      border-color: var(--color-tan);
+    }
+    .product-card-image {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #161614;
+      border-bottom: 1px solid rgba(196, 167, 125, 0.1);
+    }
+    .product-card-content {
+      padding: clamp(24px, 3vw, 36px);
+    }
+    .product-card-tag {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--color-warm-brown);
+      margin-bottom: 12px;
+    }
+    .section-dark .product-card-tag,
+    .section-charcoal .product-card-tag {
+      color: var(--color-tan);
+    }
+    .product-card-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .product-card-desc {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--color-gray);
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+    .section-dark .product-card-desc,
+    .section-charcoal .product-card-desc {
+      color: rgba(255,255,255,0.65);
+    }
+    .product-card-link {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--color-warm-brown);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s;
+      padding: 0;
+    }
+    .section-dark .product-card-link,
+    .section-charcoal .product-card-link {
+      color: var(--color-tan);
+    }
+    .product-card-link:hover {
+      gap: 14px;
+    }
+
+    /* ============================================
+       TWO COLUMNS (ASIMÉTRICO Y ELEGANTE)
+       ============================================ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(30px, 6vw, 70px);
+      align-items: center;
+    }
+    .two-col.reverse {
+      grid-template-columns: 0.85fr 1.15fr;
+    }
+    .two-col-text h3 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.7rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .two-col-text h3 em {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      color: var(--color-warm-brown);
+    }
+    .section-dark .two-col-text h3 em,
+    .section-charcoal .two-col-text h3 em {
+      color: var(--color-sand);
+    }
+    .two-col-text p {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--color-gray);
+      margin-bottom: 18px;
+    }
+    .section-dark .two-col-text p,
+    .section-charcoal .two-col-text p {
+      color: rgba(255,255,255,0.65);
+    }
+    .art-placeholder {
+      width: 100%;
+      height: 380px;
+      background: #171716;
+      border: 1px solid rgba(196, 167, 125, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    @media (max-width: 860px) {
+      .two-col, .two-col.reverse {
+        grid-template-columns: 1fr;
+      }
+      .art-placeholder { height: 260px; }
+    }
+
+    /* ============================================
+       TARJETAS DE VALORES / DIFERENCIADORES
+       ============================================ */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .value-card {
+      padding: clamp(28px, 4vw, 40px);
+      border: 1px solid rgba(196, 167, 125, 0.2);
+      background: rgba(255,255,255,0.02);
+      position: relative;
+    }
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .value-desc {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--color-gray);
+      font-weight: 300;
+    }
+    .section-dark .value-desc,
+    .section-charcoal .value-desc {
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ============================================
+       TIMELINE DE PROCESOS INDUSTRIALES
+       ============================================ */
+    .timeline-clean {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 70px 1fr 2fr;
+      gap: 20px;
+      align-items: baseline;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(196, 167, 125, 0.15);
+    }
+    .timeline-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--color-tan);
+    }
+    .timeline-heading {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+    .timeline-body {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-row {
+        grid-template-columns: 50px 1fr;
+      }
+      .timeline-body {
+        grid-column: 2 / -1;
+      }
+    }
+
+    /* ============================================
+       SECTORES INDUSTRIALES (CLIENTES)
+       ============================================ */
+    .sectors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .sector-item {
+      padding: 30px 24px;
+      border: 1px solid rgba(196, 167, 125, 0.15);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s;
+    }
+    .sector-item:hover {
+      border-color: var(--color-tan);
+    }
+    .sector-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .sector-desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+    }
+
+    /* ============================================
+       FORMULARIO B2B ACCESIBLE Y LIMPIO
+       ============================================ */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: clamp(30px, 6vw, 70px);
+      align-items: start;
+    }
+    .form-box {
+      background: #181816;
+      border: 1px solid rgba(196, 167, 125, 0.2);
+      padding: clamp(24px, 4vw, 44px);
+    }
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--color-tan);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: #21211E;
+      border: 1px solid rgba(196, 167, 125, 0.2);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.3s;
+      min-height: 48px;
+      border-radius: 2px;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--color-tan);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    @media (max-width: 860px) {
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       CTA BANNER
+       ============================================ */
+    .cta-banner {
+      text-align: center;
+      padding: clamp(70px, 9vw, 110px) 24px;
+      background: var(--color-charcoal);
+      border-top: 1px solid rgba(196, 167, 125, 0.15);
+      border-bottom: 1px solid rgba(196, 167, 125, 0.15);
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      color: var(--color-white);
+      margin-bottom: 16px;
+    }
+    .cta-banner h2 em {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      color: var(--color-sand);
+    }
+    .cta-banner p {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin: 0 auto 30px;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background: var(--color-black);
+      padding: 70px clamp(20px, 5vw, 60px) 35px;
+      border-top: 1px solid rgba(196, 167, 125, 0.12);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.16em;
+      color: var(--color-tan);
+      margin-bottom: 14px;
+    }
+    .footer-brand-desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      max-width: 320px;
+    }
+    .footer-col-title {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-white);
+      margin-bottom: 18px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col li button {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      text-align: left;
+      padding: 2px 0;
+      transition: color 0.3s;
+    }
+    .footer-col li button:hover { color: var(--color-tan); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-copyright {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    @media (max-width: 860px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Botón WhatsApp Flotante */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 52px;
+      height: 52px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      border: none;
+      color: white;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
+
+    // ============================================
+    // DIBUJOS ABSTRACTOS VECTORIALES DE FIBRA
+    // ============================================
+    const ArtThread = () => (
+      <svg viewBox="0 0 400 300" fill="none" style={{ width: '100%', height: '100%', opacity: 0.7 }}>
+        <ellipse cx="200" cy="150" rx="90" ry="120" stroke="#C4A77D" strokeWidth="1" />
+        <ellipse cx="200" cy="150" rx="45" ry="75" stroke="#8C6D46" strokeWidth="0.8" />
+        <line x1="200" y1="20" x2="200" y2="280" stroke="#C4A77D" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="50" y1="150" x2="350" y2="150" stroke="#C4A77D" strokeWidth="0.5" opacity="0.4" />
+      </svg>
+    );
+
+    const ArtCotton = () => (
+      <svg viewBox="0 0 400 300" fill="none" style={{ width: '100%', height: '100%', opacity: 0.7 }}>
+        <circle cx="200" cy="130" r="50" stroke="#C4A77D" strokeWidth="1" />
+        <circle cx="150" cy="150" r="40" stroke="#DDD0C0" strokeWidth="0.8" />
+        <circle cx="250" cy="150" r="40" stroke="#8C6D46" strokeWidth="0.8" />
+        <line x1="200" y1="190" x2="200" y2="270" stroke="#C4A77D" strokeWidth="1.5" />
+      </svg>
+    );
+
+    const ArtPavilo = () => (
+      <svg viewBox="0 0 400 300" fill="none" style={{ width: '100%', height: '100%', opacity: 0.7 }}>
+        <path d="M60 150 Q130 50 200 150 T340 150" stroke="#C4A77D" strokeWidth="1.2" />
+        <path d="M60 170 Q130 70 200 170 T340 170" stroke="#8C6D46" strokeWidth="0.8" opacity="0.6" />
+        <rect x="160" y="100" width="80" height="100" stroke="#DDD0C0" strokeWidth="0.8" opacity="0.4" />
+      </svg>
+    );
+
+    // ============================================
+    // CANVAS HERO: HILOS INTERACTIVOS (ASTEROIDES / RED FIBRA)
+    // ============================================
+    const FiberFieldCanvas = () => {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animId;
+        let width = canvas.width = canvas.parentElement.offsetWidth;
+        let height = canvas.height = canvas.parentElement.offsetHeight;
+
+        const onResize = () => {
+          if (!canvas.parentElement) return;
+          width = canvas.width = canvas.parentElement.offsetWidth;
+          height = canvas.height = canvas.parentElement.offsetHeight;
+        };
+        window.addEventListener('resize', onResize);
+
+        const nodes = Array.from({ length: 28 }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          radius: Math.random() * 1.8 + 0.6
+        }));
+
+        const render = () => {
+          ctx.clearRect(0, 0, width, height);
+
+          nodes.forEach(n => {
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > width) n.vx *= -1;
+            if (n.y < 0 || n.y > height) n.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(196, 167, 125, 0.4)';
+            ctx.fill();
+          });
+
+          for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+              const dx = nodes[i].x - nodes[j].x;
+              const dy = nodes[i].y - nodes[j].y;
+              const dist = Math.hypot(dx, dy);
+
+              if (dist < 160) {
+                const alpha = (1 - dist / 160) * 0.25;
+                ctx.strokeStyle = `rgba(196, 167, 125, ${alpha})`;
+                ctx.lineWidth = 0.8;
+                ctx.beginPath();
+                ctx.moveTo(nodes[i].x, nodes[i].y);
+                ctx.lineTo(nodes[j].x, nodes[j].y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          animId = requestAnimationFrame(render);
+        };
+        render();
+
+        return () => {
+          cancelAnimationFrame(animId);
+          window.removeEventListener('resize', onResize);
+        };
+      }, []);
+
+      return <canvas ref={canvasRef} className="hero-canvas" />;
+    };
+
+    // ============================================
+    // LOADER INICIAL
+    // ============================================
+    const Loader = ({ onComplete }) => {
+      const [fadeOut, setFadeOut] = useState(false);
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setFadeOut(true);
+          setTimeout(onComplete, 800);
+        }, 1600);
+        return () => clearTimeout(timer);
+      }, [onComplete]);
+
+      return (
+        <div className={`loader-overlay ${fadeOut ? 'fade-out' : ''}`}>
+          <div className="loader-logo">Monir</div>
+          <div className="loader-line" />
+          <div className="loader-subtitle">Industria Textil</div>
+        </div>
+      );
+    };
+
+    // ============================================
+    // NAVBAR Y MENÚ MOBILE
+    // ============================================
+    const Navbar = ({ activePage, onNavigate }) => {
+      const [scrolled, setScrolled] = useState(false);
+      const [drawerOpen, setDrawerOpen] = useState(false);
+
+      useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 40);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const pages = [
+        { id: 'inicio', label: 'Inicio' },
+        { id: 'nosotros', label: 'Nosotros' },
+        { id: 'productos', label: 'Productos' },
+        { id: 'procesos', label: 'Procesos' },
+        { id: 'clientes', label: 'Clientes' },
+        { id: 'contacto', label: 'Contacto' },
+      ];
+
+      const handleNav = (id) => {
+        setDrawerOpen(false);
+        onNavigate(id);
+      };
+
+      return (
+        <>
+          <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <button className="nav-brand" onClick={() => handleNav('inicio')}>
+              MONIR
+              <span className="sub">Industria Textil</span>
+            </button>
+
+            <ul className="nav-links">
+              {pages.map((p) => (
+                <li key={p.id}>
+                  <button
+                    className={`nav-link ${activePage === p.id ? 'active' : ''}`}
+                    onClick={() => handleNav(p.id)}
+                  >
+                    {p.label}
+                  </button>
+                </li>
+              ))}
+              <li>
+                <button className="nav-cta" onClick={() => handleNav('contacto')}>
+                  Cotizar
+                </button>
+              </li>
+            </ul>
+
+            <button
+              className={`burger-btn ${drawerOpen ? 'open' : ''}`}
+              onClick={() => setDrawerOpen(!drawerOpen)}
+              aria-label="Menú de Navegación"
+            >
+              <div className="burger-box">
+                <span className="burger-bar" />
+                <span className="burger-bar" />
+                <span className="burger-bar" />
+              </div>
+            </button>
+          </nav>
+
+          <div 
+            className={`drawer-backdrop ${drawerOpen ? 'open' : ''}`} 
+            onClick={() => setDrawerOpen(false)} 
+          />
+
+          <aside className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
+            <div className="drawer-nav-list">
+              <div style={{ fontSize: '0.68rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--color-tan)', marginBottom: '8px' }}>
+                Navegación
+              </div>
+              {pages.map((p, i) => (
+                <button
+                  key={p.id}
+                  className={`drawer-link-btn ${activePage === p.id ? 'active' : ''}`}
+                  onClick={() => handleNav(p.id)}
+                >
+                  <span>{p.label}</span>
+                  <span className="num">0{i + 1}</span>
+                </button>
+              ))}
+            </div>
+
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '20px' }}>
+              <button 
+                className="btn-primary" 
+                style={{ width: '100%' }}
+                onClick={() => handleNav('contacto')}
+              >
+                Solicitar Cotización
+              </button>
+            </div>
+          </aside>
+        </>
+      );
+    };
+
+    // ============================================
+    // MARQUEE TEXTIL
+    // ============================================
+    const Marquee = () => {
+      const items = [
+        'Algodón Seleccionado', 'Hilo Industrial', 'Pavilo Calibrado',
+        'Suministro Masivo B2B', 'Tradición Textil', 'Manufactura de Precisión',
+        'Algodón Seleccionado', 'Hilo Industrial', 'Pavilo Calibrado',
+        'Suministro Masivo B2B', 'Tradición Textil', 'Manufactura de Precisión'
+      ];
+      return (
+        <div className="marquee-wrapper">
+          <div className="marquee-track">
+            {items.map((txt, i) => (
+              <div className="marquee-item" key={i}>
+                {txt}
+                <span className="dot" />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    // ============================================
+    // SUB-PORTAL 1: INICIO
+    // ============================================
+    const PortalInicio = ({ onNavigate }) => {
+      return (
+        <div>
+          <section className="hero">
+            <div className="hero-bg" />
+            <FiberFieldCanvas />
+            <div className="hero-overlay" />
+            <div className="hero-content">
+              <div className="hero-eyebrow">Industria Textil de Excelencia</div>
+              <h1 className="hero-title">
+                Industria <em>Monir</em>
+              </h1>
+              <p className="hero-subtitle">El hilo que conecta tradición con industria</p>
+              <div className="hero-line" />
+              <p className="hero-desc">
+                Producimos algodón, hilo y pavilo de grado industrial para empresas
+                que exigen calidad sin compromisos en cada fibra.
+              </p>
+              <div className="btn-group">
+                <button className="btn-primary" onClick={() => onNavigate('productos')}>
+                  Conocer Productos
+                </button>
+                <button className="btn-outline" onClick={() => onNavigate('contacto')}>
+                  Solicitar Cotización
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <Marquee />
+
+          {/* SOBRE MONIR PREVIEW */}
+          <section className="section section-white">
+            <div className="container">
+              <div className="two-col">
+                <div className="two-col-text">
+                  <span className="section-eyebrow">Quiénes Somos</span>
+                  <h3>Una tradición que se teje con <em>excelencia</em></h3>
+                  <p>
+                    Industria Monir es sinónimo de solidez en el sector textil. Nos especializamos en la producción de algodón, hilo y pavilo de grado industrial, atendiendo a empresas manufactureras que demandan altos estándares en sus materias primas.
+                  </p>
+                  <p>
+                    Con una visión clara de suministro masivo para el sector B2B, combinamos métodos probados con maquinaria moderna para que cada entrega mantenga la uniformidad que su telar necesita.
+                  </p>
+                  <div className="btn-group" style={{ justifyContent: 'flex-start', marginTop: '24px' }}>
+                    <button className="btn-primary" onClick={() => onNavigate('nosotros')}>
+                      Nuestra Historia
+                    </button>
+                  </div>
+                </div>
+
+                <div className="art-placeholder">
+                  <ArtCotton />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* PRODUCTOS PREVIEW */}
+          <section className="section section-cream">
+            <div className="container">
+              <div className="section-header">
+                <span className="section-eyebrow">Nuestros Productos</span>
+                <h2 className="section-title">Materias primas de <em>calidad superior</em></h2>
+                <div className="section-line" />
+                <p className="section-subtitle">
+                  Tres líneas de producto diseñadas para satisfacer las demandas más exigentes del sector textil industrial
+                </p>
+              </div>
+
+              <div className="products-grid">
+                <div className="product-card">
+                  <div className="product-card-image">
+                    <ArtCotton />
+                  </div>
+                  <div className="product-card-content">
+                    <div className="product-card-tag">Materia Prima</div>
+                    <h3 className="product-card-title">Algodón</h3>
+                    <p className="product-card-desc">
+                      Algodón de fibra seleccionada, preparado bajo rigurosos controles para procesos industriales de hilatura y tejido continuo.
+                    </p>
+                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
+                      Explorar Detalle →
+                    </button>
+                  </div>
+                </div>
+
+                <div className="product-card">
+                  <div className="product-card-image">
+                    <ArtThread />
+                  </div>
+                  <div className="product-card-content">
+                    <div className="product-card-tag">Producto Estrella</div>
+                    <h3 className="product-card-title">Hilo</h3>
+                    <p className="product-card-desc">
+                      Hilos de alta tenacidad y regularidad, desarrollados para soportar la fricción y velocidad de telares industriales.
+                    </p>
+                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
+                      Explorar Detalle →
+                    </button>
+                  </div>
+                </div>
+
+                <div className="product-card">
+                  <div className="product-card-image">
+                    <ArtPavilo />
+                  </div>
+                  <div className="product-card-content">
+                    <div className="product-card-tag">Especializado</div>
+                    <h3 className="product-card-title">Pavilo</h3>
+                    <p className="product-card-desc">
+                      Pavilo industrial homogéneo y calibrado, producido para garantizar consistencia dimensional y rendimiento en aplicaciones técnicas.
+                    </p>
+                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
+                      Explorar Detalle →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA */}
+          <section className="cta-banner">
+            <div className="container">
+              <h2>¿Listo para elevar la calidad de <em>su producción</em>?</h2>
+              <p>Conecte con nuestro equipo comercial y descubra soluciones a la medida de su industria.</p>
+              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
+                Solicitar Cotización
+              </button>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // ============================================
+    // SUB-PORTAL 2: NOSOTROS
+    // ============================================
+    const PortalNosotros = ({ onNavigate }) => {
+      return (
+        <div>
+          <section className="hero sub-hero">
+            <div className="hero-bg" />
+            <FiberFieldCanvas />
+            <div className="hero-overlay" />
+            <div className="hero-content">
+              <div className="hero-eyebrow">Nuestra Historia</div>
+              <h1 className="hero-title">Tejiendo <em>legado</em></h1>
+              <p className="hero-subtitle">Cada fibra cuenta una historia de dedicación</p>
+            </div>
+          </section>
+
+          <Marquee />
+
+          <section className="section section-white">
+            <div className="container">
+              <div className="two-col">
+                <div className="two-col-text">
+                  <span className="section-eyebrow">Nuestra Esencia</span>
+                  <h3>Donde la tradición se encuentra con la <em>industria</em></h3>
+                  <p>
+                    Industria Monir nació con un propósito firme: ser el socio de confianza en la provisión masiva de insumos textiles para talleres, tejedurías y confeccionistas a gran escala.
+                  </p>
+                  <p>
+                    Cada lote de algodón, cada bobina de hilo y cada rollo de pavilo refleja nuestra devoción por la firmeza, la limpieza de la hebra y el cumplimiento riguroso con nuestros clientes.
+                  </p>
+                  <p>
+                    No trabajamos al por menor; nuestra estructura está optimizada para abastecer a plantas industriales que requieren flujo constante y calidad confiable.
+                  </p>
+                </div>
+                <div className="art-placeholder">
+                  <ArtThread />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="section section-dark">
+            <div className="container">
+              <div className="section-header">
+                <span className="section-eyebrow">Filosofía de Trabajo</span>
+                <h2 className="section-title">Los pilares que nos <em>guían</em></h2>
+                <div className="section-line" />
+              </div>
+
+              <div className="values-grid">
+                <div className="value-card">
+                  <h3 className="value-title">Misión</h3>
+                  <p className="value-desc">
+                    Proveer materias primas textiles de óptimo rendimiento a empresas manufactureras, garantizando estabilidad y un trato directo que impulse su ritmo productivo.
+                  </p>
+                </div>
+                <div className="value-card">
+                  <h3 className="value-title">Visión</h3>
+                  <p className="value-desc">
+                    Consolidarnos como el punto de referencia indispensable en la distribución mayorista de algodón, hilo y pavilo para el sector industrial.
+                  </p>
+                </div>
+                <div className="value-card">
+                  <h3 className="value-title">Valores</h3>
+                  <p className="value-desc">
+                    Palabra comercial responsable, consistencia lote a lote, respeto por los plazos de despacho y cercanía con las necesidades de cada planta aliada.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="cta-banner">
+            <div className="container">
+              <h2>Construyamos <em>juntos</em> el futuro textil</h2>
+              <p>Descubra cómo Industria Monir puede ser su aliado de aprovisionamiento.</p>
+              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
+                Contáctenos
+              </button>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // ============================================
+    // SUB-PORTAL 3: PRODUCTOS
+    // ============================================
+    const PortalProductos = ({ onNavigate }) => {
+      const list = [
+        {
+          id: 'algodon',
+          tag: 'Materia Prima',
+          name: 'Algodón Industrial',
+          desc: 'Algodón seleccionado por su longitud de fibra y pureza. Acondicionado para procesos de apertura y cardado continuo sin atascos ni exceso de desperdicio.',
+          art: <ArtCotton />
+        },
+        {
+          id: 'hilo',
+          tag: 'Producto Estrella',
+          name: 'Hilo de Alta Tenacidad',
+          desc: 'Conificado con torsión precisa para soportar la tensión de telares modernos y maquinaria de cosido veloz. Disponible en diversas graduaciones según requerimiento.',
+          art: <ArtThread />
+        },
+        {
+          id: 'pavilo',
+          tag: 'Especializado',
+          name: 'Pavilo Homogéneo',
+          desc: 'Cinta uniforme para hilatura y aplicaciones industriales específicas. Asegura un peso constante por metro y regularidad en los procesos derivados.',
+          art: <ArtPavilo />
+        }
+      ];
+
+      return (
+        <div>
+          <section className="hero sub-hero">
+            <div className="hero-bg" />
+            <FiberFieldCanvas />
+            <div className="hero-overlay" />
+            <div className="hero-content">
+              <div className="hero-eyebrow">Catálogo Mayorista</div>
+              <h1 className="hero-title">Nuestros <em>Productos</em></h1>
+              <p className="hero-subtitle">Tres líneas de excelencia para su empresa</p>
+            </div>
+          </section>
+
+          <Marquee />
+
+          {list.map((item, idx) => (
+            <section 
+              key={item.id} 
+              className={`section ${idx % 2 === 0 ? 'section-white' : 'section-dark'}`}
+            >
+              <div className="container">
+                <div className={`two-col ${idx % 2 !== 0 ? 'reverse' : ''}`}>
+                  <div className="art-placeholder">
+                    {item.art}
+                  </div>
+                  <div className="two-col-text">
+                    <span className="section-eyebrow">{item.tag}</span>
+                    <h3>{item.name}</h3>
+                    <p>{item.desc}</p>
+                    <p>
+                      Despachamos en volúmenes mayoristas con embalaje reforzado para proteger la fibra contra la humedad y garantizar que llegue intacta a sus instalaciones.
+                    </p>
+                    <div className="btn-group" style={{ justifyContent: 'flex-start', marginTop: '20px' }}>
+                      <button className="btn-primary" onClick={() => onNavigate('contacto')}>
+                        Consultar Disponibilidad
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          ))}
+
+          <section className="cta-banner">
+            <div className="container">
+              <h2>¿Requiere un pedido de gran <em>volumen</em>?</h2>
+              <p>Podemos programar despachos periódicos ajustados a su volumen de consumo.</p>
+              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
+                Hablar con Asesor
+              </button>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // ============================================
+    // SUB-PORTAL 4: PROCESOS
+    // ============================================
+    const PortalProcesos = ({ onNavigate }) => {
+      const steps = [
+        { num: '01', title: 'Selección de la Fibra', desc: 'Clasificamos el material asegurando homogeneidad de longitud y color natural antes del ingreso a planta.' },
+        { num: '02', title: 'Apertura y Limpieza', desc: 'Depuración mecánica cuidadosa para remover impurezas sin fracturar la resistencia intrínseca de la fibra.' },
+        { num: '03', title: 'Cardado y Estiraje', desc: 'Alineación paralela de las hebras para crear una estructura regular con distribución equitativa de masa.' },
+        { num: '04', title: 'Hilatura y Torsión', desc: 'Aportación de torsión controlada para otorgarle la tenacidad requerida por los telares industriales.' },
+        { num: '05', title: 'Acondicionamiento', desc: 'Estabilización en ambiente controlado para fijar la estructura y evitar que el hilo retuerza al desbobinarse.' },
+        { num: '06', title: 'Embalaje Mayorista', desc: 'Protección con sellado para despachos directos en camión hacia las fábricas de nuestros clientes.' },
+      ];
+
+      return (
+        <div>
+          <section className="hero sub-hero">
+            <div className="hero-bg" />
+            <FiberFieldCanvas />
+            <div className="hero-overlay" />
+            <div className="hero-content">
+              <div className="hero-eyebrow">Manufactura</div>
+              <h1 className="hero-title">Nuestros <em>Procesos</em></h1>
+              <p className="hero-subtitle">De la fibra bruta al producto terminado con rigor</p>
+            </div>
+          </section>
+
+          <Marquee />
+
+          <section className="section section-dark">
+            <div className="container">
+              <div className="section-header">
+                <span className="section-eyebrow">Etapas de Producción</span>
+                <h2 className="section-title">El camino de la <em>fibra</em></h2>
+                <div className="section-line" />
+              </div>
+
+              <div className="timeline-clean">
+                {steps.map(s => (
+                  <div key={s.num} className="timeline-row">
+                    <div className="timeline-num">{s.num}</div>
+                    <div className="timeline-heading">{s.title}</div>
+                    <div className="timeline-body">{s.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="cta-banner">
+            <div className="container">
+              <h2>Garantice la continuidad de su <em>producción</em></h2>
+              <p>Nuestro proceso asegura lotes homogéneos que reducen paradas de máquina.</p>
+              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
+                Cotizar Suministro
+              </button>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // ============================================
+    // SUB-PORTAL 5: CLIENTES
+    // ============================================
+    const PortalClientes = ({ onNavigate }) => {
+      const sectors = [
+        { name: 'Tejedurías de Punto', desc: 'Fabricantes de telas para indumentaria casual, deportiva y escolar.' },
+        { name: 'Tejido Plano', desc: 'Productores de lienzos, sargas, mezclillas y mantelería pesada.' },
+        { name: 'Talleres de Confección', desc: 'Marcas con líneas de confección masiva que usan hilo continuo.' },
+        { name: 'Cordonerías e Industrias', desc: 'Fabricantes de mechas, cuerdas, velas y artículos de uso rudo.' },
+        { name: 'Empaque y Costura', desc: 'Empresas agroindustriales que requieren hilo de cosido de costales.' },
+        { name: 'Distribuidores Regionales', desc: 'Mayoristas que abastecen comunidades textiles locales.' },
+      ];
+
+      return (
+        <div>
+          <section className="hero sub-hero">
+            <div className="hero-bg" />
+            <FiberFieldCanvas />
+            <div className="hero-overlay" />
+            <div className="hero-content">
+              <div className="hero-eyebrow">Sectores B2B</div>
+              <h1 className="hero-title">Nuestros <em>Clientes</em></h1>
+              <p className="hero-subtitle">Alianzas comerciales que impulsan la industria</p>
+            </div>
+          </section>
+
+          <Marquee />
+
+          <section className="section section-dark">
+            <div className="container">
+              <div className="section-header">
+                <span className="section-eyebrow">Áreas de Aplicación</span>
+                <h2 className="section-title">Industrias que <em>abastecemos</em></h2>
+                <div className="section-line" />
+              </div>
+
+              <div className="sectors-grid">
+                {sectors.map((sec, i) => (
+                  <div key={i} className="sector-item">
+                    <div className="sector-name">{sec.name}</div>
+                    <div className="sector-desc">{sec.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="cta-banner">
+            <div className="container">
+              <h2>¿Su empresa busca un proveedor <em>confiable</em>?</h2>
+              <p>Atendemos requerimientos mayoristas con atención personalizada y ágil.</p>
+              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
+                Unirse a la Red
+              </button>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // ============================================
+    // SUB-PORTAL 6: CONTACTO
+    // ============================================
+    const PortalContacto = () => {
+      const [sent, setSent] = useState(false);
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        setSent(true);
+      };
+
+      return (
+        <div>
+          <section className="hero sub-hero">
+            <div className="hero-bg" />
+            <FiberFieldCanvas />
+            <div className="hero-overlay" />
+            <div className="hero-content">
+              <div className="hero-eyebrow">Atención Comercial</div>
+              <h1 className="hero-title"><em>Contacto</em></h1>
+              <p className="hero-subtitle">Estamos listos para atender su requerimiento mayorista</p>
+            </div>
+          </section>
+
+          <Marquee />
+
+          <section className="section section-dark">
+            <div className="container">
+              <div className="contact-layout">
+                <div>
+                  <span className="section-eyebrow">Canal de Ventas</span>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', marginBottom: '16px' }}>
+                    Converse con nuestro <em>equipo</em>
+                  </h3>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.65)', marginBottom: '30px' }}>
+                    Indíquenos las características del producto que busca, volumen estimado y zona de entrega para coordinar su propuesta comercial.
+                  </p>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderTop: '1px solid rgba(196,167,125,0.2)', paddingTop: '24px' }}>
+                    <div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Atención Telefónica</div>
+                      <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>+58 (XXX) XXX-XXXX</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Correo Electrónico</div>
+                      <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>ventas@industriamonir.com</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Ubicación</div>
+                      <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>Zona Industrial — Despachos a Nivel Nacional</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-box">
+                  {sent ? (
+                    <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                      <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-tan)', marginBottom: '12px' }}>
+                        Mensaje Recibido
+                      </h4>
+                      <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.65)', marginBottom: '24px' }}>
+                        Gracias por comunicarse con Industria Monir. Un asesor comercial responderá a su solicitud a la brevedad.
+                      </p>
+                      <button className="btn-outline" onClick={() => setSent(false)}>
+                        Enviar otro mensaje
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit}>
+                      <div className="form-group">
+                        <label className="form-label">Nombre y Apellido</label>
+                        <input className="form-input" type="text" placeholder="Su nombre" required />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Empresa</label>
+                        <input className="form-input" type="text" placeholder="Nombre de su empresa" required />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Correo Electrónico</label>
+                        <input className="form-input" type="email" placeholder="correo@empresa.com" required />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Producto de Interés</label>
+                        <select className="form-select" required defaultValue="">
+                          <option value="" disabled>Seleccione producto</option>
+                          <option value="algodon">Algodón</option>
+                          <option value="hilo">Hilo</option>
+                          <option value="pavilo">Pavilo</option>
+                          <option value="varios">Varios productos / Lote mixto</option>
+                        </select>
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Mensaje o Requerimiento</label>
+                        <textarea className="form-textarea" placeholder="Describa el volumen aproximado o las características que necesita..." required></textarea>
+                      </div>
+
+                      <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '10px' }}>
+                        Enviar Mensaje
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // ============================================
+    // FOOTER
+    // ============================================
+    const Footer = ({ onNavigate }) => {
+      return (
+        <footer className="footer">
+          <div className="container">
+            <div className="footer-grid">
+              <div>
+                <div className="footer-brand">MONIR</div>
+                <p className="footer-brand-desc">
+                  Industria textil especializada en la producción de algodón, hilo y pavilo de grado industrial. Calidad que se teje en cada fibra.
+                </p>
+              </div>
+
+              <div className="footer-col">
+                <div className="footer-col-title">Sub-Portales</div>
+                <ul>
+                  <li><button onClick={() => onNavigate('inicio')}>Inicio</button></li>
+                  <li><button onClick={() => onNavigate('nosotros')}>Nosotros</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Productos</button></li>
+                  <li><button onClick={() => onNavigate('procesos')}>Procesos</button></li>
+                  <li><button onClick={() => onNavigate('clientes')}>Clientes</button></li>
+                  <li><button onClick={() => onNavigate('contacto')}>Contacto</button></li>
+                </ul>
+              </div>
+
+              <div className="footer-col">
+                <div className="footer-col-title">Productos</div>
+                <ul>
+                  <li><button onClick={() => onNavigate('productos')}>Algodón Industrial</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Hilo de Alta Tenacidad</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Pavilo Homogéneo</button></li>
+                </ul>
+              </div>
+
+              <div className="footer-col">
+                <div className="footer-col-title">Contacto</div>
+                <ul>
+                  <li><span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>+58 (XXX) XXX-XXXX</span></li>
+                  <li><span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>ventas@industriamonir.com</span></li>
+                  <li><span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>Zona Industrial — Venezuela</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="footer-bottom">
+              <div className="footer-copyright">
+                © {new Date().getFullYear()} Industria Monir. Todos los derechos reservados.
+              </div>
+              <div style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-tan)' }}>
+                Manufactura Textil B2B
+              </div>
+            </div>
+          </div>
+        </footer>
+      );
+    };
+
+    // ============================================
+    // APP PRINCIPAL CON TRANSICIONES REACT + GSAP
+    // ============================================
+    const App = () => {
+      const [loading, setLoading] = useState(true);
+      const [page, setPage] = useState('inicio');
+      const [transitioning, setTransitioning] = useState(false);
+      const curtainTopRef = useRef(null);
+      const curtainBottomRef = useRef(null);
+      const glowRef = useRef(null);
+
+      const navigateTo = useCallback((nextPage) => {
+        if (nextPage === page || transitioning) return;
+        setTransitioning(true);
+
+        // Prevenir scroll jump durante transición en iOS/Android
+        document.body.style.overflow = 'hidden';
+
+        const tl = gsap.timeline();
+        tl.to([curtainTopRef.current, curtainBottomRef.current], {
+          height: '50.5%',
+          duration: 0.36,
+          ease: 'power3.inOut'
+        })
+        .to(glowRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.out'
+        }, '-=0.1')
+        .add(() => {
+          setPage(nextPage);
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        })
+        .to(glowRef.current, {
+          opacity: 0,
+          scale: 1.04,
+          duration: 0.16,
+          ease: 'power2.in'
+        }, '+=0.05')
+        .to([curtainTopRef.current, curtainBottomRef.current], {
+          height: '0%',
+          duration: 0.38,
+          ease: 'power3.inOut'
+        })
+        .add(() => {
+          document.body.style.overflow = '';
+          setTransitioning(false);
+        });
+      }, [page, transitioning]);
+
+      return (
+        <>
+          {loading && <Loader onComplete={() => setLoading(false)} />}
+
+          {/* Telón Cinematográfico de Transición */}
+          <div className="portal-transition-curtain">
+            <div ref={curtainTopRef} className="curtain-panel-top" />
+            <div ref={glowRef} className="curtain-brand-glow">
+              INDUSTRIA MONIR
+            </div>
+            <div ref={curtainBottomRef} className="curtain-panel-bottom" />
+          </div>
+
+          <Navbar activePage={page} onNavigate={navigateTo} />
+
+          <main>
+            {page === 'inicio' && <PortalInicio onNavigate={navigateTo} />}
+            {page === 'nosotros' && <PortalNosotros onNavigate={navigateTo} />}
+            {page === 'productos' && <PortalProductos onNavigate={navigateTo} />}
+            {page === 'procesos' && <PortalProcesos onNavigate={navigateTo} />}
+            {page === 'clientes' && <PortalClientes onNavigate={navigateTo} />}
+            {page === 'contacto' && <PortalContacto />}
+          </main>
+
+          <Footer onNavigate={navigateTo} />
+
+          {/* Botón WhatsApp Flotante */}
+          <a
+            href="https://wa.me/58XXXXXXXXXX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whatsapp-btn"
+            title="WhatsApp Comercial"
+            aria-label="Contacto por WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
+        </>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
