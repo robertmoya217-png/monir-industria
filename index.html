@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Industria Monir — Tradición Textil, Hilatura & Fibras</title>
+  <title>Industrias Monnir C. A. — 60 Años Transformando el Futuro Textil en Venezuela</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
@@ -417,6 +417,18 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, rgba(20,20,19,0.5) 0%, rgba(20,20,19,0.85) 100%);
+      z-index: 2;
+    }
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      opacity: 0.32;
+      filter: contrast(1.15) saturate(0.85);
+      pointer-events: none;
     }
     .hero-canvas {
       position: absolute;
@@ -424,12 +436,12 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 1;
+      z-index: 2;
       opacity: 0.45;
     }
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       text-align: center;
       max-width: 920px;
       margin: 0 auto;
@@ -756,6 +768,98 @@
     }
     .product-card-link:hover {
       gap: 14px;
+    }
+
+    /* ============================================
+       CARRUSEL DOCUMENTAL / FILMSTRIP DE INFRAESTRUCTURA
+       ============================================ */
+    .filmstrip-wrap {
+      position: relative;
+      margin: 30px 0 10px;
+    }
+    .filmstrip-container {
+      overflow-x: auto;
+      display: flex;
+      gap: 24px;
+      padding: 10px 4px 28px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-tan) #1E1D1B;
+    }
+    .filmstrip-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .filmstrip-container::-webkit-scrollbar-track {
+      background: #191816;
+      border-radius: 3px;
+    }
+    .filmstrip-container::-webkit-scrollbar-thumb {
+      background: var(--color-tan);
+      border-radius: 3px;
+    }
+    .filmstrip-card {
+      flex: 0 0 clamp(290px, 32vw, 380px);
+      scroll-snap-align: start;
+      background: #1B1B19;
+      border: 1px solid rgba(196, 167, 125, 0.22);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s var(--transition-smooth), border-color 0.35s;
+    }
+    .filmstrip-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-tan);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.3);
+    }
+    .filmstrip-img-wrap {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+      background: #121211;
+    }
+    .filmstrip-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.05) saturate(0.92);
+      transition: transform 0.6s ease;
+      display: block;
+    }
+    .filmstrip-card:hover .filmstrip-img-wrap img {
+      transform: scale(1.05);
+    }
+    .filmstrip-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(20,20,19,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(196, 167, 125, 0.3);
+      padding: 4px 10px;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-tan);
+    }
+    .filmstrip-content {
+      padding: 18px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .filmstrip-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-white);
+      margin-bottom: 8px;
+    }
+    .filmstrip-desc {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.6;
     }
 
     /* ============================================
@@ -1237,9 +1341,9 @@
 
       return (
         <div className={`loader-overlay ${fadeOut ? 'fade-out' : ''}`}>
-          <div className="loader-logo">Monir</div>
+          <div className="loader-logo">MONNIR</div>
           <div className="loader-line" />
-          <div className="loader-subtitle">Industria Textil</div>
+          <div className="loader-subtitle">Industrias Monnir C. A. • 60 Años de Trayectoria</div>
         </div>
       );
     };
@@ -1261,7 +1365,7 @@
         { id: 'inicio', label: 'Inicio' },
         { id: 'nosotros', label: 'Nosotros' },
         { id: 'productos', label: 'Productos' },
-        { id: 'procesos', label: 'Procesos' },
+        { id: 'procesos', label: 'Infraestructura' },
         { id: 'clientes', label: 'Clientes' },
         { id: 'contacto', label: 'Contacto' },
       ];
@@ -1275,8 +1379,8 @@
         <>
           <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <button className="nav-brand" onClick={() => handleNav('inicio')}>
-              MONIR
-              <span className="sub">Industria Textil</span>
+              MONNIR
+              <span className="sub">Industrias Monnir C. A.</span>
             </button>
 
             <ul className="nav-links">
@@ -1351,10 +1455,10 @@
     // ============================================
     const Marquee = () => {
       const items = [
-        'Algodón Seleccionado', 'Hilo Industrial', 'Pavilo Calibrado',
-        'Suministro Masivo B2B', 'Tradición Textil', 'Manufactura de Precisión',
-        'Algodón Seleccionado', 'Hilo Industrial', 'Pavilo Calibrado',
-        'Suministro Masivo B2B', 'Tradición Textil', 'Manufactura de Precisión'
+        'Industrias Monnir C. A.', '60 Años de Trayectoria', 'Economía Circular Textil',
+        'Pabilo Industrial', 'Paño Amarillo en Rollos', 'Coleto Mayorista',
+        'Cordón de Algodón', 'Tejemos Segundas Oportunidades', 'Santa Teresa del Tuy',
+        'Industrias Monnir C. A.', '60 Años de Trayectoria', 'Economía Circular Textil'
       ];
       return (
         <div className="marquee-wrapper">
@@ -1370,6 +1474,12 @@
       );
     };
 
+    // ========================================================
+    // INTERRUPTOR DE VIDEO HERO (BACKGROUND VIDEO TOGGLE)
+    // Para desactivar el video de fondo en el Hero, cambiar a false:
+    const SHOW_HERO_VIDEO = true;
+    // ========================================================
+
     // ============================================
     // SUB-PORTAL 1: INICIO
     // ============================================
@@ -1378,25 +1488,36 @@
         <div>
           <section className="hero">
             <div className="hero-bg" />
+            {SHOW_HERO_VIDEO && (
+              <video
+                className="hero-video-bg"
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster="assets/img/nosotros-director-planta.jpg"
+              >
+                <source src="assets/video/video-planta-loop.mp4" type="video/mp4" />
+              </video>
+            )}
             <FiberFieldCanvas />
             <div className="hero-overlay" />
             <div className="hero-content">
-              <div className="hero-eyebrow">Industria Textil de Excelencia</div>
+              <div className="hero-eyebrow">60 Años Transformando el Futuro Textil en Venezuela</div>
               <h1 className="hero-title">
-                Industria <em>Monir</em>
+                Industrias <em>Monnir</em>
               </h1>
-              <p className="hero-subtitle">El hilo que conecta tradición con industria</p>
+              <p className="hero-subtitle">Tejemos segundas oportunidades</p>
               <div className="hero-line" />
               <p className="hero-desc">
-                Producimos algodón, hilo y pavilo de grado industrial para empresas
-                que exigen calidad sin compromisos en cada fibra.
+                Pioneros en economía circular y recuperación textil. Seis décadas transformando excedentes en materias primas de primera calidad para la industria nacional.
               </p>
               <div className="btn-group">
                 <button className="btn-primary" onClick={() => onNavigate('productos')}>
-                  Conocer Productos
+                  Ver Catálogo Mayorista
                 </button>
                 <button className="btn-outline" onClick={() => onNavigate('contacto')}>
-                  Solicitar Cotización
+                  Mesa Comercial B2B
                 </button>
               </div>
             </div>
@@ -1404,90 +1525,130 @@
 
           <Marquee />
 
-          {/* SOBRE MONIR PREVIEW */}
+          {/* SOBRE MONNIR PREVIEW */}
           <section className="section section-white">
             <div className="container">
               <div className="two-col">
                 <div className="two-col-text">
-                  <span className="section-eyebrow">Quiénes Somos</span>
-                  <h3>Una tradición que se teje con <em>excelencia</em></h3>
+                  <span className="section-eyebrow">Economía Circular Textil</span>
+                  <h3>El desperdicio de unos, es el <em>tesoro de otros</em></h3>
                   <p>
-                    Industria Monir es sinónimo de solidez en el sector textil. Nos especializamos en la producción de algodón, hilo y pavilo de grado industrial, atendiendo a empresas manufactureras que demandan altos estándares en sus materias primas.
+                    <strong>Industrias Monnir C. A.</strong> nació hace más de seis décadas con una visión clara: dar valor a lo que otros descartan. Hoy somos el puente definitivo entre la tradición industrial y la sostenibilidad en Venezuela.
                   </p>
                   <p>
-                    Con una visión clara de suministro masivo para el sector B2B, combinamos métodos probados con maquinaria moderna para que cada entrega mantenga la uniformidad que su telar necesita.
+                    Con más de 60 años perfeccionando nuestros procesos de clasificación y desfibrado, transformamos excedentes textiles en pabilo, coleto, cordón y paño amarillo con los más altos estándares del mercado.
                   </p>
                   <div className="btn-group" style={{ justifyContent: 'flex-start', marginTop: '24px' }}>
                     <button className="btn-primary" onClick={() => onNavigate('nosotros')}>
-                      Nuestra Historia
+                      Nuestra Historia y Trayectoria
                     </button>
                   </div>
                 </div>
 
-                <div className="art-placeholder">
-                  <ArtCotton />
+                <div className="art-placeholder" style={{ background: '#191816', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)' }}>
+                  <img 
+                    src="assets/img/nosotros-director-planta.jpg" 
+                    alt="Nave Central de Industrias Monnir C.A." 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '340px' }}
+                  />
                 </div>
               </div>
             </div>
           </section>
 
-          {/* PRODUCTOS PREVIEW */}
+          {/* PRODUCTOS PREVIEW (LAS 4 LÍNEAS REALES) */}
           <section className="section section-cream">
             <div className="container">
               <div className="section-header">
-                <span className="section-eyebrow">Nuestros Productos</span>
-                <h2 className="section-title">Materias primas de <em>calidad superior</em></h2>
+                <span className="section-eyebrow">Catálogo Mayorista</span>
+                <h2 className="section-title">Nuestras 4 líneas de <em>producción</em></h2>
                 <div className="section-line" />
                 <p className="section-subtitle">
-                  Tres líneas de producto diseñadas para satisfacer las demandas más exigentes del sector textil industrial
+                  Fibras recuperadas y productos textiles manufacturados en nuestra planta de Santa Teresa del Tuy
                 </p>
               </div>
 
               <div className="products-grid">
+                {/* 1. PABILO */}
                 <div className="product-card">
                   <div className="product-card-image">
-                    <ArtCotton />
+                    <img 
+                      src="assets/img/producto-pabilo-fardo-18kg.jpg" 
+                      alt="Fardos de Pabilo Industrial 18 kg" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                   <div className="product-card-content">
-                    <div className="product-card-tag">Materia Prima</div>
-                    <h3 className="product-card-title">Algodón</h3>
+                    <div className="product-card-tag">Hilatura & Mechas</div>
+                    <h3 className="product-card-title">Pabilo Industrial</h3>
                     <p className="product-card-desc">
-                      Algodón de fibra seleccionada, preparado bajo rigurosos controles para procesos industriales de hilatura y tejido continuo.
+                      Hilo de algodón recuperado de alta absorción y torsión homogénea, presentado en fardos cilíndricos de 18 kg con control de lote.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Explorar Detalle →
+                      Ficha de Producto →
                     </button>
                   </div>
                 </div>
 
+                {/* 2. COLETO */}
                 <div className="product-card">
                   <div className="product-card-image">
-                    <ArtThread />
+                    <img 
+                      src="assets/img/producto-cordon-detalle.jpg" 
+                      alt="Tejido de Coleto Industrial" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                   <div className="product-card-content">
-                    <div className="product-card-tag">Producto Estrella</div>
-                    <h3 className="product-card-title">Hilo</h3>
+                    <div className="product-card-tag">Tejido Confeccionado</div>
+                    <h3 className="product-card-title">Coleto</h3>
                     <p className="product-card-desc">
-                      Hilos de alta tenacidad y regularidad, desarrollados para soportar la fricción y velocidad de telares industriales.
+                      Tejido plano resistente de máxima absorción y rendimiento para distribución mayorista comercial e institucional.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Explorar Detalle →
+                      Ficha de Producto →
                     </button>
                   </div>
                 </div>
 
+                {/* 3. CORDÓN */}
                 <div className="product-card">
                   <div className="product-card-image">
-                    <ArtPavilo />
+                    <img 
+                      src="assets/img/producto-cordon-paquetes.jpg" 
+                      alt="Cordón de Algodón Embolsado" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                   <div className="product-card-content">
-                    <div className="product-card-tag">Especializado</div>
-                    <h3 className="product-card-title">Pavilo</h3>
+                    <div className="product-card-tag">Torcidos & Amarres</div>
+                    <h3 className="product-card-title">Cordón</h3>
                     <p className="product-card-desc">
-                      Pavilo industrial homogéneo y calibrado, producido para garantizar consistencia dimensional y rendimiento en aplicaciones técnicas.
+                      Cordelería de algodón de alta firmeza para uso agroindustrial, amarre, empaque y aplicaciones técnicas. Paquetes de 50 y 100 und.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Explorar Detalle →
+                      Ficha de Producto →
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4. PAÑO AMARILLO (PRODUCTO ESTRELLA) */}
+                <div className="product-card">
+                  <div className="product-card-image">
+                    <img 
+                      src="assets/img/producto-pano-amarillo-pallet.jpg" 
+                      alt="Rollos de Paño Amarillo en Pallet" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <div className="product-card-content">
+                    <div className="product-card-tag">Producto Estrella de Despacho</div>
+                    <h3 className="product-card-title">Paño Amarillo</h3>
+                    <p className="product-card-desc">
+                      Tela de limpieza industrial pesada (bayetilla) en rollos masivos sobre pallet. Ideal para talleres, mantenimiento y cadenas de suministro.
+                    </p>
+                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
+                      Ficha de Producto →
                     </button>
                   </div>
                 </div>
@@ -1498,10 +1659,10 @@
           {/* CTA */}
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Listo para elevar la calidad de <em>su producción</em>?</h2>
-              <p>Conecte con nuestro equipo comercial y descubra soluciones a la medida de su industria.</p>
+              <h2>¿Listo para abastecer su empresa con <em>calidad comprobada</em>?</h2>
+              <p>Conecte directamente con nuestra mesa comercial en Santa Teresa del Tuy.</p>
               <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Solicitar Cotización
+                Solicitar Cotización Mayorista
               </button>
             </div>
           </section>
@@ -1520,9 +1681,9 @@
             <FiberFieldCanvas />
             <div className="hero-overlay" />
             <div className="hero-content">
-              <div className="hero-eyebrow">Nuestra Historia</div>
-              <h1 className="hero-title">Tejiendo <em>legado</em></h1>
-              <p className="hero-subtitle">Cada fibra cuenta una historia de dedicación</p>
+              <div className="hero-eyebrow">60 Años de Trayectoria Familiar</div>
+              <h1 className="hero-title">Sesenta Años Tejiendo <em>Segundas Oportunidades</em></h1>
+              <p className="hero-subtitle">Pioneros del recuperado textil y la economía circular en Venezuela</p>
             </div>
           </section>
 
@@ -1532,20 +1693,30 @@
             <div className="container">
               <div className="two-col">
                 <div className="two-col-text">
-                  <span className="section-eyebrow">Nuestra Esencia</span>
-                  <h3>Donde la tradición se encuentra con la <em>industria</em></h3>
+                  <span className="section-eyebrow">Nuestra Historia</span>
+                  <h3>El valor de transformar lo que <em>otros descartan</em></h3>
                   <p>
-                    Industria Monir nació con un propósito firme: ser el socio de confianza en la provisión masiva de insumos textiles para talleres, tejedurías y confeccionistas a gran escala.
+                    En <strong>Industrias Monnir C. A.</strong>, no solo reciclamos fibras; tejemos segundas oportunidades. Somos una empresa familiar que nació hace más de seis décadas con una visión clara: dar valor a lo que otros descartan.
                   </p>
                   <p>
-                    Cada lote de algodón, cada bobina de hilo y cada rollo de pavilo refleja nuestra devoción por la firmeza, la limpieza de la hebra y el cumplimiento riguroso con nuestros clientes.
+                    Hoy, con más de 60 años de experiencia ininterrumpida en el mercado de recuperado textil en Venezuela, nos enorgullece ser el puente definitivo entre la tradición manufacturera y la economía circular.
                   </p>
                   <p>
-                    No trabajamos al por menor; nuestra estructura está optimizada para abastecer a plantas industriales que requieren flujo constante y calidad confiable.
+                    Nuestra trayectoria es la garantía de que conocemos cada fibra, cada proceso y cada solución para transformar los excedentes textiles en materias primas de primera calidad.
+                  </p>
+                  <p style={{ fontFamily: 'var(--font-elegant)', fontStyle: 'italic', color: 'var(--color-warm-brown)', fontSize: '1.15rem', marginTop: '12px' }}>
+                    «¡El desperdicio de unos, es el tesoro de otros!»
                   </p>
                 </div>
-                <div className="art-placeholder">
-                  <ArtThread />
+                <div className="art-placeholder" style={{ background: '#191816', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)' }}>
+                  <img 
+                    src="assets/img/nosotros-director-planta.jpg" 
+                    alt="Dirección y Nave Central de Hilatura de Industrias Monnir C.A." 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '380px' }}
+                  />
+                  <div style={{ padding: '12px 18px', background: 'rgba(20,20,19,0.92)', borderTop: '1px solid rgba(196,167,125,0.15)', fontSize: '0.72rem', letterSpacing: '0.12em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>
+                    Nave Central de Hilatura — Tradición Familiar de 60 Años
+                  </div>
                 </div>
               </div>
             </div>
@@ -1563,19 +1734,19 @@
                 <div className="value-card">
                   <h3 className="value-title">Misión</h3>
                   <p className="value-desc">
-                    Proveer materias primas textiles de óptimo rendimiento a empresas manufactureras, garantizando estabilidad y un trato directo que impulse su ritmo productivo.
+                    Transformar excedentes textiles en productos de primera calidad mediante procesos rigurosos de clasificación y desfibrado, cerrando el ciclo de la economía circular con soluciones medibles para la industria.
                   </p>
                 </div>
                 <div className="value-card">
                   <h3 className="value-title">Visión</h3>
                   <p className="value-desc">
-                    Consolidarnos como el punto de referencia indispensable en la distribución mayorista de algodón, hilo y pavilo para el sector industrial.
+                    Consolidarnos como el referente nacional en recuperación textil, demostrando que la sostenibilidad ambiental y la rentabilidad industrial caminan juntas sobre seis décadas de experiencia comprobada.
                   </p>
                 </div>
                 <div className="value-card">
                   <h3 className="value-title">Valores</h3>
                   <p className="value-desc">
-                    Palabra comercial responsable, consistencia lote a lote, respeto por los plazos de despacho y cercanía con las necesidades de cada planta aliada.
+                    Compromiso ambiental tangible, constancia lote a lote, respeto por los plazos de entrega y cercanía personal en el trato con cada cliente aliado.
                   </p>
                 </div>
               </div>
@@ -1584,10 +1755,10 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>Construyamos <em>juntos</em> el futuro textil</h2>
-              <p>Descubra cómo Industria Monir puede ser su aliado de aprovisionamiento.</p>
+              <h2>Construyamos <em>juntos</em> el futuro textil sostenible</h2>
+              <p>Descubra cómo Industrias Monnir C. A. puede ser su aliado estratégico de aprovisionamiento.</p>
               <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Contáctenos
+                Contactar a Nuestra Planta
               </button>
             </div>
           </section>
@@ -1601,25 +1772,42 @@
     const PortalProductos = ({ onNavigate }) => {
       const list = [
         {
-          id: 'algodon',
-          tag: 'Materia Prima',
-          name: 'Algodón Industrial',
-          desc: 'Algodón seleccionado por su longitud de fibra y pureza. Acondicionado para procesos de apertura y cardado continuo sin atascos ni exceso de desperdicio.',
-          art: <ArtCotton />
+          id: 'pabilo',
+          tag: 'Hilatura & Limpieza',
+          name: 'Pabilo Industrial',
+          subtitle: 'Fibra recuperada de alta absorción para coletos y mechas',
+          desc: 'Hilo de algodón recuperado de regularidad homogénea y capacidad hidrófila superior. Producido bajo estrictos estándares de clasificación y desfibrado para garantizar resistencia a la fricción y máxima retención de humedad.',
+          specs: 'Despacho habitual en fardos cilíndricos compactos de 18 kg con fleje y control de lote. Disponibilidad en ovillos por bulto.',
+          img: 'assets/img/producto-pabilo-fardo-18kg.jpg',
+          imgSecondary: 'assets/img/producto-pabilo-ovillo.jpg'
         },
         {
-          id: 'hilo',
-          tag: 'Producto Estrella',
-          name: 'Hilo de Alta Tenacidad',
-          desc: 'Conificado con torsión precisa para soportar la tensión de telares modernos y maquinaria de cosido veloz. Disponible en diversas graduaciones según requerimiento.',
-          art: <ArtThread />
+          id: 'coleto',
+          tag: 'Tejido Confeccionado',
+          name: 'Coleto Terminado',
+          subtitle: 'Tejido de limpieza de alta resistencia al desgarro',
+          desc: 'Tejido plano resistente elaborado a partir de nuestras hilazas de algodón recuperado. Proporciona durabilidad comprobada y óptima capacidad de arrastre para distribución mayorista comercial e institucional.',
+          specs: 'Suministro en rollos continuos de tejido o piezas confeccionadas para cadenas de distribución y empresas de aseo.',
+          img: 'assets/img/producto-cordon-detalle.jpg'
         },
         {
-          id: 'pavilo',
-          tag: 'Especializado',
-          name: 'Pavilo Homogéneo',
-          desc: 'Cinta uniforme para hilatura y aplicaciones industriales específicas. Asegura un peso constante por metro y regularidad en los procesos derivados.',
-          art: <ArtPavilo />
+          id: 'cordon',
+          tag: 'Torcidos & Cordonería',
+          name: 'Cordón de Algodón',
+          subtitle: 'Firmeza mecánica y flexibilidad para uso múltiple',
+          desc: 'Cordelería de algodón con torsión balanceada que evita el deshilachado. Indispensable en labores de amarre agrícola, cerrado de costales y sacos industriales, empaque y aplicaciones de confección técnica.',
+          specs: 'Presentación en paquetes transparentes listos para venta mayorista de 50 y 100 unidades, así como madejas continuas.',
+          img: 'assets/img/producto-cordon-paquetes.jpg'
+        },
+        {
+          id: 'pano-amarillo',
+          tag: 'Producto Estrella de Despacho',
+          name: 'Paño Amarillo (Bayetilla Industrial)',
+          subtitle: 'Tela pesada en rollos para absorción industrial intensiva',
+          desc: 'Bayetilla amarilla de alto gramaje para absorción de grasas, solventes, aceites y limpieza pesada en talleres, plantas automotrices y líneas de ensamble. Es nuestro producto de mayor volumen de despacho a nivel nacional.',
+          specs: 'Rollos cilíndricos masivos estibados sobre pallets industriales con flejado reforzado para transporte en camión.',
+          img: 'assets/img/producto-pano-amarillo-pallet.jpg',
+          imgSecondary: 'assets/img/producto-pano-amarillo-detalle.jpg'
         }
       ];
 
@@ -1630,9 +1818,9 @@
             <FiberFieldCanvas />
             <div className="hero-overlay" />
             <div className="hero-content">
-              <div className="hero-eyebrow">Catálogo Mayorista</div>
+              <div className="hero-eyebrow">Catálogo Mayorista B2B</div>
               <h1 className="hero-title">Nuestros <em>Productos</em></h1>
-              <p className="hero-subtitle">Tres líneas de excelencia para su empresa</p>
+              <p className="hero-subtitle">Cuatro líneas esenciales respaldadas en 60 años de trayectoria fabril</p>
             </div>
           </section>
 
@@ -1645,19 +1833,26 @@
             >
               <div className="container">
                 <div className={`two-col ${idx % 2 !== 0 ? 'reverse' : ''}`}>
-                  <div className="art-placeholder">
-                    {item.art}
+                  <div className="art-placeholder" style={{ background: '#191816', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)', position: 'relative' }}>
+                    <img 
+                      src={item.img} 
+                      alt={item.name} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '360px' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(20,20,19,0.85)', backdropFilter: 'blur(6px)', borderTop: '1px solid rgba(196,167,125,0.2)', fontSize: '0.68rem', letterSpacing: '0.15em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>
+                      {item.subtitle}
+                    </div>
                   </div>
                   <div className="two-col-text">
                     <span className="section-eyebrow">{item.tag}</span>
                     <h3>{item.name}</h3>
                     <p>{item.desc}</p>
-                    <p>
-                      Despachamos en volúmenes mayoristas con embalaje reforzado para proteger la fibra contra la humedad y garantizar que llegue intacta a sus instalaciones.
+                    <p style={{ fontSize: '0.86rem', color: idx % 2 === 0 ? 'var(--color-gray)' : 'rgba(255,255,255,0.7)', borderLeft: '2px solid var(--color-tan)', paddingLeft: '14px', margin: '18px 0' }}>
+                      <strong>Especificación de Despacho:</strong> {item.specs}
                     </p>
                     <div className="btn-group" style={{ justifyContent: 'flex-start', marginTop: '20px' }}>
                       <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                        Consultar Disponibilidad
+                        Cotizar este Producto
                       </button>
                     </div>
                   </div>
@@ -1668,10 +1863,10 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Requiere un pedido de gran <em>volumen</em>?</h2>
-              <p>Podemos programar despachos periódicos ajustados a su volumen de consumo.</p>
+              <h2>¿Requiere cotización de <em>lotes industriales</em>?</h2>
+              <p>Programamos despachos continuos en fardos, rollos o pallets completos a todo el país.</p>
               <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Hablar con Asesor
+                Hablar con un Asesor Comercial
               </button>
             </div>
           </section>
@@ -1680,16 +1875,55 @@
     };
 
     // ============================================
-    // SUB-PORTAL 4: PROCESOS
+    // SUB-PORTAL 4: PROCESOS & INFRAESTRUCTURA (CON CARRUSEL SUTIL)
     // ============================================
     const PortalProcesos = ({ onNavigate }) => {
+      const filmstripItems = [
+        {
+          phase: 'Fase 01',
+          title: 'Apertura y Clasificación',
+          desc: 'Tolvas mecánicas y Big Bags gigantes de fibra de algodón recuperada listas para el ingreso al tren de mezcla.',
+          img: 'assets/img/proceso-1-apertura-tolvas.jpg'
+        },
+        {
+          phase: 'Fase 02',
+          title: 'Cardado de Alta Capacidad',
+          desc: 'Batería de cardas industriales alineando paralelamente las fibras para lograr una masa homogénea.',
+          img: 'assets/img/proceso-2-cardas-linea.jpg'
+        },
+        {
+          phase: 'Fase 03',
+          title: 'Mecha en Espiral',
+          desc: 'Cinta peinada en botes rotativos que asciende en espiral continua hacia el estiraje de hilatura.',
+          img: 'assets/img/proceso-3-cinta-mecha-espiral.jpg'
+        },
+        {
+          phase: 'Fase 04',
+          title: 'Hilatura y Filetas Giratorias',
+          desc: 'Filetas metálicas alimentando bobinas en rotación continua con monitoreo dinámico de tensión.',
+          img: 'assets/img/proceso-4-hilatura-filetas.jpg'
+        },
+        {
+          phase: 'Fase 05',
+          title: 'Enconado y Bobinas Cilíndricas',
+          desc: 'Bobinas de hilado terminado listas para control de calidad, pesaje e inspección física.',
+          img: 'assets/img/proceso-5-conos-hilado.jpg'
+        },
+        {
+          phase: 'Fase 06',
+          title: 'Almacén y Despacho Paletizado',
+          desc: 'Zorras hidráulicas y pallets flejados de paño amarillo y pabilo listos para carga en camión.',
+          img: 'assets/img/proceso-6-despacho-pallet.jpg'
+        }
+      ];
+
       const steps = [
-        { num: '01', title: 'Selección de la Fibra', desc: 'Clasificamos el material asegurando homogeneidad de longitud y color natural antes del ingreso a planta.' },
-        { num: '02', title: 'Apertura y Limpieza', desc: 'Depuración mecánica cuidadosa para remover impurezas sin fracturar la resistencia intrínseca de la fibra.' },
-        { num: '03', title: 'Cardado y Estiraje', desc: 'Alineación paralela de las hebras para crear una estructura regular con distribución equitativa de masa.' },
-        { num: '04', title: 'Hilatura y Torsión', desc: 'Aportación de torsión controlada para otorgarle la tenacidad requerida por los telares industriales.' },
-        { num: '05', title: 'Acondicionamiento', desc: 'Estabilización en ambiente controlado para fijar la estructura y evitar que el hilo retuerza al desbobinarse.' },
-        { num: '06', title: 'Embalaje Mayorista', desc: 'Protección con sellado para despachos directos en camión hacia las fábricas de nuestros clientes.' },
+        { num: '01', title: 'Recepción y Clasificación Manual', desc: 'Seleccionamos minuciosamente los excedentes textiles garantizando uniformidad de origen y naturaleza de la fibra.' },
+        { num: '02', title: 'Desfibrado y Apertura', desc: 'Apertura mecánica en tolvas especializadas que transforman los retales en fibra libre de impurezas sin dañar la hebra.' },
+        { num: '03', title: 'Cardado Industrial', desc: 'Paso por tren de cardas para paralelizar y regularizar las fibras, generando una mecha homogénea continua.' },
+        { num: '04', title: 'Hilatura y Torsión Controlada', desc: 'Generación de pabilo y cordonería con torsión exacta para balancear absorción y tenacidad a la tracción.' },
+        { num: '05', title: 'Tejido y Bobinado', desc: 'Confección del tejido de coleto y bayetilla en telares continuos, junto al enrollado de bobinas y madejas.' },
+        { num: '06', title: 'Embalaje y Paletizado B2B', desc: 'Flejado reforzado en fardos de 18 kg y pallets de paño amarillo protegidos contra humedad para despacho directo.' },
       ];
 
       return (
@@ -1699,19 +1933,60 @@
             <FiberFieldCanvas />
             <div className="hero-overlay" />
             <div className="hero-content">
-              <div className="hero-eyebrow">Manufactura</div>
-              <h1 className="hero-title">Nuestros <em>Procesos</em></h1>
-              <p className="hero-subtitle">De la fibra bruta al producto terminado con rigor</p>
+              <div className="hero-eyebrow">Infraestructura & Capacidad Fabril</div>
+              <h1 className="hero-title">Nuestra <em>Planta</em></h1>
+              <p className="hero-subtitle">Procesos de economía circular que garantizan solidez en cada lote</p>
             </div>
           </section>
 
           <Marquee />
 
-          <section className="section section-dark">
+          {/* CARRUSEL DOCUMENTAL SUTIL (FILMSTRIP DE FOTOS REALES) */}
+          <section className="section section-dark" style={{ paddingBottom: '30px' }}>
+            <div className="container">
+              <div className="section-header" style={{ marginBottom: '24px' }}>
+                <span className="section-eyebrow">Evidencia Operativa</span>
+                <h2 className="section-title">Instalaciones en <em>Santa Teresa del Tuy</em></h2>
+                <div className="section-line" />
+                <p className="section-subtitle">
+                  Fotografía real de nuestra nave de producción, tren de cardado y zona de embalaje mayorista
+                </p>
+              </div>
+
+              <div className="filmstrip-wrap">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                  <div style={{ fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--color-tan)' }}>
+                    Dossier Visual • 6 Fases Operacionales
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.08em' }}>
+                    ← Deslice horizontalmente →
+                  </div>
+                </div>
+
+                <div className="filmstrip-container">
+                  {filmstripItems.map((item, idx) => (
+                    <div key={idx} className="filmstrip-card">
+                      <div className="filmstrip-img-wrap">
+                        <span className="filmstrip-badge">{item.phase}</span>
+                        <img src={item.img} alt={item.title} loading="lazy" />
+                      </div>
+                      <div className="filmstrip-content">
+                        <h4 className="filmstrip-title">{item.title}</h4>
+                        <p className="filmstrip-desc">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* LÍNEA DE PROCESO TÉCNICO */}
+          <section className="section section-charcoal">
             <div className="container">
               <div className="section-header">
-                <span className="section-eyebrow">Etapas de Producción</span>
-                <h2 className="section-title">El camino de la <em>fibra</em></h2>
+                <span className="section-eyebrow">Rigor de Manufactura</span>
+                <h2 className="section-title">El ciclo de la <em>economía circular</em></h2>
                 <div className="section-line" />
               </div>
 
@@ -1729,10 +2004,10 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>Garantice la continuidad de su <em>producción</em></h2>
-              <p>Nuestro proceso asegura lotes homogéneos que reducen paradas de máquina.</p>
+              <h2>Garantice la continuidad de su <em>suministro</em></h2>
+              <p>Nuestra capacidad instalada asegura entregas programadas y consistencia lote a lote.</p>
               <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Cotizar Suministro
+                Cotizar Suministro con Planta
               </button>
             </div>
           </section>
@@ -1745,12 +2020,12 @@
     // ============================================
     const PortalClientes = ({ onNavigate }) => {
       const sectors = [
-        { name: 'Tejedurías de Punto', desc: 'Fabricantes de telas para indumentaria casual, deportiva y escolar.' },
-        { name: 'Tejido Plano', desc: 'Productores de lienzos, sargas, mezclillas y mantelería pesada.' },
-        { name: 'Talleres de Confección', desc: 'Marcas con líneas de confección masiva que usan hilo continuo.' },
-        { name: 'Cordonerías e Industrias', desc: 'Fabricantes de mechas, cuerdas, velas y artículos de uso rudo.' },
-        { name: 'Empaque y Costura', desc: 'Empresas agroindustriales que requieren hilo de cosido de costales.' },
-        { name: 'Distribuidores Regionales', desc: 'Mayoristas que abastecen comunidades textiles locales.' },
+        { name: 'Distribuidores Mayoristas de Limpieza', desc: 'Comercializadores de artículos de aseo que requieren pabilo por fardos y coleto confeccionado.' },
+        { name: 'Talleres, Automotriz & Mantenimiento', desc: 'Líneas industriales que consumen paño amarillo (bayetilla) en rollos masivos para absorción.' },
+        { name: 'Fábricas de Coletos y Mechas', desc: 'Fabricantes que usan nuestro pabilo de algodón recuperado de alta absorción como materia prima.' },
+        { name: 'Cordonerías e Industria de Empaque', desc: 'Empresas manufactureras y agrícolas que necesitan cordón de algodón resistente para amarres.' },
+        { name: 'Grandes Cadenas Comerciales', desc: 'Abastecimiento directo a mayoristas y ferreterías con productos empacados listos para mostrador.' },
+        { name: 'Sector Agroindustrial', desc: 'Cordonería y pabilos especializados para el tutorado de cultivos y amarre de fardos.' },
       ];
 
       return (
@@ -1760,9 +2035,9 @@
             <FiberFieldCanvas />
             <div className="hero-overlay" />
             <div className="hero-content">
-              <div className="hero-eyebrow">Sectores B2B</div>
+              <div className="hero-eyebrow">Sectores B2B Atendidos</div>
               <h1 className="hero-title">Nuestros <em>Clientes</em></h1>
-              <p className="hero-subtitle">Alianzas comerciales que impulsan la industria</p>
+              <p className="hero-subtitle">Alianzas comerciales estratégicas en todo el territorio nacional</p>
             </div>
           </section>
 
@@ -1789,10 +2064,10 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Su empresa busca un proveedor <em>confiable</em>?</h2>
-              <p>Atendemos requerimientos mayoristas con atención personalizada y ágil.</p>
+              <h2>¿Su empresa busca un proveedor <em>confiable y directo</em>?</h2>
+              <p>Atendemos requerimientos mayoristas sin intermediarios desde nuestra planta.</p>
               <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Unirse a la Red
+                Iniciar Relación Comercial
               </button>
             </div>
           </section>
@@ -1801,7 +2076,7 @@
     };
 
     // ============================================
-    // SUB-PORTAL 6: CONTACTO
+    // SUB-PORTAL 6: CONTACTO & MESA COMERCIAL B2B
     // ============================================
     const PortalContacto = () => {
       const [sent, setSent] = useState(false);
@@ -1818,9 +2093,9 @@
             <FiberFieldCanvas />
             <div className="hero-overlay" />
             <div className="hero-content">
-              <div className="hero-eyebrow">Atención Comercial</div>
+              <div className="hero-eyebrow">Atención Comercial B2B</div>
               <h1 className="hero-title"><em>Contacto</em></h1>
-              <p className="hero-subtitle">Estamos listos para atender su requerimiento mayorista</p>
+              <p className="hero-subtitle">Mesa de cotización directa con Industrias Monnir C. A.</p>
             </div>
           </section>
 
@@ -1830,26 +2105,48 @@
             <div className="container">
               <div className="contact-layout">
                 <div>
-                  <span className="section-eyebrow">Canal de Ventas</span>
+                  <span className="section-eyebrow">Mesa de Cotización</span>
                   <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', marginBottom: '16px' }}>
                     Converse con nuestro <em>equipo</em>
                   </h3>
                   <p style={{ fontSize: '0.9rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.65)', marginBottom: '30px' }}>
-                    Indíquenos las características del producto que busca, volumen estimado y zona de entrega para coordinar su propuesta comercial.
+                    Indíquenos las características del producto que busca, volumen estimado y destino de entrega para coordinar su propuesta formal.
                   </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderTop: '1px solid rgba(196,167,125,0.2)', paddingTop: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', borderTop: '1px solid rgba(196,167,125,0.2)', paddingTop: '24px' }}>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Atención Telefónica</div>
-                      <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>+58 (XXX) XXX-XXXX</div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>WhatsApp Corporativo</div>
+                      <div style={{ fontSize: '1.15rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>
+                        <a href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-tan)', textDecoration: 'none' }}>
+                          0424-191-3561 →
+                        </a>
+                      </div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Correo Electrónico</div>
-                      <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>ventas@industriamonir.com</div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Atención Telefónica de Planta</div>
+                      <div style={{ fontSize: '1.15rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>
+                        0414-399-0682
+                      </div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Ubicación</div>
-                      <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>Zona Industrial — Despachos a Nivel Nacional</div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Correo Oficial</div>
+                      <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>
+                        <a href="mailto:Industriasmonnir@gmail.com" style={{ color: 'var(--color-white)', textDecoration: 'none' }}>
+                          Industriasmonnir@gmail.com
+                        </a>
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Ubicación de Planta</div>
+                      <div style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)', marginTop: '4px', lineHeight: '1.6' }}>
+                        Carretera la Raiza, Sector Industrial El Tomuso, Santa Teresa del Tuy, Estado Miranda, Venezuela.
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Redes Sociales</div>
+                      <div style={{ fontSize: '0.88rem', color: 'var(--color-sand)', marginTop: '4px' }}>
+                        Instagram / Facebook: <strong>@Industriasmonnir</strong>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1858,24 +2155,24 @@
                   {sent ? (
                     <div style={{ textAlign: 'center', padding: '40px 20px' }}>
                       <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-tan)', marginBottom: '12px' }}>
-                        Mensaje Recibido
+                        Requerimiento Registrado
                       </h4>
                       <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.65)', marginBottom: '24px' }}>
-                        Gracias por comunicarse con Industria Monir. Un asesor comercial responderá a su solicitud a la brevedad.
+                        Gracias por comunicarse con Industrias Monnir C. A. Nuestro departamento comercial se pondrá en contacto a la brevedad.
                       </p>
                       <button className="btn-outline" onClick={() => setSent(false)}>
-                        Enviar otro mensaje
+                        Enviar otro requerimiento
                       </button>
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
                         <label className="form-label">Nombre y Apellido</label>
-                        <input className="form-input" type="text" placeholder="Su nombre" required />
+                        <input className="form-input" type="text" placeholder="Su nombre completo" required />
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Empresa</label>
+                        <label className="form-label">Empresa / Razón Social</label>
                         <input className="form-input" type="text" placeholder="Nombre de su empresa" required />
                       </div>
 
@@ -1885,23 +2182,29 @@
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Producto de Interés</label>
+                        <label className="form-label">Teléfono o WhatsApp de Contacto</label>
+                        <input className="form-input" type="tel" placeholder="04XX-XXX-XXXX" required />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Línea de Interés</label>
                         <select className="form-select" required defaultValue="">
-                          <option value="" disabled>Seleccione producto</option>
-                          <option value="algodon">Algodón</option>
-                          <option value="hilo">Hilo</option>
-                          <option value="pavilo">Pavilo</option>
-                          <option value="varios">Varios productos / Lote mixto</option>
+                          <option value="" disabled>Seleccione producto mayorista</option>
+                          <option value="pabilo">Pabilo Industrial (Fardos de 18 kg)</option>
+                          <option value="coleto">Coleto Terminado (Rollos / Piezas)</option>
+                          <option value="cordon">Cordón de Algodón (Paquetes 50/100)</option>
+                          <option value="pano-amarillo">Paño Amarillo (Rollos en Pallet)</option>
+                          <option value="varios">Lote Mixto / Múltiples Productos</option>
                         </select>
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Mensaje o Requerimiento</label>
-                        <textarea className="form-textarea" placeholder="Describa el volumen aproximado o las características que necesita..." required></textarea>
+                        <label className="form-label">Requerimiento o Volumen Estimado</label>
+                        <textarea className="form-textarea" placeholder="Indique volumen aproximado, especificaciones deseadas y destino de entrega..." required></textarea>
                       </div>
 
                       <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '10px' }}>
-                        Enviar Mensaje
+                        Enviar Solicitud de Cotización
                       </button>
                     </form>
                   )}
@@ -1922,49 +2225,51 @@
           <div className="container">
             <div className="footer-grid">
               <div>
-                <div className="footer-brand">MONIR</div>
+                <div className="footer-brand">MONNIR</div>
                 <p className="footer-brand-desc">
-                  Industria textil especializada en la producción de algodón, hilo y pavilo de grado industrial. Calidad que se teje en cada fibra.
+                  <strong>Industrias Monnir C. A.</strong> — Seis décadas transformando el futuro textil en Venezuela. Recuperado textil, pabilo, coleto, cordón y paño amarillo con entrega nacional.
                 </p>
               </div>
 
               <div className="footer-col">
-                <div className="footer-col-title">Sub-Portales</div>
+                <div className="footer-col-title">Navegación</div>
                 <ul>
                   <li><button onClick={() => onNavigate('inicio')}>Inicio</button></li>
                   <li><button onClick={() => onNavigate('nosotros')}>Nosotros</button></li>
                   <li><button onClick={() => onNavigate('productos')}>Productos</button></li>
-                  <li><button onClick={() => onNavigate('procesos')}>Procesos</button></li>
+                  <li><button onClick={() => onNavigate('procesos')}>Infraestructura</button></li>
                   <li><button onClick={() => onNavigate('clientes')}>Clientes</button></li>
                   <li><button onClick={() => onNavigate('contacto')}>Contacto</button></li>
                 </ul>
               </div>
 
               <div className="footer-col">
-                <div className="footer-col-title">Productos</div>
+                <div className="footer-col-title">Líneas de Producto</div>
                 <ul>
-                  <li><button onClick={() => onNavigate('productos')}>Algodón Industrial</button></li>
-                  <li><button onClick={() => onNavigate('productos')}>Hilo de Alta Tenacidad</button></li>
-                  <li><button onClick={() => onNavigate('productos')}>Pavilo Homogéneo</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Pabilo Industrial (18 kg)</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Coleto Terminado</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Cordón de Algodón</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Paño Amarillo en Pallets</button></li>
                 </ul>
               </div>
 
               <div className="footer-col">
-                <div className="footer-col-title">Contacto</div>
+                <div className="footer-col-title">Contacto Directo</div>
                 <ul>
-                  <li><span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>+58 (XXX) XXX-XXXX</span></li>
-                  <li><span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>ventas@industriamonir.com</span></li>
-                  <li><span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>Zona Industrial — Venezuela</span></li>
+                  <li><span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.84rem' }}>0424-191-3561</span></li>
+                  <li><span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.84rem' }}>0414-399-0682</span></li>
+                  <li><span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.84rem' }}>Industriasmonnir@gmail.com</span></li>
+                  <li><span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.78rem' }}>El Tomuso, Santa Teresa del Tuy</span></li>
                 </ul>
               </div>
             </div>
 
             <div className="footer-bottom">
               <div className="footer-copyright">
-                © {new Date().getFullYear()} Industria Monir. Todos los derechos reservados.
+                © {new Date().getFullYear()} Industrias Monnir C. A. Todos los derechos reservados.
               </div>
               <div style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-tan)' }}>
-                Manufactura Textil B2B
+                Economía Circular Textil • Manufactura B2B
               </div>
             </div>
           </div>
@@ -2031,7 +2336,7 @@
           <div className="portal-transition-curtain">
             <div ref={curtainTopRef} className="curtain-panel-top" />
             <div ref={glowRef} className="curtain-brand-glow">
-              INDUSTRIA MONIR
+              INDUSTRIAS MONNIR
             </div>
             <div ref={curtainBottomRef} className="curtain-panel-bottom" />
           </div>
@@ -2051,11 +2356,11 @@
 
           {/* Botón WhatsApp Flotante */}
           <a
-            href="https://wa.me/58XXXXXXXXXX"
+            href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir"
             target="_blank"
             rel="noopener noreferrer"
             className="whatsapp-btn"
-            title="WhatsApp Comercial"
+            title="WhatsApp Comercial Industrias Monnir"
             aria-label="Contacto por WhatsApp"
           >
             <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
