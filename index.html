@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1493,6 +1494,251 @@
     .whatsapp-btn:hover {
       transform: scale(1.08);
     }
+
+    /* ============================================
+       ESTILOS 3D & COMPONENTES REACT TRONCO B2B (FURROW STYLE)
+       ============================================ */
+    .perspective-container { perspective: 1200px; }
+
+    .card-3d-tilt {
+      transform-style: preserve-3d;
+      border-radius: 8px;
+      overflow: hidden;
+      will-change: transform;
+      position: relative;
+    }
+
+    .card-3d-tilt * { transform-style: preserve-3d; }
+
+    .card-3d-glare {
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
+    /* 3D Spool Viewer */
+    .viewer-3d-container {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: radial-gradient(circle at 50% 50%, rgba(31, 58, 95, 0.6) 0%, rgba(22, 40, 60, 0.96) 80%);
+      border: 1px solid rgba(212, 178, 140, 0.28);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+    .viewer-3d-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    .viewer-3d-canvas:active { cursor: grabbing; }
+
+    .viewer-3d-overlay-ui {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: rgba(22, 40, 60, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 178, 140, 0.25);
+      border-radius: 6px;
+      padding: 10px 14px;
+      z-index: 20;
+    }
+    .viewer-control-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(212, 178, 140, 0.3);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: var(--font-headline);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .viewer-control-btn:hover, .viewer-control-btn.active {
+      background: var(--color-accent);
+      color: var(--color-dark);
+      border-color: var(--color-accent);
+    }
+
+    /* Tabs B2B */
+    .b2b-tabs-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(212, 178, 140, 0.2);
+      padding-bottom: 12px;
+    }
+    .b2b-tab-pill {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--color-medium-gray);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-family: var(--font-headline);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .b2b-tab-pill:hover {
+      border-color: var(--color-accent);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .b2b-tab-pill.active {
+      background: var(--color-accent);
+      color: var(--color-dark);
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 14px rgba(212, 178, 140, 0.3);
+    }
+
+    /* Tablas Técnicas de Laboratorio ASTM / COVENIN */
+    .spec-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid rgba(212, 178, 140, 0.25);
+      border-radius: 6px;
+      background: rgba(31, 58, 95, 0.45);
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-headline);
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    .spec-table th {
+      background: rgba(22, 40, 60, 0.95);
+      color: var(--color-accent);
+      padding: 12px 18px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(212, 178, 140, 0.25);
+      font-size: 0.72rem;
+    }
+    .spec-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.88);
+      font-weight: 400;
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table tr:hover td { background: rgba(212, 178, 140, 0.08); }
+
+    /* Sliders de Calculadoras */
+    .b2b-range-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+      margin: 16px 0;
+    }
+    .b2b-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(212, 178, 140, 0.6);
+      border: 2px solid #FFFFFF;
+      transition: transform 0.2s ease;
+    }
+    .b2b-range-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+    /* Acordeón B2B */
+    .faq-accordion-item {
+      border: 1px solid rgba(212, 178, 140, 0.2);
+      border-radius: 6px;
+      background: rgba(31, 58, 95, 0.5);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .faq-accordion-item.open {
+      border-color: var(--color-accent);
+      background: rgba(31, 58, 95, 0.85);
+    }
+    .faq-trigger {
+      width: 100%;
+      padding: 18px 22px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--font-headline);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-icon {
+      font-size: 1.1rem;
+      color: var(--color-accent);
+      transition: transform 0.3s ease;
+    }
+    .faq-accordion-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-content {
+      padding: 0 22px 20px 22px;
+      font-family: var(--font-headline);
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    /* Modal de Zoom de Imagen Fabril */
+    .factory-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 32, 0.95);
+      backdrop-filter: blur(14px);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: modalFadeIn 0.3s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .factory-modal-card {
+      max-width: 960px;
+      width: 100%;
+      background: var(--color-dark);
+      border: 1px solid var(--color-accent);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+    }
+
   </style>
 </head>
 <body>
@@ -1763,9 +2009,1113 @@
         // ============================================
     // SUB-PORTAL 1: INICIO (HERO EDITORIAL FURROW)
     // ============================================
+
+    // ============================================
+    // COMPONENTES REACT 3D & INTERACTIVOS (MONNIR FLASH1)
+    // ============================================
+
+    // 1. TARJETA CON EFECTO TILT 3D Y REFLEJO DINAMICO
+    const TiltCard3D = ({ children, className = '', style = {}, maxTilt = 8 }) => {
+      const cardRef = useRef(null);
+      const [transform, setTransform] = useState('');
+      const [glare, setGlare] = useState({ opacity: 0, x: 50, y: 50 });
+
+      const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -maxTilt;
+        const rotateY = ((x - centerX) / centerX) * maxTilt;
+        setTransform(`perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px)`);
+        setGlare({ opacity: 0.18, x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
+      };
+
+      const handleMouseLeave = () => {
+        setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)');
+        setGlare({ opacity: 0, x: 50, y: 50 });
+      };
+
+      return (
+        <div
+          ref={cardRef}
+          className={`card-3d-tilt ${className}`}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            ...style,
+            transform: transform || 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
+            transition: transform ? 'transform 0.08s ease-out' : 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
+            position: 'relative',
+            willChange: 'transform'
+          }}
+        >
+          <div
+            className="card-3d-glare"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: 'inherit',
+              background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(212, 178, 140, 0.4), transparent 70%)`,
+              opacity: glare.opacity,
+              transition: 'opacity 0.25s ease',
+              zIndex: 10
+            }}
+          />
+          {children}
+        </div>
+      );
+    };
+
+    // 2. VISOR 3D DE BOBINA / CONO DE HILATURA EN THREE.JS
+    const YarnSpool3DViewer = () => {
+      const containerRef = useRef(null);
+      const [fiberColor, setFiberColor] = useState('#D4B28C');
+      const [twistTPM, setTwistTPM] = useState(260);
+      const [wireframe, setWireframe] = useState(false);
+      const [speed, setSpeed] = useState(1);
+      const spoolMeshRef = useRef(null);
+      const threadLinesRef = useRef(null);
+
+      useEffect(() => {
+        if (!containerRef.current || typeof THREE === 'undefined') return;
+
+        const container = containerRef.current;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(0, 1.2, 7.5);
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.innerHTML = '';
+        container.appendChild(renderer.domElement);
+
+        // Luces Cinemáticas Industriales
+        const ambLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambLight);
+
+        const dirLight1 = new THREE.DirectionalLight(0xD4B28C, 1.2);
+        dirLight1.position.set(5, 8, 5);
+        scene.add(dirLight1);
+
+        const dirLight2 = new THREE.DirectionalLight(0x3E598C, 0.8);
+        dirLight2.position.set(-5, -4, -3);
+        scene.add(dirLight2);
+
+        // Grupo Principal de la Bobina
+        const spoolGroup = new THREE.Group();
+        scene.add(spoolGroup);
+        spoolMeshRef.current = spoolGroup;
+
+        // Cono Central (Núcleo)
+        const coreGeo = new THREE.CylinderGeometry(0.55, 0.95, 3.8, 32);
+        const coreMat = new THREE.MeshStandardMaterial({
+          color: 0x16283C,
+          roughness: 0.4,
+          metalness: 0.6
+        });
+        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        spoolGroup.add(coreMesh);
+
+        // Cuerpo de Hilos Bobinados (Capa Principal)
+        const yarnGeo = new THREE.CylinderGeometry(1.2, 1.55, 3.1, 36);
+        const yarnMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(fiberColor),
+          roughness: 0.85,
+          metalness: 0.1,
+          wireframe: wireframe
+        });
+        const yarnMesh = new THREE.Mesh(yarnGeo, yarnMat);
+        spoolGroup.add(yarnMesh);
+
+        // Filamentos Helicoidales Circundantes (Líneas 3D)
+        const threadPoints = [];
+        const turns = 18;
+        const count = 300;
+        for (let i = 0; i < count; i++) {
+          const t = i / count;
+          const angle = t * Math.PI * 2 * turns;
+          const radius = 1.22 + Math.sin(t * Math.PI) * 0.36;
+          const y = (t - 0.5) * 3.1;
+          const x = Math.cos(angle) * radius;
+          const z = Math.sin(angle) * radius;
+          threadPoints.push(new THREE.Vector3(x, y, z));
+        }
+        const threadGeo = new THREE.BufferGeometry().setFromPoints(threadPoints);
+        const threadMat = new THREE.LineBasicMaterial({
+          color: 0xF2E8DC,
+          opacity: 0.45,
+          transparent: true
+        });
+        const threadLines = new THREE.Line(threadGeo, threadMat);
+        spoolGroup.add(threadLines);
+        threadLinesRef.current = { yarnMesh, threadLines, yarnMat };
+
+        // Anillo Superior e Inferior de Cono Plástico
+        const rimGeo = new THREE.TorusGeometry(0.58, 0.08, 16, 32);
+        const rimMat = new THREE.MeshStandardMaterial({ color: 0xD4B28C, metalness: 0.8, roughness: 0.2 });
+        const rimTop = new THREE.Mesh(rimGeo, rimMat);
+        rimTop.rotation.x = Math.PI / 2;
+        rimTop.position.y = 1.9;
+        spoolGroup.add(rimTop);
+
+        const rimBot = new THREE.Mesh(new THREE.TorusGeometry(0.98, 0.09, 16, 32), rimMat);
+        rimBot.rotation.x = Math.PI / 2;
+        rimBot.position.y = -1.9;
+        spoolGroup.add(rimBot);
+
+        // Interacción Mouse Drag para Rotación 3D
+        let isDragging = false;
+        let prevMousePos = { x: 0, y: 0 };
+
+        const onMouseDown = (e) => {
+          isDragging = true;
+          prevMousePos = { x: e.clientX, y: e.clientY };
+        };
+        const onMouseMove = (e) => {
+          if (!isDragging) return;
+          const deltaX = e.clientX - prevMousePos.x;
+          const deltaY = e.clientY - prevMousePos.y;
+          spoolGroup.rotation.y += deltaX * 0.01;
+          spoolGroup.rotation.x += deltaY * 0.008;
+          prevMousePos = { x: e.clientX, y: e.clientY };
+        };
+        const onMouseUp = () => { isDragging = false; };
+
+        container.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+
+        // Loop de Renderizado
+        let animId;
+        const animate = () => {
+          animId = requestAnimationFrame(animate);
+          if (!isDragging && spoolMeshRef.current) {
+            spoolMeshRef.current.rotation.y += 0.006 * speed;
+            spoolMeshRef.current.rotation.x = Math.sin(Date.now() * 0.001) * 0.08;
+          }
+          renderer.render(scene, camera);
+        };
+        animate();
+
+        const handleResize = () => {
+          if (!container) return;
+          const newW = container.clientWidth;
+          const newH = container.clientHeight;
+          camera.aspect = newW / newH;
+          camera.updateProjectionMatrix();
+          renderer.setSize(newW, newH);
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          cancelAnimationFrame(animId);
+          window.removeEventListener('resize', handleResize);
+          container.removeEventListener('mousedown', onMouseDown);
+          window.removeEventListener('mousemove', onMouseMove);
+          window.removeEventListener('mouseup', onMouseUp);
+          renderer.dispose();
+        };
+      }, [speed]);
+
+      // Efecto para actualizar color y wireframe en vivo
+      useEffect(() => {
+        if (threadLinesRef.current) {
+          threadLinesRef.current.yarnMat.color.set(fiberColor);
+          threadLinesRef.current.yarnMat.wireframe = wireframe;
+        }
+      }, [fiberColor, wireframe]);
+
+      return (
+        <div className="viewer-3d-container" style={{ position: 'relative' }}>
+          <div ref={containerRef} className="viewer-3d-canvas" title="Arrastra para rotar la bobina en 3D" />
+
+          {/* Badge 3D flotante */}
+          <div style={{ position: 'absolute', top: '16px', left: '16px', zIndex: 10 }}>
+            <div className="slip-status" style={{ background: 'rgba(22, 40, 60, 0.85)', padding: '6px 14px', borderRadius: '9999px', border: '1px solid rgba(212, 178, 140, 0.3)' }}>
+              <span className="slip-pulse-dot" />
+              <span>Visor 3D Interactivo • Estructura de Hilado</span>
+            </div>
+          </div>
+
+          {/* Controles de Vista 3D */}
+          <div className="viewer-3d-overlay-ui">
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.7rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '600' }}>Fibra:</span>
+              <button className={`viewer-control-btn ${fiberColor === '#D4B28C' ? 'active' : ''}`} onClick={() => setFiberColor('#D4B28C')}>Crudo</button>
+              <button className={`viewer-control-btn ${fiberColor === '#F5EFEF' ? 'active' : ''}`} onClick={() => setFiberColor('#F5EFEF')}>Blanco</button>
+              <button className={`viewer-control-btn ${fiberColor === '#8FA3BC' ? 'active' : ''}`} onClick={() => setFiberColor('#8FA3BC')}>Gris Recuperado</button>
+              <button className={`viewer-control-btn ${fiberColor === '#E5A93C' ? 'active' : ''}`} onClick={() => setFiberColor('#E5A93C')}>Amarillo</button>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <button className={`viewer-control-btn ${wireframe ? 'active' : ''}`} onClick={() => setWireframe(!wireframe)}>
+                {wireframe ? 'Malla Activa' : 'Ver Malla'}
+              </button>
+              <button className="viewer-control-btn" onClick={() => setSpeed(s => s === 1 ? 2.5 : 1)}>
+                Velocidad: {speed}x
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // 3. COMPARADOR INTERACTIVO DE ECONOMIA CIRCULAR
+    const CircularEconomyComparator = () => {
+      const [tons, setTons] = useState(12);
+
+      const waterSaved = tons * 10000000; // 10 millones de litros por tonelada
+      const co2Reduced = tons * 2400; // 2.4 toneladas de CO2
+      const fardosEquiv = Math.round((tons * 1000) / 18);
+      const landfillDiverted = tons * 3200; // metros cuadrados equivalentes
+
+      return (
+        <section className="section section-dark" style={{ borderTop: '1px solid rgba(212, 178, 140, 0.15)', borderBottom: '1px solid rgba(212, 178, 140, 0.15)' }}>
+          <div className="container">
+            <div className="section-header" style={{ marginBottom: '32px' }}>
+              <span className="section-label">Simulador de Impacto Ecológico Corporativo</span>
+              <h2 className="section-title">
+                Economía Circular Textil con <em>Impacto Medible y Comprobable</em>
+              </h2>
+              <p className="section-subtitle">
+                A diferencia del algodón virgen dependiente de irrigación masiva y pesticidas, Industrias Monnir C. A. transforma excedentes industriales sin consumo hídrico de cultivo, cerrando el ciclo de manufactura.
+              </p>
+            </div>
+
+            <div style={{ background: 'rgba(31, 58, 95, 0.55)', border: '1px solid rgba(212, 178, 140, 0.3)', borderRadius: '10px', padding: 'clamp(20px, 3vw, 36px)', marginBottom: '36px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '14px' }}>
+                <div>
+                  <span style={{ fontSize: '0.72rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: '600' }}>
+                    Seleccione su consumo mensual proyectado:
+                  </span>
+                  <div style={{ fontFamily: 'var(--font-headline)', fontSize: '1.8rem', fontWeight: '700', color: '#FFFFFF', marginTop: '4px' }}>
+                    {tons} <span style={{ fontSize: '1rem', color: 'var(--color-sand)', fontWeight: '400' }}>Toneladas Métricas / Mes</span>
+                  </div>
+                </div>
+                <div style={{ background: 'rgba(22, 40, 60, 0.8)', padding: '8px 18px', borderRadius: '9999px', border: '1px solid rgba(212, 178, 140, 0.25)', fontSize: '0.8rem', color: 'var(--color-accent)' }}>
+                  ≈ {fardosEquiv.toLocaleString()} fardos de 18 kg
+                </div>
+              </div>
+
+              <input
+                type="range"
+                min="1"
+                max="50"
+                value={tons}
+                onChange={(e) => setTons(Number(e.target.value))}
+                className="b2b-range-slider"
+              />
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--color-medium-gray)' }}>
+                <span>1 Tonelada (Pedido Mínimo Mayorista)</span>
+                <span>25 Toneladas (Mediana Cadena)</span>
+                <span>50 Toneladas (Gran Consorcio)</span>
+              </div>
+            </div>
+
+            {/* Grid de Métricas de Impacto con Tilt 3D */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+              <TiltCard3D>
+                <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                  <div style={{ fontSize: '0.72rem', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600' }}>Ahorro Hídrico Garantizado</div>
+                  <div style={{ fontSize: 'clamp(1.8rem, 2.5vw, 2.4rem)', fontWeight: '700', color: '#FFFFFF', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>
+                    {(waterSaved / 1000000).toFixed(0)} <span style={{ fontSize: '0.9rem', color: 'var(--color-sand)' }}>Millones de Litros</span>
+                  </div>
+                  <p style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.5' }}>
+                    Equivalente al abastecimiento de más de {Math.round(waterSaved / 4500).toLocaleString()} hogares durante un mes completo.
+                  </p>
+                </div>
+              </TiltCard3D>
+
+              <TiltCard3D>
+                <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                  <div style={{ fontSize: '0.72rem', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600' }}>Reducción de Huella de Carbono</div>
+                  <div style={{ fontSize: 'clamp(1.8rem, 2.5vw, 2.4rem)', fontWeight: '700', color: '#FFFFFF', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>
+                    {(co2Reduced / 1000).toFixed(1)} <span style={{ fontSize: '0.9rem', color: 'var(--color-sand)' }}>Ton CO₂ Evitadas</span>
+                  </div>
+                  <p style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.5' }}>
+                    Menor demanda energética al suprimir el proceso intensivo de desmote agrícola y teñido agresivo.
+                  </p>
+                </div>
+              </TiltCard3D>
+
+              <TiltCard3D>
+                <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                  <div style={{ fontSize: '0.72rem', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600' }}>Cero Vertederos</div>
+                  <div style={{ fontSize: 'clamp(1.8rem, 2.5vw, 2.4rem)', fontWeight: '700', color: '#FFFFFF', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>
+                    {landfillDiverted.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-sand)' }}>m² Rescatados</span>
+                  </div>
+                  <p style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.5' }}>
+                    Materia prima textil reinsertada de inmediato en la cadena de suministro productiva nacional.
+                  </p>
+                </div>
+              </TiltCard3D>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // 4. CRONOLOGIA INTERACTIVA DE 60 ANOS (PORTAL NOSOTROS)
+    const Timeline60Years = () => {
+      const decades = [
+        {
+          year: '1964',
+          label: 'La Fundación Familiar',
+          title: 'Primeras Cardas Mecánicas en Santa Teresa del Tuy',
+          desc: 'La familia fundadora instala el primer taller industrial en los Valles del Tuy. Se inician las operaciones con cardas mecánicas europeas reacondicionadas, produciendo pabilo para el mercado central.',
+          metric: '12 Ton/Mes',
+          metricLabel: 'Capacidad Inicial'
+        },
+        {
+          year: '1982',
+          label: 'Expansión de Hilatura',
+          title: 'Incorporación de Trenes de Hilatura Continua',
+          desc: 'Adquisición de la nave central de 8,500 m² en la Carretera La Raiza. Se incorporan filetas continuas de husos múltiples para suplir la creciente demanda de hilos de coleto y cordonería pesada.',
+          metric: '45 Ton/Mes',
+          metricLabel: 'Expansión Fabril'
+        },
+        {
+          year: '1998',
+          label: 'El Salto Circular',
+          title: 'Transición hacia la Economía Circular al 100%',
+          desc: 'Pioneros en Venezuela en clausurar la compra de fibras vírgenes para centrarse exclusivamente en la recuperación de excedentes de confección, creando un modelo resiliente ante fluctuaciones de importación.',
+          metric: '100%',
+          metricLabel: 'Recuperado Textil'
+        },
+        {
+          year: '2012',
+          label: 'Consolidación de Cadena',
+          title: 'Línea de Confección Masiva de Paño Amarillo',
+          desc: 'Apertura de la línea especializada de paño amarillo y telas no tejidas para cadenas mayoristas de retail y ferretería, convirtiéndose en el estándar de limpieza pesada en Venezuela.',
+          metric: '80+ Empleos',
+          metricLabel: 'Generación Directa'
+        },
+        {
+          year: '2026',
+          label: 'Monnir Flash1',
+          title: 'Control Computarizado de Lotes y Despacho Nacional',
+          desc: 'Modernización de gobernanza digital, aseguramiento de calidad con tolerancias de laboratorio y capacidad logística directa para abastecer a compradores industriales en todo el territorio.',
+          metric: '120 Ton/Mes',
+          metricLabel: 'Capacidad de Acopio'
+        }
+      ];
+
+      const [activeIndex, setActiveIndex] = useState(0);
+      const activeItem = decades[activeIndex];
+
+      return (
+        <section className="section section-cream">
+          <div className="container">
+            <div className="section-header">
+              <span className="section-label">Trayectoria Ininterrumpida • 1964 – 2026</span>
+              <h2 className="section-title">
+                Seis Décadas de <em>Soberanía y Resiliencia Textil</em>
+              </h2>
+              <p className="section-subtitle">
+                Explore los hitos que consolidaron a Industrias Monnir C. A. como el pilar indiscutible de la recuperación textil en Venezuela.
+              </p>
+            </div>
+
+            {/* Píldoras de Navegación de Décadas */}
+            <div className="b2b-tabs-header" style={{ justifyContent: 'center' }}>
+              {decades.map((item, idx) => (
+                <button
+                  key={item.year}
+                  className={`b2b-tab-pill ${activeIndex === idx ? 'active' : ''}`}
+                  onClick={() => setActiveIndex(idx)}
+                >
+                  <span>{item.year}</span>
+                  <span style={{ fontSize: '0.65rem', opacity: 0.8 }}>• {item.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Tarjeta de Detalle del Hito con Tilt 3D */}
+            <TiltCard3D>
+              <div style={{ background: '#FFFFFF', border: '1px solid rgba(31, 58, 95, 0.15)', borderRadius: '10px', padding: 'clamp(24px, 4vw, 44px)', boxShadow: '0 16px 40px rgba(0, 0, 0, 0.08)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--color-primary)', fontWeight: '700', fontSize: '0.78rem', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>
+                      <span className="slip-pulse-dot" style={{ background: 'var(--color-primary)', boxShadow: '0 0 6px var(--color-primary)' }} />
+                      <span>{activeItem.label}</span>
+                    </div>
+
+                    <div style={{ fontFamily: 'var(--font-headline)', fontSize: 'clamp(2.5rem, 5vw, 4.2rem)', fontWeight: '800', color: 'var(--color-dark)', lineHeight: '1', margin: '8px 0' }}>
+                      {activeItem.year}
+                    </div>
+
+                    <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.25rem', fontWeight: '600', color: 'var(--color-charcoal)', marginBottom: '14px' }}>
+                      {activeItem.title}
+                    </h3>
+
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.94rem', lineHeight: '1.65', color: 'var(--color-gray)', marginBottom: '24px' }}>
+                      {activeItem.desc}
+                    </p>
+
+                    <div style={{ display: 'inline-block', background: 'var(--color-cream)', padding: '10px 20px', borderRadius: '6px', borderLeft: '3px solid var(--color-primary)' }}>
+                      <div style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--color-dark)', fontFamily: 'var(--font-headline)' }}>
+                        {activeItem.metric}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-gray)', fontWeight: '600' }}>
+                        {activeItem.metricLabel}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ borderRadius: '8px', overflow: 'hidden', boxShadow: '0 12px 30px rgba(0,0,0,0.15)', height: '320px', position: 'relative' }}>
+                    <img
+                      src={
+                        activeIndex === 0 ? 'assets/img/proceso-1-apertura-tolvas.jpg' :
+                        activeIndex === 1 ? 'assets/img/proceso-4-hilatura-filetas.jpg' :
+                        activeIndex === 2 ? 'assets/img/proceso-3-cinta-mecha-espiral.jpg' :
+                        activeIndex === 3 ? 'assets/img/producto-pano-amarillo-pallet.jpg' :
+                        'assets/img/nosotros-director-planta.jpg'
+                      }
+                      alt={activeItem.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      loading="lazy"
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 18px', background: 'linear-gradient(transparent, rgba(22, 40, 60, 0.9))', color: '#FFFFFF', fontSize: '0.75rem', fontFamily: 'var(--font-headline)' }}>
+                      Instalaciones Fabriles • Santa Teresa del Tuy
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TiltCard3D>
+          </div>
+        </section>
+      );
+    };
+
+    // 5. FICHAS TECNICAS DE LABORATORIO Y CALCULADORA (PORTAL PRODUCTOS)
+    const TechnicalSpecTabs = ({ onNavigate }) => {
+      const [activeProd, setActiveProd] = useState('pabilo');
+      const [copied, setCopied] = useState(false);
+
+      const productsData = {
+        pabilo: {
+          name: 'Pabilo de Algodón Homogéneo',
+          tagline: 'Fibra Seleccionada para Mechas, Velas y Amarre Técnico',
+          img: 'assets/img/producto-pabilo-fardo-18kg.jpg',
+          table: [
+            { param: 'Título Ne / Nm', value: 'Ne 4/1 – 6/2 Normalizado', standard: 'ASTM D1907' },
+            { param: 'Tenacidad a la Rotura', value: '14.8 cN/tex ± 0.6', standard: 'COVENIN 1022' },
+            { param: 'Torsión por Metro (TPM)', value: '260 TPM (Sentido Z)', standard: 'ASTM D1423' },
+            { param: 'Uniformidad Uster (CV%)', value: '≤ 12.5%', standard: 'Uster Tester 5' },
+            { param: 'Absorción Capilar', value: 'Instantánea (< 2.5 seg)', standard: 'DIN 53924' },
+            { param: 'Presentación Estándar', value: 'Fardos de 18 kg (enfundados en rafia impermeable) y ovillos de 100g – 500g', standard: 'Norma Fábrica' }
+          ],
+          applications: ['Fabricación de mechas para velas e iluminación', 'Confección de trapeadores y mopas de uso ligero', 'Embalaje técnico y paquetería artesanal', 'Atado agroindustrial'],
+          rfqText: `SOLICITUD RFQ - PABILO HOMOGÉNEO MONNIR\nLínea: Pabilo de Algodón Homogéneo\nPresentación: Fardo estándar de 18 kg\nNorma: ASTM D1907 / COVENIN 1022\nDestino y Lote a cotizar.`
+        },
+        coleto: {
+          name: 'Hilo de Coleto de Alta Tenacidad',
+          tagline: 'Urdimbre Resistente y Alta Capacidad de Retención de Líquidos',
+          img: 'assets/img/producto-cordon-detalle.jpg',
+          table: [
+            { param: 'Título Ne / Nm', value: 'Ne 3/1 – 4/2 Extra Grueso', standard: 'ASTM D1907' },
+            { param: 'Tenacidad a la Rotura', value: '16.5 cN/tex', standard: 'COVENIN 1022' },
+            { param: 'Torsión por Metro (TPM)', value: '220 TPM (Sentido S)', standard: 'ASTM D1423' },
+            { param: 'Composición de Fibra', value: 'Algodón recuperado 85% + Poliéster técnico 15%', standard: 'AATCC 20A' },
+            { param: 'Resistencia al Desgaste Húmedo', value: '> 8,500 ciclos Martindale', standard: 'ISO 12947-2' },
+            { param: 'Presentación Estándar', value: 'Bobinas de 2.0 kg a 2.5 kg en cajas paletizadas', standard: 'Norma Fábrica' }
+          ],
+          applications: ['Tejeduría de coletos industriales para aseo pesado', 'Mopas de uso hospitalario y comercial', 'Refuerzo de empaques y sacos textiles'],
+          rfqText: `SOLICITUD RFQ - HILO DE COLETO MONNIR\nLínea: Hilo de Coleto de Alta Tenacidad\nPresentación: Bobinas de 2.5 kg paletizadas\nDestino y Lote a cotizar.`
+        },
+        cordon: {
+          name: 'Cordón Trenzado y Torcido',
+          tagline: 'Alma Continua sin Nudos Espurios para Resistencia Mecánica',
+          img: 'assets/img/producto-cordon-paquetes.jpg',
+          table: [
+            { param: 'Diámetros Disponibles', value: '3.0 mm a 12.0 mm', standard: 'Calibre Calibrado' },
+            { param: 'Carga de Rotura Mínima', value: '45 kgf a 280 kgf según calibre', standard: 'COVENIN 1023' },
+            { param: 'Construcción', value: '3 y 4 cabos torcidos o trenzado tubular con alma', standard: 'Norma Fábrica' },
+            { param: 'Elongación a la Rotura', value: '8.5% ± 1.2%', standard: 'ASTM D2256' },
+            { param: 'Resistencia a la Fricción', value: 'Tratamiento antifricción superficial', standard: 'Control Interno' },
+            { param: 'Presentación Estándar', value: 'Rollos de 100m, 200m y madejas enfardadas de 18 kg', standard: 'Embalaje Flejado' }
+          ],
+          applications: ['Amarre agrícola y entutorado de cultivos', 'Ferretería y cordelería en general', 'Confección de bolsos y empaques industriales'],
+          rfqText: `SOLICITUD RFQ - CORDÓN TRENZADO MONNIR\nLínea: Cordón Trenzado y Torcido\nCalibres: 3mm - 12mm\nDestino y Lote a cotizar.`
+        },
+        pano: {
+          name: 'Paño Amarillo de Limpieza Pesada (Estrella)',
+          tagline: 'Tejido Absorbente de Alta Densidad para Despacho Mayorista',
+          img: 'assets/img/producto-pano-amarillo-pallet.jpg',
+          table: [
+            { param: 'Gramaje Superficial', value: '180 g/m² – 240 g/m²', standard: 'ASTM D3776' },
+            { param: 'Ancho de Rollo / Paño', value: '0.40m, 0.50m y rollos de 1.00m', standard: 'Medida Estándar' },
+            { param: 'Capacidad de Retención', value: '550% de su propio peso en agua', standard: 'ASTM D1117' },
+            { param: 'Colorante y Fijación', value: 'Pigmento amarillo reactivo resistente al cloro', standard: 'AATCC 8' },
+            { param: 'Resistencia al Rasgado', value: 'Longitudinal ≥ 32 N / Transversal ≥ 28 N', standard: 'ASTM D1424' },
+            { param: 'Presentación de Despacho', value: 'Pallets completos de 500 a 1,200 unidades enfardadas', standard: 'Pallet Exportación' }
+          ],
+          applications: ['Grandes cadenas de supermercados y ferreterías', 'Mantenimiento industrial y talleres mecánicos', 'Limpieza corporativa e institucional'],
+          rfqText: `SOLICITUD RFQ - PAÑO AMARILLO MONNIR\nLínea: Paño Amarillo Mayorista\nPresentación: Pallets completos de fábrica\nDestino y Lote a cotizar.`
+        }
+      };
+
+      const current = productsData[activeProd];
+
+      const handleCopyRFQ = () => {
+        navigator.clipboard.writeText(current.rfqText);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      };
+
+      return (
+        <section className="section section-dark">
+          <div className="container">
+            <div className="section-header">
+              <span className="section-label">Fichas de Laboratorio y Parámetros ASTM</span>
+              <h2 className="section-title">
+                Arquitectura Técnica de <em>Nuestras 4 Líneas Fabriles</em>
+              </h2>
+              <p className="section-subtitle">
+                Consulte las tolerancias mecánicas, composición y especificaciones de despacho para órdenes de compra industriales y comités de aseguramiento de calidad.
+              </p>
+            </div>
+
+            {/* Selector de Producto */}
+            <div className="b2b-tabs-header" style={{ justifyContent: 'center' }}>
+              <button className={`b2b-tab-pill ${activeProd === 'pabilo' ? 'active' : ''}`} onClick={() => setActiveProd('pabilo')}>1. Pabilo Homogéneo</button>
+              <button className={`b2b-tab-pill ${activeProd === 'coleto' ? 'active' : ''}`} onClick={() => setActiveProd('coleto')}>2. Hilo de Coleto</button>
+              <button className={`b2b-tab-pill ${activeProd === 'cordon' ? 'active' : ''}`} onClick={() => setActiveProd('cordon')}>3. Cordón Torcido</button>
+              <button className={`b2b-tab-pill ${activeProd === 'pano' ? 'active' : ''}`} onClick={() => setActiveProd('pano')}>4. Paño Amarillo (Estrella)</button>
+            </div>
+
+            {/* Contenedor de Detalle Técnico con Tilt 3D */}
+            <TiltCard3D>
+              <div style={{ background: 'rgba(22, 40, 60, 0.95)', border: '1px solid rgba(212, 178, 140, 0.3)', borderRadius: '10px', padding: 'clamp(20px, 3.5vw, 36px)', boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', marginBottom: '28px' }}>
+                  {/* Foto y Visor */}
+                  <div>
+                    <div style={{ borderRadius: '8px', overflow: 'hidden', height: '280px', position: 'relative', border: '1px solid rgba(212, 178, 140, 0.2)' }}>
+                      <img src={current.img} alt={current.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                      <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'rgba(22, 40, 60, 0.85)', padding: '4px 12px', borderRadius: '9999px', fontSize: '0.7rem', color: 'var(--color-accent)', fontWeight: '600', border: '1px solid var(--color-accent)' }}>
+                        Fotografía Real de Lote
+                      </div>
+                    </div>
+
+                    <div style={{ marginTop: '16px' }}>
+                      <div style={{ fontSize: '0.72rem', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600' }}>Aplicaciones Clave:</div>
+                      <ul style={{ listStyle: 'none', padding: 0, marginTop: '8px' }}>
+                        {current.applications.map((app, i) => (
+                          <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.84rem', color: 'rgba(255, 255, 255, 0.82)', marginBottom: '6px' }}>
+                            <span style={{ color: 'var(--color-accent)' }}>✓</span> {app}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Tabla Técnica */}
+                  <div>
+                    <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.4rem', fontWeight: '700', color: '#FFFFFF', marginBottom: '6px' }}>
+                      {current.name}
+                    </h3>
+                    <p style={{ fontSize: '0.86rem', color: 'var(--color-sand)', marginBottom: '18px' }}>
+                      {current.tagline}
+                    </p>
+
+                    <div className="spec-table-container">
+                      <table className="spec-table">
+                        <thead>
+                          <tr>
+                            <th>Parámetro Físico</th>
+                            <th>Valor Nominal</th>
+                            <th>Norma / Método</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {current.table.map((row, idx) => (
+                            <tr key={idx}>
+                              <td style={{ fontWeight: '600', color: '#FFFFFF' }}>{row.param}</td>
+                              <td>{row.value}</td>
+                              <td style={{ color: 'var(--color-accent)', fontSize: '0.75rem' }}>{row.standard}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '22px' }}>
+                      <button className="m-btn-furrow" onClick={handleCopyRFQ}>
+                        <span>{copied ? '✓ Especificación Copiada' : 'Copiar Ficha RFQ'}</span>
+                        <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                          <g fill="currentColor">
+                            <rect x="-100" y="-19" width="200" height="38" />
+                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                          </g>
+                        </svg>
+                      </button>
+
+                      <button className="m-link-furrow" onClick={() => onNavigate('contacto')}>
+                        Cotizar Este Producto en Mesa B2B →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TiltCard3D>
+          </div>
+        </section>
+      );
+    };
+
+    // 6. CALCULADORA LOGISTICA DE CUBITAJE B2B
+    const LogisticsCalculator = ({ onNavigate }) => {
+      const [quantity, setQuantity] = useState(100); // 100 fardos
+      const [productType, setProductType] = useState('fardos18');
+
+      const netWeight = productType === 'fardos18' ? quantity * 18 : quantity * 25;
+      const grossWeight = Math.round(netWeight * 1.02); // con flejes y empaque
+      const volumeM3 = (quantity * 0.08).toFixed(2);
+      const pallets = Math.ceil(quantity / 28); // 28 fardos por pallet estándar
+
+      const truckRecommendation =
+        netWeight > 12000 ? 'Gandola Chuto de 48 pies (Capacidad hasta 24 Ton)' :
+        netWeight > 3500 ? 'Camión 600 / Turbo (Capacidad hasta 8 Ton)' :
+        'Camión 350 Plataforma o Flete Consolidado';
+
+      return (
+        <section className="section section-charcoal" style={{ borderTop: '1px solid rgba(212, 178, 140, 0.15)' }}>
+          <div className="container">
+            <div className="section-header">
+              <span className="section-label">Herramienta para Gerentes de Compras & Logística</span>
+              <h2 className="section-title">
+                Calculadora de <em>Cubitaje y Despacho de Carga</em>
+              </h2>
+              <p className="section-subtitle">
+                Estime el peso total, cantidad de pallets requeridos y tipo de transporte recomendado para planificar su recepción en andén de bodega.
+              </p>
+            </div>
+
+            <TiltCard3D>
+              <div style={{ background: 'rgba(31, 58, 95, 0.7)', border: '1px solid rgba(212, 178, 140, 0.3)', borderRadius: '10px', padding: 'clamp(20px, 3.5vw, 36px)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', alignItems: 'center' }}>
+                  {/* Selectores */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.74rem', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600', marginBottom: '8px' }}>
+                      Tipo de Presentación:
+                    </label>
+                    <select
+                      value={productType}
+                      onChange={(e) => setProductType(e.target.value)}
+                      className="form-select"
+                      style={{ marginBottom: '20px' }}
+                    >
+                      <option value="fardos18">Fardos Estándar de 18 kg (Pabilo / Coleto / Madejas)</option>
+                      <option value="rollos25">Rollos Mayoristas de 25 kg (Paño Amarillo / Telas)</option>
+                    </select>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '0.74rem', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600' }}>
+                        Volumen Deseado:
+                      </span>
+                      <span style={{ fontSize: '1.2rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>
+                        {quantity} Unidades
+                      </span>
+                    </div>
+
+                    <input
+                      type="range"
+                      min="10"
+                      max="1000"
+                      step="10"
+                      value={quantity}
+                      onChange={(e) => setQuantity(Number(e.target.value))}
+                      className="b2b-range-slider"
+                    />
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--color-medium-gray)' }}>
+                      <span>10 un. (Muestreo)</span>
+                      <span>500 un. (Medio Lote)</span>
+                      <span>1,000 un. (Lote Industrial)</span>
+                    </div>
+                  </div>
+
+                  {/* Resumen Calculado */}
+                  <div style={{ background: 'rgba(22, 40, 60, 0.85)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                    <div style={{ fontSize: '0.72rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600', marginBottom: '14px' }}>
+                      Resumen Logístico Proyectado:
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                      <div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>
+                          {(netWeight / 1000).toFixed(2)} <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>Ton</span>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase' }}>Peso Neto</div>
+                      </div>
+
+                      <div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>
+                          {pallets} <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>Pallets</span>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase' }}>Espacio en Bodega</div>
+                      </div>
+
+                      <div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>
+                          {volumeM3} <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>m³</span>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase' }}>Volumen Cúbico</div>
+                      </div>
+
+                      <div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>
+                          {grossWeight.toLocaleString()} <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>kg</span>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase' }}>Peso Bruto (con embalaje)</div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: 'rgba(212, 178, 140, 0.1)', borderLeft: '3px solid var(--color-accent)', padding: '10px 14px', borderRadius: '4px', fontSize: '0.78rem', color: 'var(--color-sand)', marginBottom: '16px' }}>
+                      <strong>Vehículo Recomendado:</strong> {truckRecommendation}
+                    </div>
+
+                    <button className="m-btn-furrow" style={{ width: '100%', justifyContent: 'center' }} onClick={() => onNavigate('contacto')}>
+                      <span>Transferir Parámetros a Mesa RFQ</span>
+                      <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                        <g fill="currentColor">
+                          <rect x="-100" y="-19" width="200" height="38" />
+                          <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                          <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </TiltCard3D>
+          </div>
+        </section>
+      );
+    };
+
+    // 7. NAVEGADOR DE LAS 6 ETAPAS FABRILES CON MODAL ZOOM (PORTAL PROCESOS)
+    const ProcessStagesBrowser = () => {
+      const stages = [
+        {
+          num: '01',
+          name: 'Apertura & Mezcla',
+          machine: 'Batería de Tolvas Abridoras & Desmotadoras Pesadas',
+          desc: 'Los excedentes textiles seleccionados ingresan a las tolvas mecánicas donde cilindros batidores abren la masa, separan impurezas y crean una mezcla homogénea de fibra.',
+          tolerance: 'Tolerancia de densidad ± 2.0%',
+          img: 'assets/img/proceso-1-apertura-tolvas.jpg'
+        },
+        {
+          num: '02',
+          name: 'Cardado de Cilindro',
+          machine: 'Línea de Cardas de Alta Precisión con Guarnición Rígida',
+          desc: 'Las fibras son paralelizadas y desenredadas individualmente sobre tambores giratorios con millones de púas de acero especial, formando un velo continuo ultraligero.',
+          tolerance: 'Gramaje del velo: 4.8 g/m',
+          img: 'assets/img/proceso-2-cardas-linea.jpg'
+        },
+        {
+          num: '03',
+          name: 'Cinta & Mecha en Espiral',
+          machine: 'Manuares de Doblado & Botes de Descarga Espiral',
+          desc: 'El velo de carda se condensa a través de una boquilla de acero pulido y se deposita en botes de gran capacidad con plegado sinusoidal para alimentar las hiladoras.',
+          tolerance: 'Sin distorsión de tensión',
+          img: 'assets/img/proceso-3-cinta-mecha-espiral.jpg'
+        },
+        {
+          num: '04',
+          name: 'Hilatura Continua',
+          machine: 'Filetas Continuas de Husos Múltiples & Rotor Open-End',
+          desc: 'La mecha es sometida a estiraje fino y torsión axial continua. Los husos giran a miles de revoluciones fijando la tenacidad y el calibre exacto del hilo.',
+          tolerance: 'Control Uster en línea activa',
+          img: 'assets/img/proceso-4-hilatura-filetas.jpg'
+        },
+        {
+          num: '05',
+          name: 'Enconado & Retorcido',
+          machine: 'Enconadoras Automáticas con Purgadores Electrónicos',
+          desc: 'El hilo se transfiere a conos de cartón prensado y plástico industrial con bobinado cruzado, eliminando cualquier variación o nudo espurio.',
+          tolerance: 'Tensión constante de bobinado',
+          img: 'assets/img/proceso-5-conos-hilado.jpg'
+        },
+        {
+          num: '06',
+          name: 'Enfardado & Paletizado',
+          machine: 'Prensa Hidráulica de 18 kg & Envolvedora Stretch',
+          desc: 'El producto terminado se comprime a exactamente 18 kg por fardo, se enfunda en rafia impermeable, se etiqueta con código de lote y se estiba en pallets flejados.',
+          tolerance: 'Báscula calibrada ± 0.1 kg',
+          img: 'assets/img/proceso-6-despacho-pallet.jpg'
+        }
+      ];
+
+      const [selectedStage, setSelectedStage] = useState(0);
+      const [modalImg, setModalImg] = useState(null);
+
+      const active = stages[selectedStage];
+
+      return (
+        <section className="section section-dark">
+          <div className="container">
+            <div className="section-header">
+              <span className="section-label">Cadena de Transformación Físico-Mecánica</span>
+              <h2 className="section-title">
+                Las Seis Etapas de <em>Manufactura de Precisión</em>
+              </h2>
+              <p className="section-subtitle">
+                Haga clic en cada fase para explorar la maquinaria pesada real, los parámetros de tolerancia y la evidencia fotográfica de nuestra planta en los Valles del Tuy.
+              </p>
+            </div>
+
+            {/* Selector de Etapas en Tabs */}
+            <div className="b2b-tabs-header" style={{ justifyContent: 'center' }}>
+              {stages.map((stg, i) => (
+                <button
+                  key={stg.num}
+                  className={`b2b-tab-pill ${selectedStage === i ? 'active' : ''}`}
+                  onClick={() => setSelectedStage(i)}
+                >
+                  <span style={{ fontWeight: '800', color: 'var(--color-accent)' }}>{stg.num}</span>
+                  <span>{stg.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Vista Detallada de la Etapa con Tilt 3D */}
+            <TiltCard3D>
+              <div style={{ background: 'rgba(31, 58, 95, 0.65)', border: '1px solid rgba(212, 178, 140, 0.3)', borderRadius: '10px', padding: 'clamp(20px, 4vw, 40px)', boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ display: 'inline-block', background: 'rgba(212, 178, 140, 0.15)', color: 'var(--color-accent)', padding: '4px 14px', borderRadius: '9999px', fontSize: '0.74rem', letterSpacing: '0.1em', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px' }}>
+                      Fase Operativa {active.num} de 06
+                    </div>
+
+                    <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: '700', color: '#FFFFFF', marginBottom: '8px' }}>
+                      {active.name}
+                    </h3>
+
+                    <div style={{ fontSize: '0.88rem', color: 'var(--color-sand)', fontWeight: '600', marginBottom: '16px', fontFamily: 'var(--font-headline)' }}>
+                      ⚙️ {active.machine}
+                    </div>
+
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', lineHeight: '1.65', color: 'rgba(255, 255, 255, 0.85)', marginBottom: '22px' }}>
+                      {active.desc}
+                    </p>
+
+                    <div style={{ background: 'rgba(22, 40, 60, 0.9)', borderLeft: '3px solid var(--color-accent)', padding: '12px 18px', borderRadius: '4px', fontSize: '0.8rem', color: 'var(--color-sand)' }}>
+                      <strong>Control de Calidad:</strong> {active.tolerance}
+                    </div>
+                  </div>
+
+                  <div
+                    style={{ borderRadius: '8px', overflow: 'hidden', height: '320px', position: 'relative', cursor: 'zoom-in', border: '1px solid rgba(212, 178, 140, 0.3)' }}
+                    onClick={() => setModalImg(active.img)}
+                    title="Haga clic para ampliar foto en alta resolución"
+                  >
+                    <img src={active.img} alt={active.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                    <div style={{ position: 'absolute', bottom: '12px', right: '12px', background: 'rgba(22, 40, 60, 0.85)', padding: '6px 14px', borderRadius: '9999px', fontSize: '0.7rem', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>🔍 Ampliar Fotografía Fabril</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TiltCard3D>
+
+            {/* Modal de Zoom */}
+            {modalImg && (
+              <div className="factory-modal-overlay" onClick={() => setModalImg(null)}>
+                <div className="factory-modal-card" onClick={(e) => e.stopPropagation()}>
+                  <div style={{ padding: '12px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(22, 40, 60, 0.95)', borderBottom: '1px solid rgba(212, 178, 140, 0.2)' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-accent)', fontWeight: '600' }}>Evidencia Fabril Registrada en Planta</span>
+                    <button onClick={() => setModalImg(null)} style={{ background: 'none', border: 'none', color: '#FFFFFF', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
+                  </div>
+                  <img src={modalImg} alt="Evidencia Fabril" style={{ width: '100%', maxHeight: '75vh', objectFit: 'contain', display: 'block' }} />
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      );
+    };
+
+    // 8. MATRIZ DE SOLUCIONES POR SECTOR INDUSTRIAL (PORTAL CLIENTES)
+    const IndustrySolutionsTabs = ({ onNavigate }) => {
+      const [activeSector, setActiveSector] = useState('limpieza');
+
+      const sectors = {
+        limpieza: {
+          title: 'Empresas de Limpieza & Fabricantes de Aseo',
+          desc: 'Suministro garantizado de pabilo y madejas de coleto con alta absorción capilar para la confección de trapeadores industriales y mopas de uso rudo.',
+          recom: 'Pabilo de Algodón en fardos de 18 kg y Paño Amarillo en pallets',
+          cadence: 'Entregas programadas cada 15 o 30 días',
+          minOrder: '1 Pallet (28 fardos = 504 kg)'
+        },
+        cordoneria: {
+          title: 'Cordonerías & Fábricas de Empaque',
+          desc: 'Hilado de torsión uniforme y tenacidad comprobada para procesos continuos de torcido, trenzado de cuerdas y costura de sacos de embalaje.',
+          recom: 'Hilo de Coleto Ne 4/1 en bobinas de 2.5 kg y Cordón Torcido continuo',
+          cadence: 'Despacho continuo con reserva de lote en planta',
+          minOrder: '1 Tonelada métrica'
+        },
+        ferreteria: {
+          title: 'Redes de Ferreterías & Distribuidores Mayoristas',
+          desc: 'Presentaciones listas para anaquel y venta por volumen con empaque flejado impermeable y rotulación de calibre para fácil identificación.',
+          recom: 'Ovillos de pabilo 100g – 500g y paquetes de paño amarillo de 12 unidades',
+          cadence: 'Reposición rápida en 24 a 48 horas en eje central',
+          minOrder: '50 bultos mixtos'
+        },
+        agro: {
+          title: 'Sector Agroindustrial & Cultivos',
+          desc: 'Hilos y cordeles de fibra 100% biodegradable sin aditivos químicos tóxicos, ideales para entutorado de hortalizas, sujeción de plantas y amarre de fardos de heno.',
+          recom: 'Cordón de 3mm – 5mm en bobinas cilíndricas protegidas',
+          cadence: 'Despacho estacional por ciclos de siembra y cosecha',
+          minOrder: '500 kg'
+        }
+      };
+
+      const curr = sectors[activeSector];
+
+      return (
+        <section className="section section-cream">
+          <div className="container">
+            <div className="section-header">
+              <span className="section-label">Alianzas Estratégicas B2B</span>
+              <h2 className="section-title">
+                Soluciones Diseñadas para <em>Cada Rama de la Industria</em>
+              </h2>
+              <p className="section-subtitle">
+                Adaptamos la presentación, el calibre y la periodicidad logística de suministro a las exigencias operativas de su sector.
+              </p>
+            </div>
+
+            <div className="b2b-tabs-header" style={{ justifyContent: 'center' }}>
+              <button className={`b2b-tab-pill ${activeSector === 'limpieza' ? 'active' : ''}`} onClick={() => setActiveSector('limpieza')}>🧼 Aseo & Limpieza</button>
+              <button className={`b2b-tab-pill ${activeSector === 'cordoneria' ? 'active' : ''}`} onClick={() => setActiveSector('cordoneria')}>🧵 Cordonería & Empaque</button>
+              <button className={`b2b-tab-pill ${activeSector === 'ferreteria' ? 'active' : ''}`} onClick={() => setActiveSector('ferreteria')}>🔨 Ferreterías Mayoristas</button>
+              <button className={`b2b-tab-pill ${activeSector === 'agro' ? 'active' : ''}`} onClick={() => setActiveSector('agro')}>🌱 Agroindustria</button>
+            </div>
+
+            <TiltCard3D>
+              <div style={{ background: '#FFFFFF', border: '1px solid rgba(31, 58, 95, 0.15)', borderRadius: '10px', padding: 'clamp(24px, 4vw, 40px)', boxShadow: '0 16px 40px rgba(0, 0, 0, 0.08)' }}>
+                <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '12px' }}>
+                  {curr.title}
+                </h3>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.94rem', lineHeight: '1.65', color: 'var(--color-gray)', marginBottom: '24px' }}>
+                  {curr.desc}
+                </p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px', marginBottom: '28px' }}>
+                  <div style={{ background: 'var(--color-cream)', padding: '16px', borderRadius: '6px', borderLeft: '3px solid var(--color-primary)' }}>
+                    <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-gray)', fontWeight: '600' }}>Producto Recomendado</div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--color-dark)', marginTop: '4px', fontFamily: 'var(--font-headline)' }}>{curr.recom}</div>
+                  </div>
+
+                  <div style={{ background: 'var(--color-cream)', padding: '16px', borderRadius: '6px', borderLeft: '3px solid var(--color-primary)' }}>
+                    <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-gray)', fontWeight: '600' }}>Frecuencia de Despacho</div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--color-dark)', marginTop: '4px', fontFamily: 'var(--font-headline)' }}>{curr.cadence}</div>
+                  </div>
+
+                  <div style={{ background: 'var(--color-cream)', padding: '16px', borderRadius: '6px', borderLeft: '3px solid var(--color-primary)' }}>
+                    <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-gray)', fontWeight: '600' }}>Lote Mínimo de Entrada</div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--color-dark)', marginTop: '4px', fontFamily: 'var(--font-headline)' }}>{curr.minOrder}</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+                  <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                    <span>Solicitar Cotización para este Sector</span>
+                    <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                      <g fill="currentColor">
+                        <rect x="-100" y="-19" width="200" height="38" />
+                        <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                        <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                      </g>
+                    </svg>
+                  </button>
+                  <button className="m-link-furrow" style={{ color: 'var(--color-primary)' }} onClick={() => onNavigate('productos')}>
+                    Ver Catálogo Completo →
+                  </button>
+                </div>
+              </div>
+            </TiltCard3D>
+          </div>
+        </section>
+      );
+    };
+
+    // 9. ACORDEON DE PREGUNTAS FRECUENTES B2B (PORTAL CONTACTO)
+    const CorporateFAQ = () => {
+      const [openIdx, setOpenIdx] = useState(0);
+
+      const faqs = [
+        {
+          q: '¿Cuáles son los tiempos de respuesta para una cotización formal (RFQ)?',
+          a: 'Nuestro equipo comercial emite cotizaciones formales con desglose de precios, condiciones de entrega y tiempos de despacho en menos de 2 horas hábiles tras la recepción de la solicitud.'
+        },
+        {
+          q: '¿Podemos solicitar muestras de laboratorio antes de emitir la orden de compra?',
+          a: 'Sí. Disponemos de muestras técnicas de pabilo, hilo y telas para ensayos de tracción, combustión y absorción en sus laboratorios de control de calidad.'
+        },
+        {
+          q: '¿Cuáles son las condiciones de flete y entrega a nivel nacional?',
+          a: 'Realizamos entregas directas con flota propia en la Gran Caracas, Valles del Tuy y Eje Central (Aragua/Carabobo). Para el resto del país coordinamos con líneas de transporte aliadas con retiro en planta o entrega en andén de destino.'
+        },
+        {
+          q: '¿Es posible realizar visitas de auditoría a la planta fabril?',
+          a: 'Con total agrado. Los compradores corporativos pueden coordinar visitas guiadas a nuestras instalaciones en Santa Teresa del Tuy para auditar la escala fabril, los procesos y el stock disponible.'
+        },
+        {
+          q: '¿Manejan acuerdos de suministro continuo con reserva de inventario?',
+          a: 'Sí. Para clientes con demanda recurrente estructuramos contratos de suministro anual con reserva de inventario de seguridad en planta, garantizando precio y abastecimiento sin interrupciones.'
+        }
+      ];
+
+      return (
+        <div style={{ marginTop: '36px' }}>
+          <div style={{ fontSize: '0.74rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontWeight: '600', marginBottom: '14px' }}>
+            Preguntas Frecuentes de Comités de Compras:
+          </div>
+
+          {faqs.map((f, i) => (
+            <div key={i} className={`faq-accordion-item ${openIdx === i ? 'open' : ''}`}>
+              <button className="faq-trigger" onClick={() => setOpenIdx(openIdx === i ? -1 : i)}>
+                <span>{f.q}</span>
+                <span className="faq-icon">{openIdx === i ? '−' : '+'}</span>
+              </button>
+              {openIdx === i && (
+                <div className="faq-content">
+                  {f.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    // ============================================
+    // 1. PORTAL INICIO (HERO INTACTO + TRONCO 3D & B2B)
+    // ============================================
     const PortalInicio = ({ onNavigate }) => {
+      const filmstripPhotos = [
+        { title: 'Apertura de Tolvas', phase: 'Fase 01', img: 'assets/img/proceso-1-apertura-tolvas.jpg', caption: 'Tolvas de mezcla y apertura mecánica continua' },
+        { title: 'Cardas de Precisión', phase: 'Fase 02', img: 'assets/img/proceso-2-cardas-linea.jpg', caption: 'Batería de cardas para formación del velo textil' },
+        { title: 'Cinta en Espiral', phase: 'Fase 03', img: 'assets/img/proceso-3-cinta-mecha-espiral.jpg', caption: 'Botes giratorios para alimentación de hilatura' },
+        { title: 'Hilatura en Filetas', phase: 'Fase 04', img: 'assets/img/proceso-4-hilatura-filetas.jpg', caption: 'Husos continuos con torsión y calibre controlado' },
+        { title: 'Bobinas de Hilado', phase: 'Fase 05', img: 'assets/img/proceso-5-conos-hilado.jpg', caption: 'Enconado con tensión balanceada para tejeduría' },
+        { title: 'Pallets de Despacho', phase: 'Fase 06', img: 'assets/img/proceso-6-despacho-pallet.jpg', caption: 'Consolidación de carga para fletes nacionales' },
+      ];
+
       return (
         <div>
+          {/* HERO PRINCIPAL (PRESERVADO INTACTO) */}
           <section className="hero-furrow">
             <div className="hero-furrow-media" aria-hidden="true">
               <img
@@ -1833,147 +3183,224 @@
             </div>
           </section>
 
-<Marquee />
+          <Marquee />
 
-          {/* SOBRE MONNIR PREVIEW */}
-          <section className="section section-white">
+          {/* TRONCO SECCIÓN 1: VISOR 3D DE BOBINA TEXTIL & NARRATIVA TECNICA */}
+          <section className="section section-dark">
             <div className="container">
-              <div className="two-col">
-                <div className="two-col-text">
-                  <span className="section-eyebrow">Economía Circular Textil</span>
-                  <h3>El desperdicio de unos, es el <em>tesoro de otros</em></h3>
-                  <p>
-                    <strong>Industrias Monnir C. A.</strong> nació hace más de seis décadas con una visión clara: dar valor a lo que otros descartan. Hoy somos el puente definitivo entre la tradición industrial y la sostenibilidad en Venezuela.
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', alignItems: 'center' }}>
+                <div>
+                  <span className="section-label">Ingeniería Textil & Física de la Fibra</span>
+                  <h2 className="section-title">
+                    Torsión y Calibre <em>Calibrados a Nivel Microscópico</em>
+                  </h2>
+                  <p className="section-subtitle" style={{ marginBottom: '22px' }}>
+                    Cada cono de hilo producido en nuestra planta de Santa Teresa del Tuy responde a una rigurosa curva de elasticidad, regularidad de torsión (TPM) y tenacidad mecánica diseñada para operar sin roturas en telares industriales de alta velocidad.
                   </p>
-                  <p>
-                    Con más de 60 años perfeccionando nuestros procesos de clasificación y desfibrado, transformamos excedentes textiles en pabilo, coleto, cordón y paño amarillo con los más altos estándares del mercado.
-                  </p>
-                  <div className="btn-group" style={{ justifyContent: 'flex-start', marginTop: '24px' }}>
-                    <button className="btn-primary" onClick={() => onNavigate('nosotros')}>
-                      Nuestra Historia y Trayectoria
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '28px' }}>
+                    <div style={{ background: 'rgba(31, 58, 95, 0.5)', padding: '16px', borderRadius: '6px', borderLeft: '3px solid var(--color-accent)' }}>
+                      <div style={{ fontSize: '1.4rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>16.5 cN/tex</div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Tenacidad de Rotura</div>
+                    </div>
+                    <div style={{ background: 'rgba(31, 58, 95, 0.5)', padding: '16px', borderRadius: '6px', borderLeft: '3px solid var(--color-accent)' }}>
+                      <div style={{ fontSize: '1.4rem', fontWeight: '700', color: '#FFFFFF', fontFamily: 'var(--font-headline)' }}>260 TPM</div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Torsión Balanceada Z</div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                    <button className="m-btn-furrow" onClick={() => onNavigate('procesos')}>
+                      <span>Ver Proceso de Hilatura</span>
+                      <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                        <g fill="currentColor">
+                          <rect x="-100" y="-19" width="200" height="38" />
+                          <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                          <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                        </g>
+                      </svg>
+                    </button>
+                    <button className="m-link-furrow" onClick={() => onNavigate('productos')}>
+                      Consultar Especificaciones ASTM →
                     </button>
                   </div>
                 </div>
 
-                <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)' }}>
-                  <img 
-                    src="assets/img/nosotros-director-planta.jpg" 
-                    alt="Nave Central de Industrias Monnir C.A." 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '340px' }}
-                  />
+                {/* Visor 3D Interactivo */}
+                <div>
+                  <YarnSpool3DViewer />
+                  <div style={{ textAlign: 'center', marginTop: '10px', fontSize: '0.72rem', color: 'var(--color-medium-gray)' }}>
+                    ✦ Arrastre con el mouse para rotar el modelo 3D • Alterne colores y malla de alambre
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* PRODUCTOS PREVIEW (LAS 4 LÍNEAS REALES) */}
+          {/* TRONCO SECCIÓN 2: SIMULADOR DE IMPACTO DE ECONOMIA CIRCULAR */}
+          <CircularEconomyComparator />
+
+          {/* TRONCO SECCIÓN 3: SHOWCASE DE LAS 4 LÍNEAS REALES CON TILT 3D */}
           <section className="section section-cream">
             <div className="container">
               <div className="section-header">
-                <span className="section-eyebrow">Catálogo Mayorista</span>
-                <h2 className="section-title">Nuestras 4 líneas de <em>producción</em></h2>
-                <div className="section-line" />
+                <span className="section-label">Catálogo Primario de Fabricación</span>
+                <h2 className="section-title">
+                  Las Cuatro Líneas <em>Estratégicas de Monnir</em>
+                </h2>
                 <p className="section-subtitle">
-                  Fibras recuperadas y productos textiles manufacturados en nuestra planta de Santa Teresa del Tuy
+                  Especialización absoluta en las 4 familias de productos reales que lideran el mercado nacional de aseo, embalaje y ferretería mayorista.
                 </p>
               </div>
 
-              <div className="products-grid">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '24px' }}>
                 {/* 1. PABILO */}
-                <div className="product-card">
-                  <div className="product-card-image">
-                    <img 
-                      src="assets/img/producto-pabilo-fardo-18kg.jpg" 
-                      alt="Fardos de Pabilo Industrial 18 kg" 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                <TiltCard3D>
+                  <div style={{ background: '#FFFFFF', border: '1px solid rgba(31, 58, 95, 0.12)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 12px 30px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <div style={{ height: '220px', position: 'relative' }}>
+                      <img src="assets/img/producto-pabilo-fardo-18kg.jpg" alt="Pabilo Homogéneo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                      <div style={{ position: 'absolute', top: '12px', left: '12px', background: 'var(--color-dark)', color: 'var(--color-accent)', padding: '4px 10px', borderRadius: '4px', fontSize: '0.68rem', fontWeight: '700', letterSpacing: '0.1em' }}>
+                        LÍNEA 01
+                      </div>
+                    </div>
+                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.25rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '8px' }}>
+                        Pabilo Homogéneo
+                      </h3>
+                      <p style={{ fontSize: '0.86rem', lineHeight: '1.55', color: 'var(--color-gray)', marginBottom: '16px', flex: 1 }}>
+                        Fibra de algodón seleccionada para mechas, velas y manufactura de trapeadores. Fardos compactos de 18 kg.
+                      </p>
+                      <button className="m-link-furrow" style={{ color: 'var(--color-primary)', alignSelf: 'flex-start' }} onClick={() => onNavigate('productos')}>
+                        Ficha Técnica & Tolerancias →
+                      </button>
+                    </div>
                   </div>
-                  <div className="product-card-content">
-                    <div className="product-card-tag">Hilatura & Mechas</div>
-                    <h3 className="product-card-title">Pabilo Industrial</h3>
-                    <p className="product-card-desc">
-                      Hilo de algodón recuperado de alta absorción y torsión homogénea, presentado en fardos cilíndricos de 18 kg con control de lote.
-                    </p>
-                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Ficha de Producto →
-                    </button>
-                  </div>
-                </div>
+                </TiltCard3D>
 
                 {/* 2. COLETO */}
-                <div className="product-card">
-                  <div className="product-card-image">
-                    <img 
-                      src="assets/img/producto-cordon-detalle.jpg" 
-                      alt="Tejido de Coleto Industrial" 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                <TiltCard3D>
+                  <div style={{ background: '#FFFFFF', border: '1px solid rgba(31, 58, 95, 0.12)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 12px 30px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <div style={{ height: '220px', position: 'relative' }}>
+                      <img src="assets/img/producto-cordon-detalle.jpg" alt="Hilo de Coleto" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                      <div style={{ position: 'absolute', top: '12px', left: '12px', background: 'var(--color-dark)', color: 'var(--color-accent)', padding: '4px 10px', borderRadius: '4px', fontSize: '0.68rem', fontWeight: '700', letterSpacing: '0.1em' }}>
+                        LÍNEA 02
+                      </div>
+                    </div>
+                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.25rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '8px' }}>
+                        Hilo de Coleto Industrial
+                      </h3>
+                      <p style={{ fontSize: '0.86rem', lineHeight: '1.55', color: 'var(--color-gray)', marginBottom: '16px', flex: 1 }}>
+                        Urdimbre extra gruesa y máxima tenacidad para soportar miles de ciclos de fregado y retención de fluidos.
+                      </p>
+                      <button className="m-link-furrow" style={{ color: 'var(--color-primary)', alignSelf: 'flex-start' }} onClick={() => onNavigate('productos')}>
+                        Ficha Técnica & Tolerancias →
+                      </button>
+                    </div>
                   </div>
-                  <div className="product-card-content">
-                    <div className="product-card-tag">Tejido Confeccionado</div>
-                    <h3 className="product-card-title">Coleto</h3>
-                    <p className="product-card-desc">
-                      Tejido plano resistente de máxima absorción y rendimiento para distribución mayorista comercial e institucional.
-                    </p>
-                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Ficha de Producto →
-                    </button>
-                  </div>
-                </div>
+                </TiltCard3D>
 
                 {/* 3. CORDÓN */}
-                <div className="product-card">
-                  <div className="product-card-image">
-                    <img 
-                      src="assets/img/producto-cordon-paquetes.jpg" 
-                      alt="Cordón de Algodón Embolsado" 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                <TiltCard3D>
+                  <div style={{ background: '#FFFFFF', border: '1px solid rgba(31, 58, 95, 0.12)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 12px 30px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <div style={{ height: '220px', position: 'relative' }}>
+                      <img src="assets/img/producto-cordon-paquetes.jpg" alt="Cordón Torcido" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                      <div style={{ position: 'absolute', top: '12px', left: '12px', background: 'var(--color-dark)', color: 'var(--color-accent)', padding: '4px 10px', borderRadius: '4px', fontSize: '0.68rem', fontWeight: '700', letterSpacing: '0.1em' }}>
+                        LÍNEA 03
+                      </div>
+                    </div>
+                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.25rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '8px' }}>
+                        Cordón Trenzado y Torcido
+                      </h3>
+                      <p style={{ fontSize: '0.86rem', lineHeight: '1.55', color: 'var(--color-gray)', marginBottom: '16px', flex: 1 }}>
+                        Cordonería sin nudos espurios de 3mm a 12mm para amarre pesado, industria del empaque y agricultura.
+                      </p>
+                      <button className="m-link-furrow" style={{ color: 'var(--color-primary)', alignSelf: 'flex-start' }} onClick={() => onNavigate('productos')}>
+                        Ficha Técnica & Tolerancias →
+                      </button>
+                    </div>
                   </div>
-                  <div className="product-card-content">
-                    <div className="product-card-tag">Torcidos & Amarres</div>
-                    <h3 className="product-card-title">Cordón</h3>
-                    <p className="product-card-desc">
-                      Cordelería de algodón de alta firmeza para uso agroindustrial, amarre, empaque y aplicaciones técnicas. Paquetes de 50 y 100 und.
-                    </p>
-                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Ficha de Producto →
-                    </button>
-                  </div>
-                </div>
+                </TiltCard3D>
 
-                {/* 4. PAÑO AMARILLO (PRODUCTO ESTRELLA) */}
-                <div className="product-card">
-                  <div className="product-card-image">
-                    <img 
-                      src="assets/img/producto-pano-amarillo-pallet.jpg" 
-                      alt="Rollos de Paño Amarillo en Pallet" 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                {/* 4. PAÑO AMARILLO */}
+                <TiltCard3D>
+                  <div style={{ background: '#FFFFFF', border: '2px solid var(--color-brown)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 16px 36px rgba(0,0,0,0.09)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <div style={{ height: '220px', position: 'relative' }}>
+                      <img src="assets/img/producto-pano-amarillo-pallet.jpg" alt="Paño Amarillo Pallet" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                      <div style={{ position: 'absolute', top: '12px', left: '12px', background: 'var(--color-dark)', color: '#FFD700', padding: '4px 10px', borderRadius: '4px', fontSize: '0.68rem', fontWeight: '700', letterSpacing: '0.1em' }}>
+                        ⭐ PRODUCTO ESTRELLA
+                      </div>
+                    </div>
+                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.25rem', fontWeight: '700', color: 'var(--color-dark)', marginBottom: '8px' }}>
+                        Paño Amarillo (Bayetilla)
+                      </h3>
+                      <p style={{ fontSize: '0.86rem', lineHeight: '1.55', color: 'var(--color-gray)', marginBottom: '16px', flex: 1 }}>
+                        Pallets completos para grandes cadenas de distribución y ferreterías. Alta densidad y poder absorbente.
+                      </p>
+                      <button className="m-link-furrow" style={{ color: 'var(--color-primary)', alignSelf: 'flex-start' }} onClick={() => onNavigate('productos')}>
+                        Ficha Técnica & Tolerancias →
+                      </button>
+                    </div>
                   </div>
-                  <div className="product-card-content">
-                    <div className="product-card-tag">Producto Estrella de Despacho</div>
-                    <h3 className="product-card-title">Paño Amarillo</h3>
-                    <p className="product-card-desc">
-                      Tela de limpieza industrial pesada (bayetilla) en rollos masivos sobre pallet. Ideal para talleres, mantenimiento y cadenas de suministro.
-                    </p>
-                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
-                      Ficha de Producto →
-                    </button>
-                  </div>
-                </div>
+                </TiltCard3D>
               </div>
             </div>
           </section>
 
-          {/* CTA */}
+          {/* TRONCO SECCIÓN 4: FILMSTRIP DOCUMENTAL DE MAQUINARIA PESADA */}
+          <section className="section section-dark" style={{ borderTop: '1px solid rgba(212, 178, 140, 0.15)' }}>
+            <div className="container">
+              <div className="section-header">
+                <span className="section-label">Evidencia Fabril Registrada en Planta</span>
+                <h2 className="section-title">
+                  Infraestructura Industrial <em>En Operación Continua</em>
+                </h2>
+                <p className="section-subtitle">
+                  Registro documental directo de nuestras naves productivas en la Carretera La Raiza, Santa Teresa del Tuy.
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+                {filmstripPhotos.map((item, i) => (
+                  <div key={i} style={{ borderRadius: '6px', overflow: 'hidden', background: 'rgba(31, 58, 95, 0.4)', border: '1px solid rgba(212, 178, 140, 0.2)' }}>
+                    <div style={{ height: '180px' }}>
+                      <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                    </div>
+                    <div style={{ padding: '14px 18px' }}>
+                      <div style={{ fontSize: '0.68rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>{item.phase}</div>
+                      <div style={{ fontSize: '0.94rem', fontWeight: '700', color: '#FFFFFF', margin: '4px 0' }}>{item.title}</div>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--color-medium-gray)' }}>{item.caption}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* CTA BANNER */}
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Listo para abastecer su empresa con <em>calidad comprobada</em>?</h2>
-              <p>Conecte directamente con nuestra mesa comercial en Santa Teresa del Tuy.</p>
-              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Solicitar Cotización Mayorista
-              </button>
+              <div className="cta-banner-content">
+                <span className="section-eyebrow" style={{ color: 'var(--color-accent)' }}>Abastecimiento B2B Estratégico</span>
+                <h2 className="cta-title">
+                  Inicie su Orden Industrial con <em>Monnir Flash1</em>
+                </h2>
+                <p className="cta-desc">
+                  Coordinación directa de pedidos por fardos, pallets y gandolas para todo el territorio venezolano con garantía de entrega continua.
+                </p>
+                <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                  <span>Solicitar Cotización Mayorista</span>
+                  <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                    <g fill="currentColor">
+                      <rect x="-100" y="-19" width="200" height="38" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </div>
           </section>
         </div>
@@ -1981,14 +3408,12 @@
     };
 
     // ============================================
-    // SUB-PORTAL 2: NOSOTROS
-    // ============================================
-        // ============================================
-    // SUB-PORTAL 2: NOSOTROS (FURROW STYLE)
+    // 2. PORTAL NOSOTROS (SUBHERO INTACTO + TRONCO 3D)
     // ============================================
     const PortalNosotros = ({ onNavigate }) => {
       return (
         <div>
+          {/* SUBHERO (PRESERVADO INTACTO) */}
           <section className="subhero-furrow">
             <div className="subhero-furrow-media" aria-hidden="true">
               <img
@@ -2014,141 +3439,101 @@
 
           <Marquee />
 
-          <section className="section section-white">
-            <div className="container">
-              <div className="two-col">
-                <div className="two-col-text">
-                  <span className="section-eyebrow">Nuestra Historia</span>
-                  <h3>El valor de transformar lo que <em>otros descartan</em></h3>
-                  <p>
-                    En <strong>Industrias Monnir C. A.</strong>, no solo reciclamos fibras; tejemos segundas oportunidades. Somos una empresa familiar que nació hace más de seis décadas con una visión clara: dar valor a lo que otros descartan.
-                  </p>
-                  <p>
-                    Hoy, con más de 60 años de experiencia ininterrumpida en el mercado de recuperado textil en Venezuela, nos enorgullece ser el puente definitivo entre la tradición manufacturera y la economía circular.
-                  </p>
-                  <p>
-                    Nuestra trayectoria es la garantía de que conocemos cada fibra, cada proceso y cada solución para transformar los excedentes textiles en materias primas de primera calidad.
-                  </p>
-                  <p style={{ fontFamily: 'var(--font-elegant)', fontStyle: 'italic', color: 'var(--color-accent)', fontSize: '1.15rem', marginTop: '12px' }}>
-                    «¡El desperdicio de unos, es el tesoro de otros!»
-                  </p>
-                </div>
-                <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(212,178,140,0.25)', borderRadius: '6px' }}>
-                  <img 
-                    src="assets/img/nosotros-director-planta.jpg" 
-                    alt="Nave Central de Hilatura de Industrias Monnir C.A." 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '380px' }}
-                  />
-                  <div style={{ padding: '12px 18px', background: 'rgba(22,40,60,0.95)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.72rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)' }}>
-                    Nave Central de Hilatura — Tradición Familiar de 60 Años
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* TRONCO SECCIÓN 1: CRONOLOGÍA INTERACTIVA 1964 - 2026 */}
+          <Timeline60Years />
 
+          {/* TRONCO SECCIÓN 2: LIDERAZGO FAMILIAR Y ESCALA FABRIL */}
           <section className="section section-dark">
             <div className="container">
-              <div className="section-header">
-                <span className="section-eyebrow">Filosofía de Trabajo</span>
-                <h2 className="section-title">Los pilares que nos <em>guían</em></h2>
-                <div className="section-line" />
-              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', alignItems: 'center' }}>
+                <div style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(212, 178, 140, 0.3)', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', height: '380px', position: 'relative' }}>
+                  <img src="assets/img/nosotros-director-planta.jpg" alt="Director de Planta" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '16px 20px', background: 'linear-gradient(transparent, rgba(22, 40, 60, 0.95))', color: '#FFFFFF' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Dirección de Operaciones</div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: '700', fontFamily: 'var(--font-headline)' }}>Inspección Continua de Hileras en Nave Central</div>
+                  </div>
+                </div>
 
-              <div className="values-grid">
-                <div className="value-card-furrow">
-                  <h3 className="value-title">Misión</h3>
-                  <p className="value-desc">
-                    Transformar excedentes textiles en productos de primera calidad mediante procesos rigurosos de clasificación y desfibrado, cerrando el ciclo de la economía circular con soluciones medibles para la industria nacional.
+                <div>
+                  <span className="section-label">Gobernanza Industrial & Factor Humano</span>
+                  <h2 className="section-title">
+                    Presencia en Planta <em>Sin Intermediarios</em>
+                  </h2>
+                  <p className="section-subtitle" style={{ marginBottom: '24px' }}>
+                    A diferencia de importadores o ensambladores sin arraigo físico, la directiva de Industrias Monnir C. A. vive el pulso diario de la hilatura. Cada lote despachado a distribuidores o comités de compras cuenta con la supervisión directa de maestros hilanderos de tercera generación.
                   </p>
-                </div>
-                <div className="value-card-furrow">
-                  <h3 className="value-title">Visión</h3>
-                  <p className="value-desc">
-                    Consolidarnos como el referente nacional en recuperación textil, demostrando que la sostenibilidad ambiental y la rentabilidad industrial caminan juntas sobre seis décadas de experiencia comprobada.
-                  </p>
-                </div>
-                <div className="value-card-furrow">
-                  <h3 className="value-title">Valores</h3>
-                  <p className="value-desc">
-                    Compromiso ambiental tangible, constancia lote a lote, respeto riguroso por los plazos de entrega y cercanía personal en el trato con cada cliente aliado.
-                  </p>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '28px' }}>
+                    <TiltCard3D>
+                      <div style={{ background: 'rgba(31, 58, 95, 0.6)', padding: '18px', borderRadius: '6px', border: '1px solid rgba(212, 178, 140, 0.2)' }}>
+                        <div style={{ fontSize: '1.6rem', fontWeight: '800', color: 'var(--color-accent)', fontFamily: 'var(--font-headline)' }}>8,500 m²</div>
+                        <div style={{ fontSize: '0.74rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase', marginTop: '4px' }}>Nave Techada en El Tomuso</div>
+                      </div>
+                    </TiltCard3D>
+
+                    <TiltCard3D>
+                      <div style={{ background: 'rgba(31, 58, 95, 0.6)', padding: '18px', borderRadius: '6px', border: '1px solid rgba(212, 178, 140, 0.2)' }}>
+                        <div style={{ fontSize: '1.6rem', fontWeight: '800', color: 'var(--color-accent)', fontFamily: 'var(--font-headline)' }}>120 Ton</div>
+                        <div style={{ fontSize: '0.74rem', color: 'var(--color-medium-gray)', textTransform: 'uppercase', marginTop: '4px' }}>Capacidad de Acopio Mensual</div>
+                      </div>
+                    </TiltCard3D>
+                  </div>
+
+                  <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                    <span>Coordinar Visita Técnica a Planta</span>
+                    <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                      <g fill="currentColor">
+                        <rect x="-100" y="-19" width="200" height="38" />
+                        <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                        <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                      </g>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
           </section>
 
+          {/* CTA BANNER */}
           <section className="cta-banner">
             <div className="container">
-              <h2>Construyamos <em>juntos</em> el futuro textil sostenible</h2>
-              <p>Descubra cómo Industrias Monnir C. A. puede ser su aliado estratégico de aprovisionamiento.</p>
-              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
-                <span>Contactar a Nuestra Planta</span>
-                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                  <g fill="currentColor">
-                    <rect x="-100" y="-19" width="200" height="38" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                  </g>
-                </svg>
-              </button>
+              <div className="cta-banner-content">
+                <span className="section-eyebrow" style={{ color: 'var(--color-accent)' }}>Compromiso Institucional</span>
+                <h2 className="cta-title">
+                  Construyamos una Alianza de <em>Suministro Textil a Largo Plazo</em>
+                </h2>
+                <p className="cta-desc">
+                  Descubra cómo Industrias Monnir C. A. puede ser el socio estratégico para abastecer su línea de productos con trazabilidad garantizada.
+                </p>
+                <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                  <span>Conversar con la Dirección Comercial</span>
+                  <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                    <g fill="currentColor">
+                      <rect x="-100" y="-19" width="200" height="38" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </div>
           </section>
         </div>
       );
     };
 
-
-        // ============================================
-    // SUB-PORTAL 3: PRODUCTOS (FURROW STYLE)
+    // ============================================
+    // 3. PORTAL PRODUCTOS (SUBHERO INTACTO + TRONCO TÉCNICO B2B)
     // ============================================
     const PortalProductos = ({ onNavigate }) => {
-      const list = [
-        {
-          id: 'pabilo',
-          tag: 'Hilatura & Mechas',
-          name: 'Pabilo Industrial',
-          subtitle: 'Fibra recuperada de alta absorción para coletos y mechas',
-          desc: 'Hilo de algodón recuperado de regularidad homogénea y capacidad hidrófila superior. Producido bajo estrictos estándares de clasificación y desfibrado para garantizar resistencia a la fricción y máxima retención de humedad.',
-          specs: 'Despacho habitual en fardos cilíndricos compactos de 18 kg con fleje reforzado y control de lote. Disponibilidad en ovillos por bulto.',
-          img: 'assets/img/producto-pabilo-fardo-18kg.jpg'
-        },
-        {
-          id: 'coleto',
-          tag: 'Tejido Confeccionado',
-          name: 'Coleto Terminado',
-          subtitle: 'Tejido de limpieza de alta resistencia al desgarro',
-          desc: 'Tejido plano resistente elaborado a partir de nuestras hilazas de algodón recuperado. Proporciona durabilidad comprobada y óptima capacidad de arrastre para distribución mayorista comercial e institucional.',
-          specs: 'Suministro en rollos continuos de tejido o piezas confeccionadas para cadenas de distribución y empresas de aseo.',
-          img: 'assets/img/producto-cordon-detalle.jpg'
-        },
-        {
-          id: 'cordon',
-          tag: 'Torcidos & Cordonería',
-          name: 'Cordón de Algodón',
-          subtitle: 'Firmeza mecánica y flexibilidad para uso múltiple',
-          desc: 'Cordelería de algodón con torsión balanceada que evita el deshilachado. Indispensable en labores de amarre agrícola, cerrado de costales y sacos industriales, empaque y aplicaciones de confección técnica.',
-          specs: 'Presentación en paquetes transparentes listos para venta mayorista de 50 y 100 unidades, así como madejas continuas.',
-          img: 'assets/img/producto-cordon-paquetes.jpg'
-        },
-        {
-          id: 'pano-amarillo',
-          tag: 'Producto Estrella de Despacho',
-          name: 'Paño Amarillo (Bayetilla Industrial)',
-          subtitle: 'Tela pesada en rollos para absorción industrial intensiva',
-          desc: 'Bayetilla amarilla de alto gramaje para absorción de grasas, solventes, aceites y limpieza pesada en talleres, plantas automotrices y líneas de ensamble. Es nuestro producto de mayor volumen de despacho a nivel nacional.',
-          specs: 'Rollos cilíndricos masivos estibados sobre pallets industriales con flejado reforzado para transporte directo en camión.',
-          img: 'assets/img/producto-pano-amarillo-pallet.jpg'
-        }
-      ];
-
       return (
         <div>
+          {/* SUBHERO (PRESERVADO INTACTO) */}
           <section className="subhero-furrow">
             <div className="subhero-furrow-media" aria-hidden="true">
               <img
                 src="assets/img/producto-pano-amarillo-pallet.jpg"
-                alt="Pallet de Paño Amarillo en Planta"
+                alt="Catálogo Industrial Monnir"
                 className="subhero-furrow-img"
               />
               <div className="subhero-furrow-overlay" />
@@ -2156,141 +3541,102 @@
             <div className="subhero-furrow-stage">
               <div className="hero-tag-badge">
                 <span className="dot" />
-                <span>Catálogo Mayorista B2B • Suministro Directo de Planta</span>
+                <span>Especificaciones Industriales B2B • Estándar ASTM & COVENIN</span>
               </div>
               <h1 className="subhero-title">
-                Nuestros <em>Productos</em>
+                Nuestras Cuatro Líneas <em>de Manufactura</em>
               </h1>
               <p className="subhero-subtitle">
-                Cuatro líneas esenciales respaldadas en 60 años de trayectoria fabril y entrega nacional.
+                Productos estandarizados con control de lote y suministro continuo para la industria venezolana.
               </p>
             </div>
           </section>
 
           <Marquee />
 
-          {list.map((item, idx) => (
-            <section 
-              key={item.id} 
-              className={`section ${idx % 2 === 0 ? 'section-white' : 'section-dark'}`}
-            >
-              <div className="container">
-                <div className={`two-col ${idx % 2 !== 0 ? 'reverse' : ''}`}>
-                  <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(212,178,140,0.25)', position: 'relative', borderRadius: '6px' }}>
-                    <img 
-                      src={item.img} 
-                      alt={item.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '360px' }}
-                    />
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(22,40,60,0.92)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.7rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)' }}>
-                      {item.subtitle}
-                    </div>
-                  </div>
-                  <div className="two-col-text">
-                    <span className="section-eyebrow">{item.tag}</span>
-                    <h3 style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.name}</h3>
-                    <p>{item.desc}</p>
-                    <p style={{ fontSize: '0.86rem', color: idx % 2 === 0 ? 'var(--color-gray)' : 'rgba(255,255,255,0.7)', borderLeft: '2px solid var(--color-accent)', paddingLeft: '14px', margin: '18px 0', fontFamily: 'var(--font-headline)' }}>
-                      <strong style={{ color: idx % 2 === 0 ? 'var(--color-dark)' : 'var(--color-sand)' }}>Especificación de Despacho:</strong> {item.specs}
-                    </p>
-                    <div style={{ marginTop: '24px' }}>
-                      <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
-                        <span>Cotizar este Producto</span>
-                        <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                          <g fill="currentColor">
-                            <rect x="-100" y="-19" width="200" height="38" />
-                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                          </g>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          ))}
+          {/* TRONCO SECCIÓN 1: FICHAS TÉCNICAS DE LABORATORIO INTERACTIVAS */}
+          <TechnicalSpecTabs onNavigate={onNavigate} />
 
+          {/* TRONCO SECCIÓN 2: CALCULADORA LOGÍSTICA DE CUBITAJE B2B */}
+          <LogisticsCalculator onNavigate={onNavigate} />
+
+          {/* TRONCO SECCIÓN 3: POLÍTICA DE EMPAQUE Y CONTROL DE BÁSCULA */}
+          <section className="section section-dark">
+            <div className="container">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                    <div style={{ fontSize: '1.4rem', marginBottom: '8px' }}>⚖️</div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: '700', color: '#FFFFFF', marginBottom: '6px', fontFamily: 'var(--font-headline)' }}>Pesaje en Báscula Calibrada</div>
+                    <p style={{ fontSize: '0.84rem', color: 'rgba(255, 255, 255, 0.78)', lineHeight: '1.55' }}>
+                      Cada fardo de 18 kg pasa por control de báscula con tolerancia menor a ±0.1 kg, garantizando que el metraje y tonelaje facturado corresponda exactamente a la carga recibida.
+                    </p>
+                  </div>
+                </TiltCard3D>
+
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                    <div style={{ fontSize: '1.4rem', marginBottom: '8px' }}>🛡️</div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: '700', color: '#FFFFFF', marginBottom: '6px', fontFamily: 'var(--font-headline)' }}>Envoltura de Rafia Impermeable</div>
+                    <p style={{ fontSize: '0.84rem', color: 'rgba(255, 255, 255, 0.78)', lineHeight: '1.55' }}>
+                      Protección hermética contra humedad ambiental, polvo y roce mecánico durante fletes interurbanos de larga distancia hacia los Andes, Zulia u Oriente.
+                    </p>
+                  </div>
+                </TiltCard3D>
+
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px' }}>
+                    <div style={{ fontSize: '1.4rem', marginBottom: '8px' }}>🏷️</div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: '700', color: '#FFFFFF', marginBottom: '6px', fontFamily: 'var(--font-headline)' }}>Etiquetado y Trazabilidad de Lote</div>
+                    <p style={{ fontSize: '0.84rem', color: 'rgba(255, 255, 255, 0.78)', lineHeight: '1.55' }}>
+                      Identificación clara de turno de hilatura, operario responsable, calibre nominal y fecha de producción para auditorías de calidad en plantas receptoras.
+                    </p>
+                  </div>
+                </TiltCard3D>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA BANNER */}
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Requiere cotización de <em>lotes industriales</em>?</h2>
-              <p>Programamos despachos continuos en fardos, rollos o pallets completos a todo el país.</p>
-              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
-                <span>Hablar con un Asesor Comercial</span>
-                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                  <g fill="currentColor">
-                    <rect x="-100" y="-19" width="200" height="38" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                  </g>
-                </svg>
-              </button>
+              <div className="cta-banner-content">
+                <span className="section-eyebrow" style={{ color: 'var(--color-accent)' }}>Mesa Técnica de Cotización</span>
+                <h2 className="cta-title">
+                  ¿Reconoce una Solución para su <em>Línea Productiva?</em>
+                </h2>
+                <p className="cta-desc">
+                  Envíe sus requerimientos de tonelaje y calibre para recibir una propuesta técnico-comercial formal con reserva de capacidad.
+                </p>
+                <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                  <span>Emitir Solicitud de Cotización</span>
+                  <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                    <g fill="currentColor">
+                      <rect x="-100" y="-19" width="200" height="38" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </div>
           </section>
         </div>
       );
     };
 
-
-        // ============================================
-    // SUB-PORTAL 4: PROCESOS & INFRAESTRUCTURA (FURROW STYLE)
+    // ============================================
+    // 4. PORTAL PROCESOS (SUBHERO INTACTO + TRONCO DE INGENIERÍA)
     // ============================================
     const PortalProcesos = ({ onNavigate }) => {
-      const filmstripItems = [
-        {
-          phase: 'Fase 01',
-          title: 'Apertura y Clasificación',
-          desc: 'Tolvas mecánicas y Big Bags de fibra de algodón recuperada listas para el ingreso al tren de mezcla.',
-          img: 'assets/img/proceso-1-apertura-tolvas.jpg'
-        },
-        {
-          phase: 'Fase 02',
-          title: 'Cardado de Alta Capacidad',
-          desc: 'Batería de cardas industriales alineando paralelamente las fibras para lograr una masa homogénea.',
-          img: 'assets/img/proceso-2-cardas-linea.jpg'
-        },
-        {
-          phase: 'Fase 03',
-          title: 'Mecha en Espiral',
-          desc: 'Cinta peinada en botes rotativos que asciende en espiral continua hacia el estiraje de hilatura.',
-          img: 'assets/img/proceso-3-cinta-mecha-espiral.jpg'
-        },
-        {
-          phase: 'Fase 04',
-          title: 'Hilatura y Filetas Giratorias',
-          desc: 'Filetas metálicas alimentando bobinas en rotación continua con monitoreo dinámico de tensión.',
-          img: 'assets/img/proceso-4-hilatura-filetas.jpg'
-        },
-        {
-          phase: 'Fase 05',
-          title: 'Enconado y Bobinas Cilíndricas',
-          desc: 'Bobinas de hilado terminado listas para control de calidad, pesaje e inspección física.',
-          img: 'assets/img/proceso-5-conos-hilado.jpg'
-        },
-        {
-          phase: 'Fase 06',
-          title: 'Almacén y Despacho Paletizado',
-          desc: 'Zorras hidráulicas y pallets flejados de paño amarillo y pabilo listos para carga en camión.',
-          img: 'assets/img/proceso-6-despacho-pallet.jpg'
-        }
-      ];
-
-      const steps = [
-        { num: '01', title: 'Recepción y Clasificación Manual', desc: 'Seleccionamos minuciosamente los excedentes textiles garantizando uniformidad de origen y naturaleza de la fibra.' },
-        { num: '02', title: 'Desfibrado y Apertura', desc: 'Apertura mecánica en tolvas especializadas que transforman los retales en fibra libre de impurezas sin dañar la hebra.' },
-        { num: '03', title: 'Cardado Industrial', desc: 'Paso por tren de cardas para paralelizar y regularizar las fibras, generando una mecha homogénea continua.' },
-        { num: '04', title: 'Hilatura y Torsión Controlada', desc: 'Generación de pabilo y cordonería con torsión exacta para balancear absorción y tenacidad a la tracción.' },
-        { num: '05', title: 'Tejido y Bobinado', desc: 'Confección del tejido de coleto y bayetilla en telares continuos, junto al enrollado de bobinas y madejas.' },
-        { num: '06', title: 'Embalaje y Paletizado B2B', desc: 'Flejado reforzado en fardos de 18 kg y pallets de paño amarillo protegidos contra humedad para despacho directo.' },
-      ];
-
       return (
         <div>
+          {/* SUBHERO (PRESERVADO INTACTO) */}
           <section className="subhero-furrow">
             <div className="subhero-furrow-media" aria-hidden="true">
               <img
                 src="assets/img/proceso-1-apertura-tolvas.jpg"
-                alt="Tren de Maquinaria de Planta Monnir"
+                alt="Línea de Procesos en Planta Monnir"
                 className="subhero-furrow-img"
               />
               <div className="subhero-furrow-overlay" />
@@ -2298,116 +3644,114 @@
             <div className="subhero-furrow-stage">
               <div className="hero-tag-badge">
                 <span className="dot" />
-                <span>Infraestructura & Capacidad Fabril • Santa Teresa del Tuy</span>
+                <span>Ingeniería Físico-Mecánica • Transformación sin Químicos Tóxicos</span>
               </div>
               <h1 className="subhero-title">
-                Nuestra <em>Planta</em> e Instalaciones
+                Del Residuo Textil al <em>Hilado de Precisión</em>
               </h1>
               <p className="subhero-subtitle">
-                Procesos de economía circular que garantizan solidez, regularidad y entrega programada lote a lote.
+                Proceso circular certificado paso a paso en nuestras instalaciones industriales de Santa Teresa del Tuy.
               </p>
             </div>
           </section>
 
           <Marquee />
 
-          {/* CARRUSEL DOCUMENTAL (FILMSTRIP DE FOTOS REALES) */}
-          <section className="section section-dark" style={{ paddingBottom: '30px' }}>
+          {/* TRONCO SECCIÓN 1: NAVEGADOR DE LAS 6 ETAPAS FABRILES CON MODAL ZOOM */}
+          <ProcessStagesBrowser />
+
+          {/* TRONCO SECCIÓN 2: BALANCE DE MASA CIRCULAR (100% APROVECHAMIENTO) */}
+          <section className="section section-charcoal" style={{ borderTop: '1px solid rgba(212, 178, 140, 0.15)' }}>
             <div className="container">
-              <div className="section-header" style={{ marginBottom: '24px' }}>
-                <span className="section-eyebrow">Evidencia Operativa</span>
-                <h2 className="section-title">Instalaciones en <em>Santa Teresa del Tuy</em></h2>
-                <div className="section-line" />
+              <div className="section-header">
+                <span className="section-label">Balance de Masa & Cero Residuos</span>
+                <h2 className="section-title">
+                  Arquitectura Circular de <em>Ciclo Cerrado</em>
+                </h2>
                 <p className="section-subtitle">
-                  Fotografía real de nuestra nave de producción, tren de cardado y zona de embalaje mayorista
+                  En Industrias Monnir C. A., cada gramo de fibra que ingresa a planta tiene un destino productivo trazable.
                 </p>
               </div>
 
-              <div className="filmstrip-wrap">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
-                  <div style={{ fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-accent)', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>
-                    Dossier Visual • 6 Fases Operacionales
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Entrada de Planta</div>
+                    <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#FFFFFF', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>100%</div>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--color-sand)' }}>Excedentes de Confección Seleccionados</div>
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.08em', fontFamily: 'var(--font-headline)' }}>
-                    Deslice horizontalmente para recorrer la nave
-                  </div>
-                </div>
+                </TiltCard3D>
 
-                <div className="filmstrip-container">
-                  {filmstripItems.map((item, idx) => (
-                    <div key={idx} className="filmstrip-card" style={{ borderRadius: '6px' }}>
-                      <div className="filmstrip-img-wrap">
-                        <span className="filmstrip-badge" style={{ borderRadius: '9999px', padding: '5px 12px', fontWeight: '600' }}>{item.phase}</span>
-                        <img src={item.img} alt={item.title} loading="lazy" />
-                      </div>
-                      <div className="filmstrip-content">
-                        <h4 className="filmstrip-title" style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.title}</h4>
-                        <p className="filmstrip-desc">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Salida Primaria</div>
+                    <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#5CDB95', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>95.2%</div>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--color-sand)' }}>Hilado Útil, Pabilo y Telas de Primera</div>
+                  </div>
+                </TiltCard3D>
+
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Recirculación Interna</div>
+                    <div style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--color-accent)', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>4.8%</div>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--color-sand)' }}>Subproducto Reinsertado al Tren de Mezcla</div>
+                  </div>
+                </TiltCard3D>
+
+                <TiltCard3D>
+                  <div style={{ background: 'rgba(22, 40, 60, 0.9)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '24px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Residuos a Vertedero</div>
+                    <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#FFFFFF', margin: '8px 0', fontFamily: 'var(--font-headline)' }}>0.0%</div>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--color-sand)' }}>Cero Impacto Ambiental Negativo</div>
+                  </div>
+                </TiltCard3D>
               </div>
             </div>
           </section>
 
-          {/* LÍNEA DE PROCESO TÉCNICO */}
-          <section className="section section-charcoal">
-            <div className="container">
-              <div className="section-header">
-                <span className="section-eyebrow">Rigor de Manufactura</span>
-                <h2 className="section-title">El ciclo de la <em>economía circular</em></h2>
-                <div className="section-line" />
-              </div>
-
-              <div className="timeline-clean">
-                {steps.map(s => (
-                  <div key={s.num} className="timeline-row">
-                    <div className="timeline-num" style={{ fontFamily: 'var(--font-headline)', fontWeight: '600' }}>{s.num}</div>
-                    <div className="timeline-heading" style={{ fontFamily: 'var(--font-headline)' }}>{s.title}</div>
-                    <div className="timeline-body">{s.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
+          {/* CTA BANNER */}
           <section className="cta-banner">
             <div className="container">
-              <h2>Garantice la continuidad de su <em>suministro</em></h2>
-              <p>Nuestra capacidad instalada asegura entregas programadas y consistencia lote a lote.</p>
-              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
-                <span>Cotizar Suministro con Planta</span>
-                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                  <g fill="currentColor">
-                    <rect x="-100" y="-19" width="200" height="38" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                  </g>
-                </svg>
-              </button>
+              <div className="cta-banner-content">
+                <span className="section-eyebrow" style={{ color: 'var(--color-accent)' }}>Calidad Mecánica Comprobable</span>
+                <h2 className="cta-title">
+                  Compruebe la Resistencia de Nuestro <em>Hilado Industrial</em>
+                </h2>
+                <p className="cta-desc">
+                  Solicite muestras para someterlas a pruebas de tensión y torsión en los telares y máquinas de su empresa.
+                </p>
+                <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                  <span>Solicitar Muestras de Laboratorio</span>
+                  <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                    <g fill="currentColor">
+                      <rect x="-100" y="-19" width="200" height="38" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </div>
           </section>
         </div>
       );
     };
 
-
-        // ============================================
-    // SUB-PORTAL 5: CLIENTES (FURROW STYLE)
+    // ============================================
+    // 5. PORTAL CLIENTES (SUBHERO INTACTO + TRONCO DE LOGÍSTICA & SECTORES)
     // ============================================
     const PortalClientes = ({ onNavigate }) => {
-      const sectors = [
-        { name: 'Distribuidores Mayoristas de Limpieza', desc: 'Comercializadores de artículos de aseo que requieren pabilo por fardos de 18 kg y coleto confeccionado.' },
-        { name: 'Talleres, Automotriz & Mantenimiento', desc: 'Líneas industriales que consumen paño amarillo (bayetilla) en rollos masivos sobre pallet para absorción.' },
-        { name: 'Fábricas de Coletos y Mechas', desc: 'Fabricantes que usan nuestro pabilo de algodón recuperado de alta absorción como materia prima base.' },
-        { name: 'Cordonerías e Industria de Empaque', desc: 'Empresas manufactureras y agrícolas que necesitan cordón de algodón resistente para amarres.' },
-        { name: 'Grandes Cadenas Comerciales & Ferreterías', desc: 'Abastecimiento directo a mayoristas con productos empacados y listos para mostrador.' },
-        { name: 'Sector Agroindustrial', desc: 'Cordonería y pabilos especializados para el tutorado de cultivos y amarre de fardos.' },
+      const routes = [
+        { city: 'Gran Caracas & Valles del Tuy', time: '24 Horas Hábiles', desc: 'Despacho directo desde planta con flota propia en andén de cliente.', coverage: 'Distrito Capital & Miranda' },
+        { city: 'Eje Central (Valencia / Maracay)', time: '24 – 48 Horas', desc: 'Frecuencia semanal continua para zonas industriales de Carabobo y Aragua.', coverage: 'Carabobo & Aragua' },
+        { city: 'Centro-Occidente (Barquisimeto)', time: '48 Horas', desc: 'Conexión logística consolidada para distribuidores mayoristas de Lara.', coverage: 'Lara, Yaracuy & Portuguesa' },
+        { city: 'Zulia & Región Andina', time: '72 Horas', desc: 'Embalaje flejado impermeable de alta protección para transporte de larga distancia.', coverage: 'Zulia, Mérida & Táchira' },
+        { city: 'Oriente & Guayana', time: '72 Horas', desc: 'Despacho paletizado a centros de distribución en Barcelona, Puerto La Cruz y Guayana.', coverage: 'Anzoátegui & Bolívar' },
       ];
 
       return (
         <div>
+          {/* SUBHERO (PRESERVADO INTACTO) */}
           <section className="subhero-furrow">
             <div className="subhero-furrow-media" aria-hidden="true">
               <img
@@ -2426,66 +3770,99 @@
                 Nuestros <em>Clientes</em> y Sectores
               </h1>
               <p className="subhero-subtitle">
-                Alianzas comerciales estratégicas de suministro continuo en todo el territorio nacional.
+                Atendemos los requerimientos de la industria manufacturera, grandes distribuidores y cadenas comerciales en toda Venezuela.
               </p>
             </div>
           </section>
 
           <Marquee />
 
-          <section className="section section-dark">
+          {/* TRONCO SECCIÓN 1: SOLUCIONES POR RAMA INDUSTRIAL */}
+          <IndustrySolutionsTabs onNavigate={onNavigate} />
+
+          {/* TRONCO SECCIÓN 2: RED LOGÍSTICA NACIONAL & TIEMPOS DE ENTREGA */}
+          <section className="section section-dark" style={{ borderTop: '1px solid rgba(212, 178, 140, 0.15)' }}>
             <div className="container">
               <div className="section-header">
-                <span className="section-eyebrow">Áreas de Aplicación</span>
-                <h2 className="section-title">Industrias que <em>abastecemos</em></h2>
-                <div className="section-line" />
+                <span className="section-label">Logística y Despacho a Nivel Nacional</span>
+                <h2 className="section-title">
+                  Tiempos de Entrega <em>Garantizados en Destino</em>
+                </h2>
+                <p className="section-subtitle">
+                  Ubicación estratégica en Santa Teresa del Tuy con acceso directo a las principales arterias viales del país.
+                </p>
               </div>
 
-              <div className="sectors-grid">
-                {sectors.map((sec, i) => (
-                  <div key={i} className="value-card-furrow" style={{ padding: '28px 24px' }}>
-                    <div className="value-title" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{sec.name}</div>
-                    <div className="value-desc" style={{ fontSize: '0.84rem', lineHeight: '1.6' }}>{sec.desc}</div>
-                  </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+                {routes.map((rt, i) => (
+                  <TiltCard3D key={i}>
+                    <div style={{ background: 'rgba(31, 58, 95, 0.65)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '8px', padding: '22px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: '700' }}>{rt.coverage}</div>
+                      <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.15rem', fontWeight: '700', color: '#FFFFFF', margin: '6px 0 10px 0' }}>{rt.city}</h4>
+                      <p style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.78)', lineHeight: '1.5', flex: 1, marginBottom: '14px' }}>{rt.desc}</p>
+                      <div style={{ background: 'rgba(22, 40, 60, 0.85)', padding: '6px 12px', borderRadius: '4px', borderLeft: '3px solid var(--color-accent)', fontSize: '0.78rem', color: 'var(--color-sand)', fontWeight: '600' }}>
+                        ⏱️ Tiempo Estimado: {rt.time}
+                      </div>
+                    </div>
+                  </TiltCard3D>
                 ))}
               </div>
             </div>
           </section>
 
+          {/* CTA BANNER */}
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Su empresa busca un proveedor <em>confiable y directo</em>?</h2>
-              <p>Atendemos requerimientos mayoristas sin intermediarios desde nuestra planta de Santa Teresa del Tuy.</p>
-              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
-                <span>Iniciar Relación Comercial</span>
-                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                  <g fill="currentColor">
-                    <rect x="-100" y="-19" width="200" height="38" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                  </g>
-                </svg>
-              </button>
+              <div className="cta-banner-content">
+                <span className="section-eyebrow" style={{ color: 'var(--color-accent)' }}>Abastecimiento Programado</span>
+                <h2 className="cta-title">
+                  Reserve su Capacidad de <em>Suministro Mensual</em>
+                </h2>
+                <p className="cta-desc">
+                  Acuerdos comerciales con reserva de lote en planta para abastecer sus operaciones sin quiebres de inventario.
+                </p>
+                <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                  <span>Contactar a la Mesa Comercial</span>
+                  <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                    <g fill="currentColor">
+                      <rect x="-100" y="-19" width="200" height="38" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                      <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </div>
           </section>
         </div>
       );
     };
 
-
-        // ============================================
-    // SUB-PORTAL 6: CONTACTO & MESA COMERCIAL (FURROW STYLE)
+    // ============================================
+    // 6. PORTAL CONTACTO (SUBHERO INTACTO + MESA RFQ INTELIGENTE & FAQ)
     // ============================================
     const PortalContacto = () => {
+      const [linea, setLinea] = useState('Pabilo Homogéneo');
+      const [volumen, setVolumen] = useState('100 Fardos (1.8 Toneladas)');
+      const [nombre, setNombre] = useState('');
+      const [empresa, setEmpresa] = useState('');
+      const [telefono, setTelefono] = useState('');
+      const [destino, setDestino] = useState('');
+      const [notas, setNotas] = useState('');
       const [sent, setSent] = useState(false);
 
-      const handleSubmit = (e) => {
+      const generatedMessage = `Hola, mi nombre es ${nombre || '[Su Nombre]'} de la empresa ${empresa || '[Su Empresa]'}. Deseamos solicitar una cotización formal (RFQ) para Industrias Monnir C. A.:\n\n- Línea de Interés: ${linea}\n- Volumen Estimado: ${volumen}\n- Destino de Entrega: ${destino || 'Por definir'}\n- Requerimientos adicionales: ${notas || 'Ninguno'}\n\nQuedamos atentos a su propuesta técnico-comercial.`;
+
+      const handleWhatsAppSubmit = (e) => {
         e.preventDefault();
+        const url = `https://wa.me/584241913561?text=${encodeURIComponent(generatedMessage)}`;
+        window.open(url, '_blank');
         setSent(true);
       };
 
       return (
         <div>
+          {/* SUBHERO (PRESERVADO INTACTO) */}
           <section className="subhero-furrow">
             <div className="subhero-furrow-media" aria-hidden="true">
               <img
@@ -2511,123 +3888,125 @@
 
           <Marquee />
 
+          {/* TRONCO SECCIÓN 1: FORMULARIO RFQ INTELIGENTE Y DATOS DE PLANTA */}
           <section className="section section-dark">
             <div className="container">
-              <div className="contact-layout">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
+                {/* Datos Oficiales de Planta */}
                 <div>
-                  <span className="section-eyebrow">Mesa de Cotización</span>
-                  <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '2.2rem', marginBottom: '16px', letterSpacing: '-0.02em' }}>
-                    Converse con nuestro <em>equipo</em>
-                  </h3>
-                  <p style={{ fontSize: '0.92rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.7)', marginBottom: '30px' }}>
-                    Indíquenos las características del producto que busca, volumen estimado y destino de entrega para coordinar su propuesta formal.
+                  <span className="section-eyebrow">Canales Institucionales Oficiales</span>
+                  <h2 className="section-title" style={{ color: '#FFFFFF', marginBottom: '14px' }}>
+                    Sede Fabril y <em>Atención Directa</em>
+                  </h2>
+                  <p style={{ fontFamily: 'var(--font-headline)', color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.94rem', lineHeight: '1.65', marginBottom: '28px' }}>
+                    Nuestras oficinas comerciales y planta principal operan en Santa Teresa del Tuy. Atendemos requerimientos de gerencias de compras, distribuidores mayoristas y comités de abastecimiento.
                   </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', borderTop: '1px solid rgba(212,178,140,0.2)', paddingTop: '24px' }}>
-                    <div>
-                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>WhatsApp Corporativo</div>
-                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '500' }}>
-                        <a href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
-                          0424-191-3561 →
-                        </a>
-                      </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '28px' }}>
+                    <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '6px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>WhatsApp Comercial Directo</div>
+                      <a href="https://wa.me/584241913561" target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.15rem', color: '#FFFFFF', fontWeight: '700', textDecoration: 'none', display: 'inline-block', marginTop: '4px' }}>
+                        +58 424-191-3561
+                      </a>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Atención Telefónica de Planta</div>
-                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '500' }}>
+
+                    <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '6px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Teléfono de Planta</div>
+                      <a href="tel:04143990682" style={{ fontSize: '1.15rem', color: '#FFFFFF', fontWeight: '700', textDecoration: 'none', display: 'inline-block', marginTop: '4px' }}>
                         0414-399-0682
-                      </div>
+                      </a>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Correo Oficial</div>
-                      <div style={{ fontSize: '1.15rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px' }}>
-                        <a href="mailto:Industriasmonnir@gmail.com" style={{ color: 'var(--color-white)', textDecoration: 'none' }}>
-                          Industriasmonnir@gmail.com
-                        </a>
-                      </div>
+
+                    <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '6px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Correo Corporativo Formal</div>
+                      <a href="mailto:Industriasmonnir@gmail.com" style={{ fontSize: '1.05rem', color: '#FFFFFF', fontWeight: '700', textDecoration: 'none', display: 'inline-block', marginTop: '4px' }}>
+                        Industriasmonnir@gmail.com
+                      </a>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Ubicación de Planta</div>
-                      <div style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)', marginTop: '4px', lineHeight: '1.6' }}>
-                        Carretera la Raiza, Sector Industrial El Tomuso, Santa Teresa del Tuy, Estado Miranda, Venezuela.
+
+                    <div style={{ background: 'rgba(31, 58, 95, 0.6)', border: '1px solid rgba(212, 178, 140, 0.25)', borderRadius: '6px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '700' }}>Ubicación de Planta</div>
+                      <div style={{ fontSize: '0.9rem', color: '#FFFFFF', marginTop: '4px', lineHeight: '1.5' }}>
+                        Carretera La Raiza, Sector Industrial El Tomuso, Santa Teresa del Tuy, Edo. Miranda, Venezuela.
                       </div>
                     </div>
                   </div>
+
+                  {/* FAQ Acordeon */}
+                  <CorporateFAQ />
                 </div>
 
-                <div className="hero-slip-card" style={{ maxWidth: '100%', padding: 'clamp(28px, 4vw, 44px)' }}>
-                  {sent ? (
-                    <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                      <div className="slip-status" style={{ justifyContent: 'center', marginBottom: '14px' }}>
+                {/* Formulario RFQ */}
+                <div>
+                  <TiltCard3D>
+                    <div style={{ background: 'rgba(31, 58, 95, 0.92)', border: '1px solid rgba(212, 178, 140, 0.35)', borderRadius: '10px', padding: 'clamp(22px, 3.5vw, 36px)', boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)' }}>
+                      <div className="slip-status" style={{ marginBottom: '16px' }}>
                         <span className="slip-pulse-dot" />
-                        <span>Requerimiento Registrado</span>
+                        <span>Mesa de Cotización RFQ • Despacho Directo de Fábrica</span>
                       </div>
-                      <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.8rem', color: 'var(--color-white)', marginBottom: '12px' }}>
-                        Mensaje Recibido
-                      </h4>
-                      <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '24px', lineHeight: '1.6' }}>
-                        Gracias por comunicarse con Industrias Monnir C. A. Nuestro departamento comercial procesará su solicitud y se pondrá en contacto a la brevedad.
-                      </p>
-                      <button className="m-link-furrow" onClick={() => setSent(false)}>
-                        Enviar otro requerimiento →
-                      </button>
+
+                      <form onSubmit={handleWhatsAppSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <label className="form-label">Nombre y Apellido del Responsable</label>
+                          <input className="form-input" type="text" placeholder="Ej. Ing. Carlos Mendoza" required value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <label className="form-label">Empresa / Razón Social</label>
+                          <input className="form-input" type="text" placeholder="Ej. Distribuidora Textil Central C.A." required value={empresa} onChange={(e) => setEmpresa(e.target.value)} />
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                          <div className="form-group" style={{ marginBottom: 0 }}>
+                            <label className="form-label">Teléfono / WhatsApp</label>
+                            <input className="form-input" type="tel" placeholder="04XX-XXX-XXXX" required value={telefono} onChange={(e) => setTelefono(e.target.value)} />
+                          </div>
+
+                          <div className="form-group" style={{ marginBottom: 0 }}>
+                            <label className="form-label">Destino de Entrega</label>
+                            <input className="form-input" type="text" placeholder="Ciudad / Estado" required value={destino} onChange={(e) => setDestino(e.target.value)} />
+                          </div>
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <label className="form-label">Línea de Interés Principal</label>
+                          <select className="form-select" value={linea} onChange={(e) => setLinea(e.target.value)}>
+                            <option value="Pabilo Homogéneo">1. Pabilo Homogéneo (Fardos 18 kg / Ovillos)</option>
+                            <option value="Hilo de Coleto">2. Hilo de Coleto (Conos / Bobinas 2.5 kg)</option>
+                            <option value="Cordón Trenzado">3. Cordón Trenzado y Torcido (3mm a 12mm)</option>
+                            <option value="Paño Amarillo">4. Paño Amarillo Mayorista (Rollos / Pallets)</option>
+                            <option value="Mezcla a Medida">5. Mezcla y Especificación a Medida</option>
+                          </select>
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <label className="form-label">Volumen Proyectado de Compra</label>
+                          <select className="form-select" value={volumen} onChange={(e) => setVolumen(e.target.value)}>
+                            <option value="Lote Inicial de Prueba (28 Fardos = 504 kg / 1 Pallet)">Lote Inicial de Prueba (1 Pallet ≈ 500 kg)</option>
+                            <option value="100 Fardos (1.8 Toneladas / Camión 350)">100 Fardos (1.8 Toneladas / Camión 350)</option>
+                            <option value="300 Fardos (5.4 Toneladas / Camión Turbo)">300 Fardos (5.4 Toneladas / Camión Turbo)</option>
+                            <option value="Lote Masivo Gandola (12 a 24 Toneladas)">Lote Masivo Gandola (12 a 24 Toneladas)</option>
+                          </select>
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                          <label className="form-label">Observaciones o Calibres Específicos</label>
+                          <textarea className="form-textarea" placeholder="Indique requerimientos específicos de calibre, torsión o condiciones de entrega..." value={notas} onChange={(e) => setNotas(e.target.value)} style={{ minHeight: '70px' }}></textarea>
+                        </div>
+
+                        <button type="submit" className="m-btn-furrow" style={{ width: '100%', justifyContent: 'center', marginTop: '6px' }}>
+                          <span>Enviar Requerimiento por WhatsApp Oficial</span>
+                          <svg className="m-btn__star" viewBox="-100 -100 200 200">
+                            <g fill="currentColor">
+                              <rect x="-100" y="-19" width="200" height="38" />
+                              <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                              <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                            </g>
+                          </svg>
+                        </button>
+                      </form>
                     </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                      <div className="slip-status">
-                        <span className="slip-pulse-dot" />
-                        <span>Formulario Directo de Planta</span>
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label">Nombre y Apellido</label>
-                        <input className="form-input" type="text" placeholder="Su nombre completo" required />
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label">Empresa / Razón Social</label>
-                        <input className="form-input" type="text" placeholder="Nombre de su empresa" required />
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label">Correo Electrónico</label>
-                        <input className="form-input" type="email" placeholder="correo@empresa.com" required />
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label">Teléfono o WhatsApp</label>
-                        <input className="form-input" type="tel" placeholder="04XX-XXX-XXXX" required />
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label">Línea de Interés</label>
-                        <select className="form-select" required defaultValue="">
-                          <option value="" disabled>Seleccione producto mayorista</option>
-                          <option value="pabilo">Pabilo Industrial (Fardos de 18 kg)</option>
-                          <option value="coleto">Coleto Terminado (Rollos / Piezas)</option>
-                          <option value="cordon">Cordón de Algodón (Paquetes 50/100)</option>
-                          <option value="pano-amarillo">Paño Amarillo (Rollos en Pallet)</option>
-                          <option value="varios">Lote Mixto / Múltiples Productos</option>
-                        </select>
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label">Requerimiento o Volumen Estimado</label>
-                        <textarea className="form-textarea" placeholder="Indique volumen aproximado, especificaciones deseadas y destino de entrega..." required></textarea>
-                      </div>
-
-                      <button type="submit" className="m-btn-furrow" style={{ width: '100%', justifyContent: 'center', marginTop: '8px' }}>
-                        <span>Enviar Solicitud de Cotización</span>
-                        <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                          <g fill="currentColor">
-                            <rect x="-100" y="-19" width="200" height="38" />
-                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                          </g>
-                        </svg>
-                      </button>
-                    </form>
-                  )}
+                  </TiltCard3D>
                 </div>
               </div>
             </div>
