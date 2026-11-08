@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Industrias Monnir C. A. — 60 Años Transformando el Futuro Textil en Venezuela</title>
+  <title>Monnir Flash1 — Industrias Monnir C. A. | 60 Años Transformando el Futuro Textil en Venezuela</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -15,21 +15,27 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --color-black: #141413;
-      --color-charcoal: #1F1F1D;
-      --color-dark-gray: #2B2A27;
-      --color-gray: #686762;
-      --color-medium-gray: #9E9C95;
-      --color-warm-brown: #8C6D46;
-      --color-brown: #A68759;
-      --color-tan: #C4A77D;
-      --color-sand: #DDD0C0;
-      --color-cream: #F2ECE1;
-      --color-off-white: #FAF7F2;
+      --color-black: #16283C;
+      --color-charcoal: #1F3A5F;
+      --color-dark-gray: #3E598C;
+      --color-gray: #5A6E85;
+      --color-medium-gray: #8FA3BC;
+      --color-warm-brown: #D4B28C;
+      --color-brown: #C4A77D;
+      --color-tan: #D4B28C;
+      --color-sand: #F2E8DC;
+      --color-cream: #F5EFEF;
+      --color-off-white: #F5EFEF;
+      --color-bg: #F5EFEF;
+      --color-dark: #16283C;
+      --color-primary: #1F3A5F;
+      --color-secondary: #3E598C;
+      --color-accent: #D4B28C; /* Beige elegante */
       --color-white: #FFFFFF;
 
       --font-display: 'EB Garamond', Georgia, serif;
       --font-elegant: 'Lora', Garamond, serif;
+      --font-headline: 'Host Grotesk', 'DM Sans', -apple-system, sans-serif;
       --font-body: 'DM Sans', -apple-system, sans-serif;
 
       --nav-height: 76px;
@@ -47,29 +53,18 @@
 
     body {
       font-family: var(--font-body);
-      background: var(--color-off-white);
+      background: #F5EFEF;
       color: var(--color-charcoal);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       position: relative;
     }
 
-    /* Textura micro-grain sutil para realismo */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
+    /* SIN grain / noise */
 
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--color-black); }
-    ::-webkit-scrollbar-thumb { background: var(--color-warm-brown); border-radius: 2px; }
+    ::-webkit-scrollbar-thumb { background: var(--color-tan); border-radius: 9999px; }
 
     /* ============================================
        INTRO LOADER ELEGANTE
@@ -78,7 +73,7 @@
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: var(--color-black);
+      background: #16283C;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -95,7 +90,7 @@
       font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 400;
       letter-spacing: 0.28em;
-      color: var(--color-tan);
+      color: #D4B28C;
       text-transform: uppercase;
       opacity: 0;
       transform: translateY(24px);
@@ -104,7 +99,7 @@
     .loader-line {
       width: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--color-tan), transparent);
+      background: linear-gradient(90deg, transparent, #D4B28C, transparent);
       margin-top: 20px;
       animation: loaderLine 1.4s var(--transition-cinema) 0.6s forwards;
     }
@@ -142,18 +137,18 @@
     .curtain-panel-top, .curtain-panel-bottom {
       width: 100%;
       height: 0%;
-      background: #0D0D0C;
+      background: #16283C;
       position: relative;
       will-change: height;
     }
     .curtain-panel-top { 
       top: 0; 
-      border-bottom: 1px solid rgba(196,167,125,0.3); 
+      border-bottom: 1px solid rgba(212,178,140,0.3); 
     }
     .curtain-panel-bottom { 
       bottom: 0; 
       margin-top: auto; 
-      border-top: 1px solid rgba(196,167,125,0.3); 
+      border-top: 1px solid rgba(212,178,140,0.3); 
     }
 
     .curtain-brand-glow {
@@ -165,7 +160,7 @@
       font-size: clamp(1.2rem, 5.5vw, 2.5rem);
       letter-spacing: clamp(0.12em, 2vw, 0.28em);
       text-transform: uppercase;
-      color: var(--color-tan);
+      color: #D4B28C;
       opacity: 0;
       z-index: 99995;
       pointer-events: none;
@@ -194,7 +189,7 @@
       border-bottom: 1px solid transparent;
     }
     .navbar.scrolled {
-      background: rgba(20, 20, 19, 0.94);
+      background: rgba(22, 40, 60, 0.96);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom-color: rgba(196, 167, 125, 0.15);
@@ -218,7 +213,7 @@
       font-size: 0.58rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: var(--color-tan);
+      color: #D4B28C;
       margin-top: 2px;
       font-weight: 400;
     }
@@ -250,34 +245,16 @@
       left: 0;
       width: 0;
       height: 1px;
-      background: var(--color-tan);
+      background: #D4B28C;
       transition: width 0.35s var(--transition-smooth);
     }
     .nav-link:hover { color: var(--color-white); }
     .nav-link:hover::after { width: 100%; }
-    .nav-link.active { color: var(--color-tan); }
+    .nav-link.active { color: #D4B28C; }
     .nav-link.active::after { width: 100%; }
 
-    .nav-cta {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: var(--color-black);
-      background: var(--color-tan);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 11px 24px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.35s var(--transition-smooth);
-      min-height: 42px;
-      display: inline-flex;
-      align-items: center;
-    }
-    .nav-cta:hover {
-      background: var(--color-white);
-      transform: translateY(-1px);
-    }
+    .nav-cta { font-family: var(--font-body); font-size: 0.72rem; font-weight: 500; color: #FFFFFF; background: #1F3A5F; text-transform: uppercase; letter-spacing: 0.16em; padding: 11px 24px; border: none; cursor: pointer; transition: all 0.35s var(--transition-smooth); min-height: 42px; display: inline-flex; align-items: center; border-radius: 9999px; box-shadow: 0 3px 12px rgba(31,58,95,0.3); }
+    .nav-cta:hover { background: #3E598C; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(31,58,95,0.4); }
 
     /* Botón Hamburguesa Táctil (Mínimo 48px) */
     .burger-btn {
@@ -323,7 +300,7 @@
       right: 0;
       width: min(85vw, 380px);
       height: 100dvh;
-      background: rgba(20, 20, 19, 0.98);
+      background: rgba(22, 40, 60, 0.98);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       z-index: 1005;
@@ -333,7 +310,7 @@
       justify-content: space-between;
       transform: translateX(100%);
       transition: transform 0.45s var(--transition-cinema);
-      border-left: 1px solid rgba(196,167,125,0.18);
+      border-left: 1px solid rgba(212,178,140,0.18);
     }
     .mobile-drawer.open {
       transform: translateX(0%);
@@ -387,9 +364,257 @@
       .burger-btn { display: flex; }
     }
 
-    /* ============================================
-       HERO PRINCIPAL & INNER HEROES (100dvh)
+        /* ============================================
+       HERO PRINCIPAL & INNER HEROES (ESTILO EDITORIAL FURROW)
        ============================================ */
+    .hero-furrow {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      background: var(--color-dark);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hero-furrow-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .hero-furrow-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 45%;
+      opacity: 0.38;
+      filter: contrast(1.12) saturate(0.88);
+      transform: scale(1.03);
+    }
+    .hero-furrow-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(22, 40, 60, 0.45) 0%, rgba(22, 40, 60, 0.78) 60%, rgba(22, 40, 60, 0.98) 100%);
+      z-index: 1;
+    }
+    .hero-furrow-stage {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + 40px) clamp(20px, 4vw, 56px) clamp(36px, 5vh, 60px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      gap: 36px;
+    }
+    .hero-furrow-top {
+      max-width: 980px;
+    }
+    .hero-tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-headline);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+    }
+    .hero-tag-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      box-shadow: 0 0 10px var(--color-accent);
+    }
+    .hero-headline {
+      font-family: var(--font-headline);
+      font-size: clamp(38px, 5.8vw, 84px);
+      font-weight: 500;
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      color: var(--color-white);
+      max-width: 13.5em;
+    }
+    .hero-headline em {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--color-sand);
+    }
+    .hero-furrow-bottom {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: flex-end;
+    }
+    .hero-metrics {
+      display: flex;
+      gap: clamp(20px, 3.5vw, 44px);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .metric-value {
+      font-family: var(--font-headline);
+      font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+      font-weight: 600;
+      color: var(--color-white);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .metric-value span.accent {
+      color: var(--color-accent);
+    }
+    .metric-label {
+      font-family: var(--font-headline);
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.65);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .metric-divider {
+      width: 1px;
+      height: 38px;
+      background: rgba(212, 178, 140, 0.25);
+    }
+
+    /* Floating action slip card (estilo Furrow) */
+    .hero-slip-card {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(31, 58, 95, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(212, 178, 140, 0.32);
+      border-radius: 6px;
+      padding: clamp(22px, 2.6vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.42);
+    }
+    .slip-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-headline);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+    .slip-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #5cdb95;
+      box-shadow: 0 0 8px #5cdb95;
+    }
+    .slip-copy {
+      font-family: var(--font-headline);
+      font-size: clamp(0.86rem, 1vw, 0.94rem);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+    .slip-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 22px;
+      margin-top: 4px;
+    }
+
+    /* Boton Pill con estrella giratoria estilo Furrow */
+    .m-btn-furrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65em;
+      min-height: 42px;
+      padding: 0.65em 1.25em 0.65em 1.4em;
+      border: 0;
+      border-radius: 9999px;
+      background: var(--color-accent);
+      color: var(--color-dark);
+      font-family: var(--font-headline);
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+      transition: background-color 0.35s ease, transform 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .m-btn-furrow .m-btn__star {
+      width: 0.95em;
+      height: 0.95em;
+      flex: none;
+      transition: transform 0.6s cubic-bezier(0.3, 1.5, 0.5, 1);
+    }
+    .m-btn-furrow:hover {
+      background: #FFFFFF;
+      color: var(--color-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+    .m-btn-furrow:hover .m-btn__star {
+      transform: rotate(60deg);
+    }
+
+    /* Enlace con animacion de re-dibujado de subrayado (m-link Furrow) */
+    .m-link-furrow {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 3px;
+      font-family: var(--font-headline);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-sand);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .m-link-furrow::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: currentColor;
+      transform-origin: 0% 50%;
+    }
+    .m-link-furrow:hover::after {
+      animation: m-link-redraw 0.7s cubic-bezier(0.6, 0, 0.2, 1);
+    }
+    @keyframes m-link-redraw {
+      0% { transform-origin: 100% 50%; transform: scaleX(1); }
+      45% { transform-origin: 100% 50%; transform: scaleX(0); }
+      46% { transform-origin: 0% 50%; transform: scaleX(0); }
+      100% { transform-origin: 0% 50%; transform: scaleX(1); }
+    }
+
+    /* Sub-heroes para paginas secundarias */
     .hero {
       position: relative;
       width: 100%;
@@ -399,45 +624,13 @@
       justify-content: center;
       overflow: hidden;
       padding: calc(var(--nav-height) + 20px) 24px 60px;
-      background: var(--color-black);
+      background: #16283C;
     }
     .hero.sub-hero {
       min-height: 52dvh;
       padding-top: calc(var(--nav-height) + 30px);
       padding-bottom: 40px;
-      background: linear-gradient(180deg, #1C1B19 0%, var(--color-black) 100%);
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 35%, #2B2A26 0%, #141413 70%);
-      opacity: 0.95;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(20,20,19,0.5) 0%, rgba(20,20,19,0.85) 100%);
-      z-index: 2;
-    }
-    .hero-video-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      opacity: 0.32;
-      filter: contrast(1.15) saturate(0.85);
-      pointer-events: none;
-    }
-    .hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-      opacity: 0.45;
+      background: linear-gradient(180deg, #1a3050 0%, #16283C 100%);
     }
     .hero-content {
       position: relative;
@@ -447,20 +640,21 @@
       margin: 0 auto;
     }
     .hero-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.7rem;
-      font-weight: 400;
-      color: var(--color-tan);
+      font-family: var(--font-headline);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-accent);
       text-transform: uppercase;
-      letter-spacing: 0.42em;
-      margin-bottom: 22px;
+      letter-spacing: 0.32em;
+      margin-bottom: 20px;
     }
     .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
-      font-weight: 400;
+      font-family: var(--font-headline);
+      font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+      font-weight: 500;
       color: var(--color-white);
       line-height: 1.08;
+      letter-spacing: -0.03em;
       margin-bottom: 18px;
     }
     .hero-title em {
@@ -470,29 +664,15 @@
       color: var(--color-sand);
     }
     .hero-subtitle {
-      font-family: var(--font-elegant);
-      font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2vw, 1.25rem);
       font-weight: 400;
-      font-style: italic;
       color: rgba(255,255,255,0.72);
       margin-bottom: 24px;
-    }
-    .hero-line {
-      width: 50px;
-      height: 1px;
-      background: var(--color-tan);
-      margin: 24px auto;
-    }
-    .hero-desc {
-      font-family: var(--font-body);
-      font-size: 0.92rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.8;
-      max-width: 540px;
-      margin: 0 auto 36px;
+      letter-spacing: -0.01em;
     }
 
+    /* Botones globales estandar */
     .btn-group {
       display: flex;
       justify-content: center;
@@ -503,65 +683,169 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-body);
+      font-family: var(--font-headline);
       font-size: 0.74rem;
-      font-weight: 500;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--color-black);
-      background: var(--color-tan);
-      padding: 14px 34px;
-      border: 1px solid var(--color-tan);
+      letter-spacing: 0.16em;
+      color: #FFFFFF;
+      background: #1F3A5F;
+      padding: 13px 30px;
+      border-radius: 9999px;
+      border: 1px solid #1F3A5F;
       cursor: pointer;
       transition: all 0.35s var(--transition-smooth);
-      min-height: 48px;
+      min-height: 46px;
       text-decoration: none;
+      box-shadow: 0 4px 16px rgba(31,58,95,0.25);
     }
     .btn-primary:hover {
-      background: var(--color-white);
-      border-color: var(--color-white);
+      background: #3E598C;
+      border-color: #3E598C;
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 28px rgba(31,58,95,0.35);
     }
     .btn-outline {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-body);
+      font-family: var(--font-headline);
       font-size: 0.74rem;
-      font-weight: 400;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--color-tan);
+      letter-spacing: 0.16em;
+      color: #1F3A5F;
       background: transparent;
-      padding: 14px 32px;
-      border: 1px solid rgba(196, 167, 125, 0.4);
+      padding: 13px 28px;
+      border-radius: 9999px;
+      border: 1px solid rgba(31,58,95,0.35);
       cursor: pointer;
       transition: all 0.35s var(--transition-smooth);
-      min-height: 48px;
+      min-height: 46px;
       text-decoration: none;
     }
     .btn-outline:hover {
-      background: rgba(196, 167, 125, 0.1);
-      border-color: var(--color-tan);
-      color: var(--color-white);
+      background: rgba(31,58,95,0.1);
+      border-color: #1F3A5F;
+      color: #16283C;
     }
 
+    @media (max-width: 900px) {
+      .hero-furrow-bottom {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .hero-slip-card {
+        max-width: 100%;
+      }
+    }
+    @media (max-width: 600px) {
+      .metric-divider { display: none; }
+      .hero-metrics { gap: 18px 28px; }
+      .hero-headline { font-size: clamp(30px, 8.5vw, 44px); }
+    }
     @media (max-width: 540px) {
       .btn-group { flex-direction: column; width: 100%; }
       .btn-primary, .btn-outline { width: 100%; }
     }
 
     /* ============================================
+       SUB-HERO EDITORIAL FURROW (PAGINAS INTERNAS)
+       ============================================ */
+    .subhero-furrow {
+      position: relative;
+      width: 100%;
+      min-height: 48dvh;
+      background: var(--color-dark);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: calc(var(--nav-height) + 40px) clamp(20px, 4vw, 56px) clamp(34px, 5vh, 50px);
+    }
+    .subhero-furrow-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .subhero-furrow-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      opacity: 0.28;
+      filter: contrast(1.15) saturate(0.85);
+    }
+    .subhero-furrow-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(22, 40, 60, 0.55) 0%, rgba(22, 40, 60, 0.94) 100%);
+      z-index: 1;
+    }
+    .subhero-furrow-stage {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .subhero-title {
+      font-family: var(--font-headline);
+      font-size: clamp(32px, 4.8vw, 62px);
+      font-weight: 500;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      color: var(--color-white);
+      max-width: 15em;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+    .subhero-title em {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      color: var(--color-sand);
+    }
+    .subhero-subtitle {
+      font-family: var(--font-headline);
+      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 650px;
+      line-height: 1.5;
+    }
+
+    /* Cards de Valores Furrow */
+    .value-card-furrow {
+      padding: clamp(28px, 4vw, 40px);
+      border: 1px solid rgba(212, 178, 140, 0.25);
+      background: rgba(31, 58, 95, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 6px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .value-card-furrow:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+    }
+    .value-card-furrow .value-title {
+      font-family: var(--font-headline);
+      font-size: 1.45rem;
+      font-weight: 500;
+      color: var(--color-white);
+      margin-bottom: 12px;
+    }
+    .value-card-furrow .value-desc {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* ============================================
        MARQUEE CORPORATIVO
        ============================================ */
-    .marquee-wrapper {
-      overflow: hidden;
-      padding: 24px 0;
-      background: var(--color-black);
-      border-top: 1px solid rgba(196, 167, 125, 0.15);
-      border-bottom: 1px solid rgba(196, 167, 125, 0.15);
-    }
+    .marquee-wrapper { overflow: hidden; padding: 24px 0; background: #16283C; border-top: 1px solid rgba(212,178,140,0.15); border-bottom: 1px solid rgba(212,178,140,0.15); }
     .marquee-track {
       display: flex;
       gap: 60px;
@@ -573,7 +857,7 @@
       font-size: 1.15rem;
       font-weight: 400;
       letter-spacing: 0.14em;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.5);
       white-space: nowrap;
       display: flex;
       align-items: center;
@@ -600,19 +884,19 @@
       position: relative;
     }
     .section-dark {
-      background: var(--color-black);
+      background: var(--color-dark, #16283C);
       color: var(--color-white);
     }
     .section-cream {
-      background: var(--color-cream);
+      background: #F5EFEF;
       color: var(--color-charcoal);
     }
     .section-white {
-      background: var(--color-white);
+      background: var(--color-bg, #F5EFEF);
       color: var(--color-charcoal);
     }
     .section-charcoal {
-      background: var(--color-charcoal);
+      background: #1F3A5F;
       color: var(--color-white);
     }
     .container {
@@ -631,13 +915,12 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.32em;
-      color: var(--color-warm-brown);
+      color: #D4B28C;
       margin-bottom: 12px;
       display: block;
     }
-    .section-dark .section-eyebrow,
-    .section-charcoal .section-eyebrow {
-      color: var(--color-tan);
+    .section-dark .section-eyebrow, .section-charcoal .section-eyebrow {
+      color: #D4B28C;
     }
     .section-title {
       font-family: var(--font-display);
@@ -649,16 +932,15 @@
     .section-title em {
       font-family: var(--font-elegant);
       font-style: italic;
-      color: var(--color-warm-brown);
+      color: #D4B28C;
     }
-    .section-dark .section-title em,
-    .section-charcoal .section-title em {
-      color: var(--color-sand);
+    .section-dark .section-title em, .section-charcoal .section-title em {
+      color: #f8dfc7;
     }
     .section-line {
       width: 44px;
       height: 1px;
-      background: var(--color-tan);
+      background: #D4B28C;
       margin: 18px auto;
     }
     .section-subtitle {
@@ -666,7 +948,7 @@
       font-size: 1.1rem;
       font-weight: 400;
       font-style: italic;
-      color: var(--color-gray);
+      color: #5A6E85;
       max-width: 580px;
       margin: 0 auto;
       line-height: 1.7;
@@ -685,22 +967,21 @@
       gap: clamp(24px, 3vw, 36px);
     }
     .product-card {
-      background: var(--color-white);
-      border: 1px solid rgba(196, 167, 125, 0.18);
+      background: #FFFFFF;
+      border: 1px solid rgba(31,58,95,0.12);
       overflow: hidden;
       transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .section-dark .product-card,
-    .section-charcoal .product-card {
-      background: #1B1B19;
+    .section-dark .product-card, .section-charcoal .product-card {
+      background: #1F3A5F;
     }
     .product-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-      border-color: var(--color-tan);
+      border-color: #D4B28C;
     }
     .product-card-image {
       width: 100%;
@@ -709,8 +990,8 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background: #161614;
-      border-bottom: 1px solid rgba(196, 167, 125, 0.1);
+      background: #16283C;
+      border-bottom: 1px solid rgba(31,58,95,0.1);
     }
     .product-card-content {
       padding: clamp(24px, 3vw, 36px);
@@ -721,7 +1002,7 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.24em;
-      color: var(--color-warm-brown);
+      color: #D4B28C;
       margin-bottom: 12px;
     }
     .section-dark .product-card-tag,
@@ -752,7 +1033,7 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: var(--color-warm-brown);
+      color: #D4B28C;
       background: none;
       border: none;
       cursor: pointer;
@@ -762,9 +1043,8 @@
       transition: gap 0.3s;
       padding: 0;
     }
-    .section-dark .product-card-link,
-    .section-charcoal .product-card-link {
-      color: var(--color-tan);
+    .section-dark .product-card-link, .section-charcoal .product-card-link {
+      color: #D4B28C;
     }
     .product-card-link:hover {
       gap: 14px;
@@ -785,24 +1065,24 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-tan) #1E1D1B;
+      scrollbar-color: #D4B28C #1A2D44;
     }
     .filmstrip-container::-webkit-scrollbar {
       height: 6px;
     }
     .filmstrip-container::-webkit-scrollbar-track {
-      background: #191816;
+      background: #1A2D44;
       border-radius: 3px;
     }
     .filmstrip-container::-webkit-scrollbar-thumb {
-      background: var(--color-tan);
+      background: #D4B28C;
       border-radius: 3px;
     }
     .filmstrip-card {
       flex: 0 0 clamp(290px, 32vw, 380px);
       scroll-snap-align: start;
-      background: #1B1B19;
-      border: 1px solid rgba(196, 167, 125, 0.22);
+      background: #1F3A5F;
+      border: 1px solid rgba(212,178,140,0.2);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -818,7 +1098,7 @@
       height: 240px;
       overflow: hidden;
       position: relative;
-      background: #121211;
+      background: #16283C;
     }
     .filmstrip-img-wrap img {
       width: 100%;
@@ -835,7 +1115,7 @@
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(20,20,19,0.85);
+      background: rgba(22,40,60,0.9);
       backdrop-filter: blur(8px);
       border: 1px solid rgba(196, 167, 125, 0.3);
       padding: 4px 10px;
@@ -884,7 +1164,7 @@
     .two-col-text h3 em {
       font-family: var(--font-elegant);
       font-style: italic;
-      color: var(--color-warm-brown);
+      color: #D4B28C;
     }
     .section-dark .two-col-text h3 em,
     .section-charcoal .two-col-text h3 em {
@@ -895,7 +1175,7 @@
       font-size: 0.92rem;
       font-weight: 300;
       line-height: 1.8;
-      color: var(--color-gray);
+      color: #5A6E85;
       margin-bottom: 18px;
     }
     .section-dark .two-col-text p,
@@ -930,7 +1210,7 @@
     }
     .value-card {
       padding: clamp(28px, 4vw, 40px);
-      border: 1px solid rgba(196, 167, 125, 0.2);
+      border: 1px solid rgba(31,58,95,0.2);
       background: rgba(255,255,255,0.02);
       position: relative;
     }
@@ -944,7 +1224,7 @@
       font-family: var(--font-body);
       font-size: 0.88rem;
       line-height: 1.7;
-      color: var(--color-gray);
+      color: #5A6E85;
       font-weight: 300;
     }
     .section-dark .value-desc,
@@ -971,7 +1251,7 @@
     .timeline-num {
       font-family: var(--font-display);
       font-size: 1.8rem;
-      color: var(--color-tan);
+      color: #D4B28C;
     }
     .timeline-heading {
       font-family: var(--font-display);
@@ -1005,7 +1285,7 @@
     }
     .sector-item {
       padding: 30px 24px;
-      border: 1px solid rgba(196, 167, 125, 0.15);
+      border: 1px solid rgba(212,178,140,0.15);
       background: rgba(255,255,255,0.02);
       transition: border-color 0.3s;
     }
@@ -1036,8 +1316,8 @@
       align-items: start;
     }
     .form-box {
-      background: #181816;
-      border: 1px solid rgba(196, 167, 125, 0.2);
+      background: #1F3A5F;
+      border: 1px solid rgba(212,178,140,0.2);
       padding: clamp(24px, 4vw, 44px);
     }
     .form-group {
@@ -1051,13 +1331,13 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: var(--color-tan);
+      color: #D4B28C;
       margin-bottom: 8px;
     }
     .form-input, .form-select, .form-textarea {
       width: 100%;
-      background: #21211E;
-      border: 1px solid rgba(196, 167, 125, 0.2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(212,178,140,0.25);
       color: var(--color-white);
       font-family: var(--font-body);
       font-size: 0.9rem;
@@ -1068,7 +1348,7 @@
       border-radius: 2px;
     }
     .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--color-tan);
+      border-color: #D4B28C;
     }
     .form-textarea {
       min-height: 120px;
@@ -1085,8 +1365,8 @@
     .cta-banner {
       text-align: center;
       padding: clamp(70px, 9vw, 110px) 24px;
-      background: var(--color-charcoal);
-      border-top: 1px solid rgba(196, 167, 125, 0.15);
+      background: #1F3A5F;
+      border-top: 1px solid rgba(212,178,140,0.2);
       border-bottom: 1px solid rgba(196, 167, 125, 0.15);
     }
     .cta-banner h2 {
@@ -1115,9 +1395,9 @@
        FOOTER
        ============================================ */
     .footer {
-      background: var(--color-black);
+      background: #16283C;
       padding: 70px clamp(20px, 5vw, 60px) 35px;
-      border-top: 1px solid rgba(196, 167, 125, 0.12);
+      border-top: 1px solid rgba(212,178,140,0.15);
     }
     .footer-grid {
       display: grid;
@@ -1129,7 +1409,7 @@
       font-family: var(--font-display);
       font-size: 1.8rem;
       letter-spacing: 0.16em;
-      color: var(--color-tan);
+      color: #D4B28C;
       margin-bottom: 14px;
     }
     .footer-brand-desc {
@@ -1167,7 +1447,7 @@
       padding: 2px 0;
       transition: color 0.3s;
     }
-    .footer-col li button:hover { color: var(--color-tan); }
+    .footer-col li button:hover { color: #D4B28C; }
     .footer-bottom {
       display: flex;
       justify-content: space-between;
@@ -1322,7 +1602,7 @@
         };
       }, []);
 
-      return <canvas ref={canvasRef} className="hero-canvas" />;
+      return null; // Animated bg disabled per design spec
     };
 
     // ============================================
@@ -1421,7 +1701,7 @@
 
           <aside className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
             <div className="drawer-nav-list">
-              <div style={{ fontSize: '0.68rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--color-tan)', marginBottom: '8px' }}>
+              <div style={{ fontSize: '0.68rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: '#D4B28C', marginBottom: '8px' }}>
                 Navegación
               </div>
               {pages.map((p, i) => (
@@ -1477,53 +1757,83 @@
     // ========================================================
     // INTERRUPTOR DE VIDEO HERO (BACKGROUND VIDEO TOGGLE)
     // Para desactivar el video de fondo en el Hero, cambiar a false:
-    const SHOW_HERO_VIDEO = true;
+    const SHOW_HERO_VIDEO = false;
     // ========================================================
 
-    // ============================================
-    // SUB-PORTAL 1: INICIO
+        // ============================================
+    // SUB-PORTAL 1: INICIO (HERO EDITORIAL FURROW)
     // ============================================
     const PortalInicio = ({ onNavigate }) => {
       return (
         <div>
-          <section className="hero">
-            <div className="hero-bg" />
-            {SHOW_HERO_VIDEO && (
-              <video
-                className="hero-video-bg"
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster="assets/img/nosotros-director-planta.jpg"
-              >
-                <source src="assets/video/video-planta-loop.mp4" type="video/mp4" />
-              </video>
-            )}
-            <FiberFieldCanvas />
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-eyebrow">60 Años Transformando el Futuro Textil en Venezuela</div>
-              <h1 className="hero-title">
-                Industrias <em>Monnir</em>
-              </h1>
-              <p className="hero-subtitle">Tejemos segundas oportunidades</p>
-              <div className="hero-line" />
-              <p className="hero-desc">
-                Pioneros en economía circular y recuperación textil. Seis décadas transformando excedentes en materias primas de primera calidad para la industria nacional.
-              </p>
-              <div className="btn-group">
-                <button className="btn-primary" onClick={() => onNavigate('productos')}>
-                  Ver Catálogo Mayorista
-                </button>
-                <button className="btn-outline" onClick={() => onNavigate('contacto')}>
-                  Mesa Comercial B2B
-                </button>
+          <section className="hero-furrow">
+            <div className="hero-furrow-media" aria-hidden="true">
+              <img
+                src="assets/img/proceso-4-hilatura-filetas.jpg"
+                alt="Línea de Hilatura y Filetas — Industrias Monnir C. A."
+                className="hero-furrow-img"
+              />
+              <div className="hero-furrow-overlay" />
+            </div>
+
+            <div className="hero-furrow-stage">
+              <div className="hero-furrow-top">
+                <div className="hero-tag-badge">
+                  <span className="dot" />
+                  <span>60 Años Liderando la Transformación Textil • Santa Teresa del Tuy</span>
+                </div>
+                <h1 className="hero-headline">
+                  Cada hilo cuenta una historia de <em>transformación y solidez industrial</em>.
+                </h1>
+              </div>
+
+              <div className="hero-furrow-bottom">
+                <div className="hero-metrics">
+                  <div className="metric-item">
+                    <div className="metric-value">60<span className="accent">+</span></div>
+                    <div className="metric-label">Años de Trayectoria</div>
+                  </div>
+                  <div className="metric-divider" />
+                  <div className="metric-item">
+                    <div className="metric-value">100<span className="accent">%</span></div>
+                    <div className="metric-label">Economía Circular</div>
+                  </div>
+                  <div className="metric-divider" />
+                  <div className="metric-item">
+                    <div className="metric-value">4</div>
+                    <div className="metric-label">Líneas de Producción</div>
+                  </div>
+                </div>
+
+                <div className="hero-slip-card">
+                  <div className="slip-status">
+                    <span className="slip-pulse-dot" />
+                    <span>Planta Activa • Despacho Nacional</span>
+                  </div>
+                  <p className="slip-copy">
+                    Pioneros en recuperación textil en Venezuela. Transformamos excedentes industriales en pabilo, coleto, cordón y paño amarillo con entrega continua y control de lote garantizado.
+                  </p>
+                  <div className="slip-actions">
+                    <button className="m-btn-furrow" onClick={() => onNavigate('productos')}>
+                      <span>Ver Catálogo Mayorista</span>
+                      <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                        <g fill="currentColor">
+                          <rect x="-100" y="-19" width="200" height="38" />
+                          <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                          <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                        </g>
+                      </svg>
+                    </button>
+                    <button className="m-link-furrow" onClick={() => onNavigate('contacto')}>
+                      Mesa Comercial B2B →
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
-          <Marquee />
+<Marquee />
 
           {/* SOBRE MONNIR PREVIEW */}
           <section className="section section-white">
@@ -1545,7 +1855,7 @@
                   </div>
                 </div>
 
-                <div className="art-placeholder" style={{ background: '#191816', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)' }}>
+                <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)' }}>
                   <img 
                     src="assets/img/nosotros-director-planta.jpg" 
                     alt="Nave Central de Industrias Monnir C.A." 
@@ -1673,17 +1983,32 @@
     // ============================================
     // SUB-PORTAL 2: NOSOTROS
     // ============================================
+        // ============================================
+    // SUB-PORTAL 2: NOSOTROS (FURROW STYLE)
+    // ============================================
     const PortalNosotros = ({ onNavigate }) => {
       return (
         <div>
-          <section className="hero sub-hero">
-            <div className="hero-bg" />
-            <FiberFieldCanvas />
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-eyebrow">60 Años de Trayectoria Familiar</div>
-              <h1 className="hero-title">Sesenta Años Tejiendo <em>Segundas Oportunidades</em></h1>
-              <p className="hero-subtitle">Pioneros del recuperado textil y la economía circular en Venezuela</p>
+          <section className="subhero-furrow">
+            <div className="subhero-furrow-media" aria-hidden="true">
+              <img
+                src="assets/img/nosotros-director-planta.jpg"
+                alt="Nave Central de Industrias Monnir C. A."
+                className="subhero-furrow-img"
+              />
+              <div className="subhero-furrow-overlay" />
+            </div>
+            <div className="subhero-furrow-stage">
+              <div className="hero-tag-badge">
+                <span className="dot" />
+                <span>60 Años de Trayectoria Familiar • Santa Teresa del Tuy</span>
+              </div>
+              <h1 className="subhero-title">
+                Sesenta Años Tejiendo <em>Segundas Oportunidades</em>
+              </h1>
+              <p className="subhero-subtitle">
+                Pioneros del recuperado textil y la economía circular en Venezuela desde 1964.
+              </p>
             </div>
           </section>
 
@@ -1704,17 +2029,17 @@
                   <p>
                     Nuestra trayectoria es la garantía de que conocemos cada fibra, cada proceso y cada solución para transformar los excedentes textiles en materias primas de primera calidad.
                   </p>
-                  <p style={{ fontFamily: 'var(--font-elegant)', fontStyle: 'italic', color: 'var(--color-warm-brown)', fontSize: '1.15rem', marginTop: '12px' }}>
+                  <p style={{ fontFamily: 'var(--font-elegant)', fontStyle: 'italic', color: 'var(--color-accent)', fontSize: '1.15rem', marginTop: '12px' }}>
                     «¡El desperdicio de unos, es el tesoro de otros!»
                   </p>
                 </div>
-                <div className="art-placeholder" style={{ background: '#191816', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)' }}>
+                <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(212,178,140,0.25)', borderRadius: '6px' }}>
                   <img 
                     src="assets/img/nosotros-director-planta.jpg" 
-                    alt="Dirección y Nave Central de Hilatura de Industrias Monnir C.A." 
+                    alt="Nave Central de Hilatura de Industrias Monnir C.A." 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '380px' }}
                   />
-                  <div style={{ padding: '12px 18px', background: 'rgba(20,20,19,0.92)', borderTop: '1px solid rgba(196,167,125,0.15)', fontSize: '0.72rem', letterSpacing: '0.12em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>
+                  <div style={{ padding: '12px 18px', background: 'rgba(22,40,60,0.95)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.72rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)' }}>
                     Nave Central de Hilatura — Tradición Familiar de 60 Años
                   </div>
                 </div>
@@ -1731,22 +2056,22 @@
               </div>
 
               <div className="values-grid">
-                <div className="value-card">
+                <div className="value-card-furrow">
                   <h3 className="value-title">Misión</h3>
                   <p className="value-desc">
-                    Transformar excedentes textiles en productos de primera calidad mediante procesos rigurosos de clasificación y desfibrado, cerrando el ciclo de la economía circular con soluciones medibles para la industria.
+                    Transformar excedentes textiles en productos de primera calidad mediante procesos rigurosos de clasificación y desfibrado, cerrando el ciclo de la economía circular con soluciones medibles para la industria nacional.
                   </p>
                 </div>
-                <div className="value-card">
+                <div className="value-card-furrow">
                   <h3 className="value-title">Visión</h3>
                   <p className="value-desc">
                     Consolidarnos como el referente nacional en recuperación textil, demostrando que la sostenibilidad ambiental y la rentabilidad industrial caminan juntas sobre seis décadas de experiencia comprobada.
                   </p>
                 </div>
-                <div className="value-card">
+                <div className="value-card-furrow">
                   <h3 className="value-title">Valores</h3>
                   <p className="value-desc">
-                    Compromiso ambiental tangible, constancia lote a lote, respeto por los plazos de entrega y cercanía personal en el trato con cada cliente aliado.
+                    Compromiso ambiental tangible, constancia lote a lote, respeto riguroso por los plazos de entrega y cercanía personal en el trato con cada cliente aliado.
                   </p>
                 </div>
               </div>
@@ -1757,8 +2082,15 @@
             <div className="container">
               <h2>Construyamos <em>juntos</em> el futuro textil sostenible</h2>
               <p>Descubra cómo Industrias Monnir C. A. puede ser su aliado estratégico de aprovisionamiento.</p>
-              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Contactar a Nuestra Planta
+              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                <span>Contactar a Nuestra Planta</span>
+                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                  <g fill="currentColor">
+                    <rect x="-100" y="-19" width="200" height="38" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                  </g>
+                </svg>
               </button>
             </div>
           </section>
@@ -1766,20 +2098,20 @@
       );
     };
 
-    // ============================================
-    // SUB-PORTAL 3: PRODUCTOS
+
+        // ============================================
+    // SUB-PORTAL 3: PRODUCTOS (FURROW STYLE)
     // ============================================
     const PortalProductos = ({ onNavigate }) => {
       const list = [
         {
           id: 'pabilo',
-          tag: 'Hilatura & Limpieza',
+          tag: 'Hilatura & Mechas',
           name: 'Pabilo Industrial',
           subtitle: 'Fibra recuperada de alta absorción para coletos y mechas',
           desc: 'Hilo de algodón recuperado de regularidad homogénea y capacidad hidrófila superior. Producido bajo estrictos estándares de clasificación y desfibrado para garantizar resistencia a la fricción y máxima retención de humedad.',
-          specs: 'Despacho habitual en fardos cilíndricos compactos de 18 kg con fleje y control de lote. Disponibilidad en ovillos por bulto.',
-          img: 'assets/img/producto-pabilo-fardo-18kg.jpg',
-          imgSecondary: 'assets/img/producto-pabilo-ovillo.jpg'
+          specs: 'Despacho habitual en fardos cilíndricos compactos de 18 kg con fleje reforzado y control de lote. Disponibilidad en ovillos por bulto.',
+          img: 'assets/img/producto-pabilo-fardo-18kg.jpg'
         },
         {
           id: 'coleto',
@@ -1805,22 +2137,33 @@
           name: 'Paño Amarillo (Bayetilla Industrial)',
           subtitle: 'Tela pesada en rollos para absorción industrial intensiva',
           desc: 'Bayetilla amarilla de alto gramaje para absorción de grasas, solventes, aceites y limpieza pesada en talleres, plantas automotrices y líneas de ensamble. Es nuestro producto de mayor volumen de despacho a nivel nacional.',
-          specs: 'Rollos cilíndricos masivos estibados sobre pallets industriales con flejado reforzado para transporte en camión.',
-          img: 'assets/img/producto-pano-amarillo-pallet.jpg',
-          imgSecondary: 'assets/img/producto-pano-amarillo-detalle.jpg'
+          specs: 'Rollos cilíndricos masivos estibados sobre pallets industriales con flejado reforzado para transporte directo en camión.',
+          img: 'assets/img/producto-pano-amarillo-pallet.jpg'
         }
       ];
 
       return (
         <div>
-          <section className="hero sub-hero">
-            <div className="hero-bg" />
-            <FiberFieldCanvas />
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-eyebrow">Catálogo Mayorista B2B</div>
-              <h1 className="hero-title">Nuestros <em>Productos</em></h1>
-              <p className="hero-subtitle">Cuatro líneas esenciales respaldadas en 60 años de trayectoria fabril</p>
+          <section className="subhero-furrow">
+            <div className="subhero-furrow-media" aria-hidden="true">
+              <img
+                src="assets/img/producto-pano-amarillo-pallet.jpg"
+                alt="Pallet de Paño Amarillo en Planta"
+                className="subhero-furrow-img"
+              />
+              <div className="subhero-furrow-overlay" />
+            </div>
+            <div className="subhero-furrow-stage">
+              <div className="hero-tag-badge">
+                <span className="dot" />
+                <span>Catálogo Mayorista B2B • Suministro Directo de Planta</span>
+              </div>
+              <h1 className="subhero-title">
+                Nuestros <em>Productos</em>
+              </h1>
+              <p className="subhero-subtitle">
+                Cuatro líneas esenciales respaldadas en 60 años de trayectoria fabril y entrega nacional.
+              </p>
             </div>
           </section>
 
@@ -1833,26 +2176,33 @@
             >
               <div className="container">
                 <div className={`two-col ${idx % 2 !== 0 ? 'reverse' : ''}`}>
-                  <div className="art-placeholder" style={{ background: '#191816', padding: 0, overflow: 'hidden', border: '1px solid rgba(196,167,125,0.25)', position: 'relative' }}>
+                  <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(212,178,140,0.25)', position: 'relative', borderRadius: '6px' }}>
                     <img 
                       src={item.img} 
                       alt={item.name} 
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '360px' }}
                     />
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(20,20,19,0.85)', backdropFilter: 'blur(6px)', borderTop: '1px solid rgba(196,167,125,0.2)', fontSize: '0.68rem', letterSpacing: '0.15em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(22,40,60,0.92)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.7rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)' }}>
                       {item.subtitle}
                     </div>
                   </div>
                   <div className="two-col-text">
                     <span className="section-eyebrow">{item.tag}</span>
-                    <h3>{item.name}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.name}</h3>
                     <p>{item.desc}</p>
-                    <p style={{ fontSize: '0.86rem', color: idx % 2 === 0 ? 'var(--color-gray)' : 'rgba(255,255,255,0.7)', borderLeft: '2px solid var(--color-tan)', paddingLeft: '14px', margin: '18px 0' }}>
-                      <strong>Especificación de Despacho:</strong> {item.specs}
+                    <p style={{ fontSize: '0.86rem', color: idx % 2 === 0 ? 'var(--color-gray)' : 'rgba(255,255,255,0.7)', borderLeft: '2px solid var(--color-accent)', paddingLeft: '14px', margin: '18px 0', fontFamily: 'var(--font-headline)' }}>
+                      <strong style={{ color: idx % 2 === 0 ? 'var(--color-dark)' : 'var(--color-sand)' }}>Especificación de Despacho:</strong> {item.specs}
                     </p>
-                    <div className="btn-group" style={{ justifyContent: 'flex-start', marginTop: '20px' }}>
-                      <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                        Cotizar este Producto
+                    <div style={{ marginTop: '24px' }}>
+                      <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                        <span>Cotizar este Producto</span>
+                        <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                          <g fill="currentColor">
+                            <rect x="-100" y="-19" width="200" height="38" />
+                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                          </g>
+                        </svg>
                       </button>
                     </div>
                   </div>
@@ -1865,8 +2215,15 @@
             <div className="container">
               <h2>¿Requiere cotización de <em>lotes industriales</em>?</h2>
               <p>Programamos despachos continuos en fardos, rollos o pallets completos a todo el país.</p>
-              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Hablar con un Asesor Comercial
+              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                <span>Hablar con un Asesor Comercial</span>
+                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                  <g fill="currentColor">
+                    <rect x="-100" y="-19" width="200" height="38" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                  </g>
+                </svg>
               </button>
             </div>
           </section>
@@ -1874,15 +2231,16 @@
       );
     };
 
-    // ============================================
-    // SUB-PORTAL 4: PROCESOS & INFRAESTRUCTURA (CON CARRUSEL SUTIL)
+
+        // ============================================
+    // SUB-PORTAL 4: PROCESOS & INFRAESTRUCTURA (FURROW STYLE)
     // ============================================
     const PortalProcesos = ({ onNavigate }) => {
       const filmstripItems = [
         {
           phase: 'Fase 01',
           title: 'Apertura y Clasificación',
-          desc: 'Tolvas mecánicas y Big Bags gigantes de fibra de algodón recuperada listas para el ingreso al tren de mezcla.',
+          desc: 'Tolvas mecánicas y Big Bags de fibra de algodón recuperada listas para el ingreso al tren de mezcla.',
           img: 'assets/img/proceso-1-apertura-tolvas.jpg'
         },
         {
@@ -1928,20 +2286,32 @@
 
       return (
         <div>
-          <section className="hero sub-hero">
-            <div className="hero-bg" />
-            <FiberFieldCanvas />
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-eyebrow">Infraestructura & Capacidad Fabril</div>
-              <h1 className="hero-title">Nuestra <em>Planta</em></h1>
-              <p className="hero-subtitle">Procesos de economía circular que garantizan solidez en cada lote</p>
+          <section className="subhero-furrow">
+            <div className="subhero-furrow-media" aria-hidden="true">
+              <img
+                src="assets/img/proceso-1-apertura-tolvas.jpg"
+                alt="Tren de Maquinaria de Planta Monnir"
+                className="subhero-furrow-img"
+              />
+              <div className="subhero-furrow-overlay" />
+            </div>
+            <div className="subhero-furrow-stage">
+              <div className="hero-tag-badge">
+                <span className="dot" />
+                <span>Infraestructura & Capacidad Fabril • Santa Teresa del Tuy</span>
+              </div>
+              <h1 className="subhero-title">
+                Nuestra <em>Planta</em> e Instalaciones
+              </h1>
+              <p className="subhero-subtitle">
+                Procesos de economía circular que garantizan solidez, regularidad y entrega programada lote a lote.
+              </p>
             </div>
           </section>
 
           <Marquee />
 
-          {/* CARRUSEL DOCUMENTAL SUTIL (FILMSTRIP DE FOTOS REALES) */}
+          {/* CARRUSEL DOCUMENTAL (FILMSTRIP DE FOTOS REALES) */}
           <section className="section section-dark" style={{ paddingBottom: '30px' }}>
             <div className="container">
               <div className="section-header" style={{ marginBottom: '24px' }}>
@@ -1954,24 +2324,24 @@
               </div>
 
               <div className="filmstrip-wrap">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                  <div style={{ fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--color-tan)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                  <div style={{ fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-accent)', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>
                     Dossier Visual • 6 Fases Operacionales
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.08em' }}>
-                    ← Deslice horizontalmente →
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.08em', fontFamily: 'var(--font-headline)' }}>
+                    Deslice horizontalmente para recorrer la nave
                   </div>
                 </div>
 
                 <div className="filmstrip-container">
                   {filmstripItems.map((item, idx) => (
-                    <div key={idx} className="filmstrip-card">
+                    <div key={idx} className="filmstrip-card" style={{ borderRadius: '6px' }}>
                       <div className="filmstrip-img-wrap">
-                        <span className="filmstrip-badge">{item.phase}</span>
+                        <span className="filmstrip-badge" style={{ borderRadius: '9999px', padding: '5px 12px', fontWeight: '600' }}>{item.phase}</span>
                         <img src={item.img} alt={item.title} loading="lazy" />
                       </div>
                       <div className="filmstrip-content">
-                        <h4 className="filmstrip-title">{item.title}</h4>
+                        <h4 className="filmstrip-title" style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.title}</h4>
                         <p className="filmstrip-desc">{item.desc}</p>
                       </div>
                     </div>
@@ -1993,8 +2363,8 @@
               <div className="timeline-clean">
                 {steps.map(s => (
                   <div key={s.num} className="timeline-row">
-                    <div className="timeline-num">{s.num}</div>
-                    <div className="timeline-heading">{s.title}</div>
+                    <div className="timeline-num" style={{ fontFamily: 'var(--font-headline)', fontWeight: '600' }}>{s.num}</div>
+                    <div className="timeline-heading" style={{ fontFamily: 'var(--font-headline)' }}>{s.title}</div>
                     <div className="timeline-body">{s.desc}</div>
                   </div>
                 ))}
@@ -2006,8 +2376,15 @@
             <div className="container">
               <h2>Garantice la continuidad de su <em>suministro</em></h2>
               <p>Nuestra capacidad instalada asegura entregas programadas y consistencia lote a lote.</p>
-              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Cotizar Suministro con Planta
+              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                <span>Cotizar Suministro con Planta</span>
+                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                  <g fill="currentColor">
+                    <rect x="-100" y="-19" width="200" height="38" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                  </g>
+                </svg>
               </button>
             </div>
           </section>
@@ -2015,29 +2392,42 @@
       );
     };
 
-    // ============================================
-    // SUB-PORTAL 5: CLIENTES
+
+        // ============================================
+    // SUB-PORTAL 5: CLIENTES (FURROW STYLE)
     // ============================================
     const PortalClientes = ({ onNavigate }) => {
       const sectors = [
-        { name: 'Distribuidores Mayoristas de Limpieza', desc: 'Comercializadores de artículos de aseo que requieren pabilo por fardos y coleto confeccionado.' },
-        { name: 'Talleres, Automotriz & Mantenimiento', desc: 'Líneas industriales que consumen paño amarillo (bayetilla) en rollos masivos para absorción.' },
-        { name: 'Fábricas de Coletos y Mechas', desc: 'Fabricantes que usan nuestro pabilo de algodón recuperado de alta absorción como materia prima.' },
+        { name: 'Distribuidores Mayoristas de Limpieza', desc: 'Comercializadores de artículos de aseo que requieren pabilo por fardos de 18 kg y coleto confeccionado.' },
+        { name: 'Talleres, Automotriz & Mantenimiento', desc: 'Líneas industriales que consumen paño amarillo (bayetilla) en rollos masivos sobre pallet para absorción.' },
+        { name: 'Fábricas de Coletos y Mechas', desc: 'Fabricantes que usan nuestro pabilo de algodón recuperado de alta absorción como materia prima base.' },
         { name: 'Cordonerías e Industria de Empaque', desc: 'Empresas manufactureras y agrícolas que necesitan cordón de algodón resistente para amarres.' },
-        { name: 'Grandes Cadenas Comerciales', desc: 'Abastecimiento directo a mayoristas y ferreterías con productos empacados listos para mostrador.' },
+        { name: 'Grandes Cadenas Comerciales & Ferreterías', desc: 'Abastecimiento directo a mayoristas con productos empacados y listos para mostrador.' },
         { name: 'Sector Agroindustrial', desc: 'Cordonería y pabilos especializados para el tutorado de cultivos y amarre de fardos.' },
       ];
 
       return (
         <div>
-          <section className="hero sub-hero">
-            <div className="hero-bg" />
-            <FiberFieldCanvas />
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-eyebrow">Sectores B2B Atendidos</div>
-              <h1 className="hero-title">Nuestros <em>Clientes</em></h1>
-              <p className="hero-subtitle">Alianzas comerciales estratégicas en todo el territorio nacional</p>
+          <section className="subhero-furrow">
+            <div className="subhero-furrow-media" aria-hidden="true">
+              <img
+                src="assets/img/proceso-6-despacho-pallet.jpg"
+                alt="Despacho y Paletizado en Planta Monnir"
+                className="subhero-furrow-img"
+              />
+              <div className="subhero-furrow-overlay" />
+            </div>
+            <div className="subhero-furrow-stage">
+              <div className="hero-tag-badge">
+                <span className="dot" />
+                <span>Sectores B2B Atendidos • Cobertura Nacional</span>
+              </div>
+              <h1 className="subhero-title">
+                Nuestros <em>Clientes</em> y Sectores
+              </h1>
+              <p className="subhero-subtitle">
+                Alianzas comerciales estratégicas de suministro continuo en todo el territorio nacional.
+              </p>
             </div>
           </section>
 
@@ -2053,9 +2443,9 @@
 
               <div className="sectors-grid">
                 {sectors.map((sec, i) => (
-                  <div key={i} className="sector-item">
-                    <div className="sector-name">{sec.name}</div>
-                    <div className="sector-desc">{sec.desc}</div>
+                  <div key={i} className="value-card-furrow" style={{ padding: '28px 24px' }}>
+                    <div className="value-title" style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{sec.name}</div>
+                    <div className="value-desc" style={{ fontSize: '0.84rem', lineHeight: '1.6' }}>{sec.desc}</div>
                   </div>
                 ))}
               </div>
@@ -2065,9 +2455,16 @@
           <section className="cta-banner">
             <div className="container">
               <h2>¿Su empresa busca un proveedor <em>confiable y directo</em>?</h2>
-              <p>Atendemos requerimientos mayoristas sin intermediarios desde nuestra planta.</p>
-              <button className="btn-primary" onClick={() => onNavigate('contacto')}>
-                Iniciar Relación Comercial
+              <p>Atendemos requerimientos mayoristas sin intermediarios desde nuestra planta de Santa Teresa del Tuy.</p>
+              <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
+                <span>Iniciar Relación Comercial</span>
+                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                  <g fill="currentColor">
+                    <rect x="-100" y="-19" width="200" height="38" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                    <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                  </g>
+                </svg>
               </button>
             </div>
           </section>
@@ -2075,8 +2472,9 @@
       );
     };
 
-    // ============================================
-    // SUB-PORTAL 6: CONTACTO & MESA COMERCIAL B2B
+
+        // ============================================
+    // SUB-PORTAL 6: CONTACTO & MESA COMERCIAL (FURROW STYLE)
     // ============================================
     const PortalContacto = () => {
       const [sent, setSent] = useState(false);
@@ -2088,14 +2486,26 @@
 
       return (
         <div>
-          <section className="hero sub-hero">
-            <div className="hero-bg" />
-            <FiberFieldCanvas />
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-eyebrow">Atención Comercial B2B</div>
-              <h1 className="hero-title"><em>Contacto</em></h1>
-              <p className="hero-subtitle">Mesa de cotización directa con Industrias Monnir C. A.</p>
+          <section className="subhero-furrow">
+            <div className="subhero-furrow-media" aria-hidden="true">
+              <img
+                src="assets/img/nosotros-director-planta.jpg"
+                alt="Oficinas y Planta Industrias Monnir"
+                className="subhero-furrow-img"
+              />
+              <div className="subhero-furrow-overlay" />
+            </div>
+            <div className="subhero-furrow-stage">
+              <div className="hero-tag-badge">
+                <span className="dot" />
+                <span>Atención Comercial B2B • Suministro Directo</span>
+              </div>
+              <h1 className="subhero-title">
+                Mesa Comercial y <em>Contacto</em>
+              </h1>
+              <p className="subhero-subtitle">
+                Conecte directamente con el equipo comercial de Industrias Monnir C. A. para cotizaciones mayoristas.
+              </p>
             </div>
           </section>
 
@@ -2106,87 +2516,90 @@
               <div className="contact-layout">
                 <div>
                   <span className="section-eyebrow">Mesa de Cotización</span>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', marginBottom: '16px' }}>
+                  <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '2.2rem', marginBottom: '16px', letterSpacing: '-0.02em' }}>
                     Converse con nuestro <em>equipo</em>
                   </h3>
-                  <p style={{ fontSize: '0.9rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.65)', marginBottom: '30px' }}>
+                  <p style={{ fontSize: '0.92rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.7)', marginBottom: '30px' }}>
                     Indíquenos las características del producto que busca, volumen estimado y destino de entrega para coordinar su propuesta formal.
                   </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', borderTop: '1px solid rgba(196,167,125,0.2)', paddingTop: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', borderTop: '1px solid rgba(212,178,140,0.2)', paddingTop: '24px' }}>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>WhatsApp Corporativo</div>
-                      <div style={{ fontSize: '1.15rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>
-                        <a href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-tan)', textDecoration: 'none' }}>
+                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>WhatsApp Corporativo</div>
+                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '500' }}>
+                        <a href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
                           0424-191-3561 →
                         </a>
                       </div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Atención Telefónica de Planta</div>
-                      <div style={{ fontSize: '1.15rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>
+                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Atención Telefónica de Planta</div>
+                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '500' }}>
                         0414-399-0682
                       </div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Correo Oficial</div>
-                      <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', color: 'var(--color-white)', marginTop: '4px' }}>
+                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Correo Oficial</div>
+                      <div style={{ fontSize: '1.15rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px' }}>
                         <a href="mailto:Industriasmonnir@gmail.com" style={{ color: 'var(--color-white)', textDecoration: 'none' }}>
                           Industriasmonnir@gmail.com
                         </a>
                       </div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Ubicación de Planta</div>
+                      <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Ubicación de Planta</div>
                       <div style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)', marginTop: '4px', lineHeight: '1.6' }}>
                         Carretera la Raiza, Sector Industrial El Tomuso, Santa Teresa del Tuy, Estado Miranda, Venezuela.
-                      </div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.68rem', letterSpacing: '0.18em', color: 'var(--color-tan)', textTransform: 'uppercase' }}>Redes Sociales</div>
-                      <div style={{ fontSize: '0.88rem', color: 'var(--color-sand)', marginTop: '4px' }}>
-                        Instagram / Facebook: <strong>@Industriasmonnir</strong>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="form-box">
+                <div className="hero-slip-card" style={{ maxWidth: '100%', padding: 'clamp(28px, 4vw, 44px)' }}>
                   {sent ? (
                     <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                      <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-tan)', marginBottom: '12px' }}>
-                        Requerimiento Registrado
+                      <div className="slip-status" style={{ justifyContent: 'center', marginBottom: '14px' }}>
+                        <span className="slip-pulse-dot" />
+                        <span>Requerimiento Registrado</span>
+                      </div>
+                      <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.8rem', color: 'var(--color-white)', marginBottom: '12px' }}>
+                        Mensaje Recibido
                       </h4>
-                      <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.65)', marginBottom: '24px' }}>
-                        Gracias por comunicarse con Industrias Monnir C. A. Nuestro departamento comercial se pondrá en contacto a la brevedad.
+                      <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '24px', lineHeight: '1.6' }}>
+                        Gracias por comunicarse con Industrias Monnir C. A. Nuestro departamento comercial procesará su solicitud y se pondrá en contacto a la brevedad.
                       </p>
-                      <button className="btn-outline" onClick={() => setSent(false)}>
-                        Enviar otro requerimiento
+                      <button className="m-link-furrow" onClick={() => setSent(false)}>
+                        Enviar otro requerimiento →
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div className="slip-status">
+                        <span className="slip-pulse-dot" />
+                        <span>Formulario Directo de Planta</span>
+                      </div>
+
+                      <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Nombre y Apellido</label>
                         <input className="form-input" type="text" placeholder="Su nombre completo" required />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Empresa / Razón Social</label>
                         <input className="form-input" type="text" placeholder="Nombre de su empresa" required />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Correo Electrónico</label>
                         <input className="form-input" type="email" placeholder="correo@empresa.com" required />
                       </div>
 
-                      <div className="form-group">
-                        <label className="form-label">Teléfono o WhatsApp de Contacto</label>
+                      <div className="form-group" style={{ marginBottom: 0 }}>
+                        <label className="form-label">Teléfono o WhatsApp</label>
                         <input className="form-input" type="tel" placeholder="04XX-XXX-XXXX" required />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Línea de Interés</label>
                         <select className="form-select" required defaultValue="">
                           <option value="" disabled>Seleccione producto mayorista</option>
@@ -2198,13 +2611,20 @@
                         </select>
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Requerimiento o Volumen Estimado</label>
                         <textarea className="form-textarea" placeholder="Indique volumen aproximado, especificaciones deseadas y destino de entrega..." required></textarea>
                       </div>
 
-                      <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '10px' }}>
-                        Enviar Solicitud de Cotización
+                      <button type="submit" className="m-btn-furrow" style={{ width: '100%', justifyContent: 'center', marginTop: '8px' }}>
+                        <span>Enviar Solicitud de Cotización</span>
+                        <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                          <g fill="currentColor">
+                            <rect x="-100" y="-19" width="200" height="38" />
+                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
+                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
+                          </g>
+                        </svg>
                       </button>
                     </form>
                   )}
@@ -2216,9 +2636,7 @@
       );
     };
 
-    // ============================================
-    // FOOTER
-    // ============================================
+
     const Footer = ({ onNavigate }) => {
       return (
         <footer className="footer">
@@ -2268,7 +2686,7 @@
               <div className="footer-copyright">
                 © {new Date().getFullYear()} Industrias Monnir C. A. Todos los derechos reservados.
               </div>
-              <div style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-tan)' }}>
+              <div style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#D4B28C' }}>
                 Economía Circular Textil • Manufactura B2B
               </div>
             </div>
