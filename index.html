@@ -1763,6 +1763,52 @@
         // ============================================
     // SUB-PORTAL 1: INICIO (HERO EDITORIAL FURROW)
     // ============================================
+
+    // ============================================
+    // VISOR MODAL DE FOTOGRAFÍA REAL DE PLANTA
+    // ============================================
+    const ImageModal = ({ src, alt, onClose }) => {
+      if (!src) return null;
+      return (
+        <div 
+          onClick={onClose}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(10, 20, 32, 0.94)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            zIndex: 100000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '920px',
+              width: '100%',
+              background: '#16283C',
+              border: '1px solid #D4B28C',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              boxShadow: '0 24px 60px rgba(0,0,0,0.7)'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 18px', background: 'rgba(22,40,60,0.98)', borderBottom: '1px solid rgba(212,178,140,0.25)' }}>
+              <span style={{ fontSize: '0.74rem', color: '#D4B28C', textTransform: 'uppercase', letterSpacing: '0.12em', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>
+                {alt || 'Fotografía de Planta — Industrias Monnir C. A.'}
+              </span>
+              <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#FFFFFF', fontSize: '1.2rem', cursor: 'pointer', padding: '4px 8px' }} aria-label="Cerrar">✕</button>
+            </div>
+            <img src={src} alt={alt} style={{ width: '100%', maxHeight: '75vh', objectFit: 'contain', display: 'block', background: '#0a1420' }} />
+          </div>
+        </div>
+      );
+    };
+
     const PortalInicio = ({ onNavigate }) => {
       return (
         <div>
@@ -2103,6 +2149,9 @@
     // SUB-PORTAL 3: PRODUCTOS (FURROW STYLE)
     // ============================================
     const PortalProductos = ({ onNavigate }) => {
+      const [filter, setFilter] = useState('all');
+      const [zoomImg, setZoomImg] = useState(null);
+
       const list = [
         {
           id: 'pabilo',
@@ -2142,6 +2191,8 @@
         }
       ];
 
+      const filteredList = filter === 'all' ? list : list.filter(item => item.id === filter);
+
       return (
         <div>
           <section className="subhero-furrow">
@@ -2169,21 +2220,74 @@
 
           <Marquee />
 
-          {list.map((item, idx) => (
+          {/* FILTRO DE PRODUCTOS INTERACTIVO */}
+          <section className="section section-cream" style={{ padding: '36px 0 20px 0' }}>
+            <div className="container">
+              <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                <button
+                  onClick={() => setFilter('all')}
+                  style={{
+                    padding: '8px 20px',
+                    borderRadius: '9999px',
+                    background: filter === 'all' ? 'var(--color-primary)' : 'transparent',
+                    color: filter === 'all' ? '#FFFFFF' : 'var(--color-primary)',
+                    border: '1px solid var(--color-primary)',
+                    cursor: 'pointer',
+                    fontSize: '0.76rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    fontWeight: '600',
+                    transition: 'all 0.25s'
+                  }}
+                >
+                  Todas las Líneas ({list.length})
+                </button>
+                {list.map(p => (
+                  <button
+                    key={p.id}
+                    onClick={() => setFilter(p.id)}
+                    style={{
+                      padding: '8px 20px',
+                      borderRadius: '9999px',
+                      background: filter === p.id ? 'var(--color-primary)' : 'transparent',
+                      color: filter === p.id ? '#FFFFFF' : 'var(--color-primary)',
+                      border: '1px solid var(--color-primary)',
+                      cursor: 'pointer',
+                      fontSize: '0.76rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      fontWeight: '600',
+                      transition: 'all 0.25s'
+                    }}
+                  >
+                    {p.name.split(' (')[0]}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {filteredList.map((item, idx) => (
             <section 
               key={item.id} 
               className={`section ${idx % 2 === 0 ? 'section-white' : 'section-dark'}`}
             >
               <div className="container">
                 <div className={`two-col ${idx % 2 !== 0 ? 'reverse' : ''}`}>
-                  <div className="art-placeholder" style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(212,178,140,0.25)', position: 'relative', borderRadius: '6px' }}>
+                  <div 
+                    className="art-placeholder" 
+                    style={{ background: '#16283C', padding: 0, overflow: 'hidden', border: '1px solid rgba(212,178,140,0.25)', position: 'relative', borderRadius: '6px', cursor: 'zoom-in' }}
+                    onClick={() => setZoomImg(item.img)}
+                    title="Haga clic para ampliar fotografía real de lote"
+                  >
                     <img 
                       src={item.img} 
                       alt={item.name} 
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '360px' }}
                     />
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(22,40,60,0.92)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.7rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)' }}>
-                      {item.subtitle}
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(22,40,60,0.92)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.7rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>{item.subtitle}</span>
+                      <span style={{ fontSize: '0.65rem', color: '#FFFFFF', opacity: 0.8 }}>🔍 Ver en Grande</span>
                     </div>
                   </div>
                   <div className="two-col-text">
@@ -2193,10 +2297,10 @@
                     <p style={{ fontSize: '0.86rem', color: idx % 2 === 0 ? 'var(--color-gray)' : 'rgba(255,255,255,0.7)', borderLeft: '2px solid var(--color-accent)', paddingLeft: '14px', margin: '18px 0', fontFamily: 'var(--font-headline)' }}>
                       <strong style={{ color: idx % 2 === 0 ? 'var(--color-dark)' : 'var(--color-sand)' }}>Especificación de Despacho:</strong> {item.specs}
                     </p>
-                    <div style={{ marginTop: '24px' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center', marginTop: '24px' }}>
                       <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                         <span>Cotizar este Producto</span>
-                        <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                        <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
                           <g fill="currentColor">
                             <rect x="-100" y="-19" width="200" height="38" />
                             <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
@@ -2204,6 +2308,16 @@
                           </g>
                         </svg>
                       </button>
+
+                      <a 
+                        href={`https://wa.me/584241913561?text=${encodeURIComponent(`Hola, deseo cotizar el producto ${item.name} en Industrias Monnir C.A.`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="m-link-furrow"
+                        style={{ color: idx % 2 === 0 ? 'var(--color-primary)' : 'var(--color-sand)' }}
+                      >
+                        Consultar por WhatsApp →
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -2217,7 +2331,7 @@
               <p>Programamos despachos continuos en fardos, rollos o pallets completos a todo el país.</p>
               <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                 <span>Hablar con un Asesor Comercial</span>
-                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
                   <g fill="currentColor">
                     <rect x="-100" y="-19" width="200" height="38" />
                     <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
@@ -2227,14 +2341,13 @@
               </button>
             </div>
           </section>
+
+          {/* Modal de zoom de foto real */}
+          {zoomImg && <ImageModal src={zoomImg} alt="Fotografía de Lote Real Monnir" onClose={() => setZoomImg(null)} />}
         </div>
       );
     };
 
-
-        // ============================================
-    // SUB-PORTAL 4: PROCESOS & INFRAESTRUCTURA (FURROW STYLE)
-    // ============================================
     const PortalProcesos = ({ onNavigate }) => {
       const filmstripItems = [
         {
@@ -2477,10 +2590,19 @@
     // SUB-PORTAL 6: CONTACTO & MESA COMERCIAL (FURROW STYLE)
     // ============================================
     const PortalContacto = () => {
+      const [nombre, setNombre] = useState('');
+      const [empresa, setEmpresa] = useState('');
+      const [correo, setCorreo] = useState('');
+      const [telefono, setTelefono] = useState('');
+      const [producto, setProducto] = useState('Pabilo Industrial (Fardos de 18 kg)');
+      const [volumen, setVolumen] = useState('');
       const [sent, setSent] = useState(false);
 
       const handleSubmit = (e) => {
         e.preventDefault();
+        const msg = `Hola, mi nombre es ${nombre} de la empresa ${empresa}. Deseamos solicitar cotización en Industrias Monnir:\n\n- Producto: ${producto}\n- Requerimiento / Volumen: ${volumen || 'A convenir'}\n- Teléfono: ${telefono}\n- Correo: ${correo}`;
+        const url = `https://wa.me/584241913561?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
         setSent(true);
       };
 
@@ -2558,15 +2680,12 @@
                 <div className="hero-slip-card" style={{ maxWidth: '100%', padding: 'clamp(28px, 4vw, 44px)' }}>
                   {sent ? (
                     <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                      <div className="slip-status" style={{ justifyContent: 'center', marginBottom: '14px' }}>
-                        <span className="slip-pulse-dot" />
-                        <span>Requerimiento Registrado</span>
-                      </div>
-                      <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.8rem', color: 'var(--color-white)', marginBottom: '12px' }}>
-                        Mensaje Recibido
+                      <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(92,219,149,0.15)', border: '1px solid #5CDB95', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', color: '#5CDB95', fontSize: '1.6rem' }}>✓</div>
+                      <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.35rem', color: 'var(--color-white)', marginBottom: '10px' }}>
+                        Solicitud Enviada a WhatsApp
                       </h4>
-                      <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '24px', lineHeight: '1.6' }}>
-                        Gracias por comunicarse con Industrias Monnir C. A. Nuestro departamento comercial procesará su solicitud y se pondrá en contacto a la brevedad.
+                      <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '24px' }}>
+                        Se ha abierto el canal directo con nuestro asesor comercial. También le responderemos a su correo a la brevedad.
                       </p>
                       <button className="m-link-furrow" onClick={() => setSent(false)}>
                         Enviar otro requerimiento →
@@ -2581,44 +2700,43 @@
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Nombre y Apellido</label>
-                        <input className="form-input" type="text" placeholder="Su nombre completo" required />
+                        <input className="form-input" type="text" placeholder="Su nombre completo" required value={nombre} onChange={e => setNombre(e.target.value)} />
                       </div>
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Empresa / Razón Social</label>
-                        <input className="form-input" type="text" placeholder="Nombre de su empresa" required />
+                        <input className="form-input" type="text" placeholder="Nombre de su empresa" required value={empresa} onChange={e => setEmpresa(e.target.value)} />
                       </div>
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Correo Electrónico</label>
-                        <input className="form-input" type="email" placeholder="correo@empresa.com" required />
+                        <input className="form-input" type="email" placeholder="correo@empresa.com" required value={correo} onChange={e => setCorreo(e.target.value)} />
                       </div>
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Teléfono o WhatsApp</label>
-                        <input className="form-input" type="tel" placeholder="04XX-XXX-XXXX" required />
+                        <input className="form-input" type="tel" placeholder="04XX-XXX-XXXX" required value={telefono} onChange={e => setTelefono(e.target.value)} />
                       </div>
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Línea de Interés</label>
-                        <select className="form-select" required defaultValue="">
-                          <option value="" disabled>Seleccione producto mayorista</option>
-                          <option value="pabilo">Pabilo Industrial (Fardos de 18 kg)</option>
-                          <option value="coleto">Coleto Terminado (Rollos / Piezas)</option>
-                          <option value="cordon">Cordón de Algodón (Paquetes 50/100)</option>
-                          <option value="pano-amarillo">Paño Amarillo (Rollos en Pallet)</option>
-                          <option value="varios">Lote Mixto / Múltiples Productos</option>
+                        <select className="form-select" required value={producto} onChange={e => setProducto(e.target.value)}>
+                          <option value="Pabilo Industrial (Fardos de 18 kg / Ovillos)">Pabilo Industrial (Fardos de 18 kg / Ovillos)</option>
+                          <option value="Coleto Terminado (Rollos / Piezas)">Coleto Terminado (Rollos / Piezas)</option>
+                          <option value="Cordón de Algodón (Paquetes 50/100 un. / Madejas)">Cordón de Algodón (Paquetes 50/100 un. / Madejas)</option>
+                          <option value="Paño Amarillo (Bayetilla en Pallets)">Paño Amarillo (Bayetilla en Pallets)</option>
+                          <option value="Otra Consulta Mayorista">Otra Consulta Mayorista</option>
                         </select>
                       </div>
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">Requerimiento o Volumen Estimado</label>
-                        <textarea className="form-textarea" placeholder="Indique volumen aproximado, especificaciones deseadas y destino de entrega..." required></textarea>
+                        <textarea className="form-textarea" placeholder="Indique volumen aproximado, destino de entrega y requerimientos..." required value={volumen} onChange={e => setVolumen(e.target.value)}></textarea>
                       </div>
 
                       <button type="submit" className="m-btn-furrow" style={{ width: '100%', justifyContent: 'center', marginTop: '8px' }}>
                         <span>Enviar Solicitud de Cotización</span>
-                        <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                        <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
                           <g fill="currentColor">
                             <rect x="-100" y="-19" width="200" height="38" />
                             <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
@@ -2635,7 +2753,6 @@
         </div>
       );
     };
-
 
     const Footer = ({ onNavigate }) => {
       return (

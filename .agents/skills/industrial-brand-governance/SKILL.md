@@ -2,6 +2,20 @@
 name: industrial-brand-governance
 description: Strict institutional governance and corporate auditing for heavy industry B2B web presences. Enforces executive tone, boardroom credibility, supply chain seriousness, and eliminates consumer e-commerce gimmicks.
 ---
+---
+
+## 🛑 REGLA CARDINAL DE VERACIDAD ESTRICTA (ZERO SPECULATION POLICY)
+
+> **«INFORMACIÓN NO DADA POR EL CLIENTE / USUARIO ES INFORMACIÓN QUE NO PROCEDE AL SITIO WEB.»**
+
+Queda estrictamente prohibido a cualquier agente o desarrollador inventar, suponer, extrapolar o rellenar el sitio web con:
+1. **Normas de laboratorio o certificaciones no suministradas:** Prohibido citar ASTM, ISO, COVENIN, DIN o tolerancias de laboratorio que no hayan sido entregadas explícitamente por el cliente.
+2. **Cifras, métricas o capacidades inventadas:** Prohibido inventar toneladas de producción, metros cuadrados de nave, número de empleados, litros de agua o equivalencias ecológicas que no procedan de datos dados por el usuario.
+3. **Cronologías o datos históricos especulativos:** Prohibido inventar décadas, hitos o datos no confirmados. Se ciñe estrictamente a los 60 años de trayectoria de la empresa.
+4. **Efectos 3D o artilugios distractores:** Prohibido incorporar efectos 3D, canvas invasivos o interactividades ficticias que desplacen o distorsionen la información verídica y la fotografía real aprobada.
+
+Toda la información debe provenir con fidelidad absoluta de los documentos, directrices y fotografías auténticas suministradas.
+
 
 # Industrial Brand Governance & Corporate Auditing
 
