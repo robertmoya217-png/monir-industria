@@ -29,7 +29,7 @@
 | **4** | **Subportal de Infraestructura** | **Sección/Subportal de Evidencia Fabril:** Carrusel documental sutil (*filmstrip*) que muestra las etapas reales con fotos auténticas sin competir con el diseño central. |
 | **5** | **Video de fondo** | **Implementado con Interruptor Claro:** Video corto en bucle silencioso detrás del hero con selector/comentario en código para removerlo al instante si se requiere. |
 | **6** | **Producto Estrella** | **Paño Amarillo:** Destacado visualmente con pallets masivos de rollos en fábrica como muestra de capacidad de despacho mayorista. |
-| **7** | **Factor Humano / Legado** | **Foto del Director:** Se incluye en la sección *Nosotros* la foto del director recorriendo la nave industrial con su perro entre hileras de máquinas continuas. |
+| **7** | **Infraestructura Fabril** | **Nave Central:** Se priorizan tomas de maquinaria pesada, hileras de hiladoras y líneas continuas de planta. |
 | **8** | **Titular de Portada** | *«60 Años Transformando el Futuro Textil en Venezuela»* (Encabezado principal con peso histórico). |
 | **9** | **Formato de Contacto** | Teléfonos con formato estándar: `0424-191-3561` y `0414-399-0682`. Correo `Industriasmonnir@gmail.com`. Botón flotante de WhatsApp directo. |
 | **10** | **Unidades Mínimas B2B** | **No colocar límites numéricos explícitos:** La presencia ejecutiva y el tono industrial filtran naturalmente a clientes minoristas sin necesidad de barreras burocráticas. |
@@ -105,7 +105,6 @@ Para evitar desbordes de codificación de URL en navegadores y GitHub Pages, los
 
 | Archivo Fuente Original | Ruta Web Normalizada | Uso Asignado en la Web |
 |---|---|---|
-| `WhatsApp Image 2026-11-04 at 4.02.24 PM (1).jpeg` | `assets/img/nosotros-director-planta.jpg` | **Nosotros:** Director en la nave industrial con hileras de hiladoras. |
 | `WhatsApp Image 2026-11-04 at 4.02.24 PM.jpeg` | `assets/img/producto-pano-amarillo-pallet.jpg` | **Productos:** Pallet de rollos de Paño Amarillo apilados. |
 | `WhatsApp Image 2026-11-04 at 4.02.24 PM (3).jpeg` | `assets/img/producto-pano-amarillo-detalle.jpg` | **Productos:** Detalle transversal de rollos de tela amarilla. |
 | `WhatsApp Image 2026-11-04 at 4.02.16 PM (2).jpeg` | `assets/img/producto-pabilo-fardo-18kg.jpg` | **Productos:** Fardos cilíndricos de pabilo de 18 kg con lote. |
