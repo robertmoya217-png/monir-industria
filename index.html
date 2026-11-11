@@ -1977,7 +1977,7 @@
                   </div>
                   <div className="metric-divider" />
                   <div className="metric-item">
-                    <div className="metric-value">4</div>
+                    <div className="metric-value">6</div>
                     <div className="metric-label">Líneas de Producción</div>
                   </div>
                 </div>
@@ -2043,12 +2043,12 @@
             </div>
           </section>
 
-          {/* PRODUCTOS PREVIEW (LAS 4 LÍNEAS REALES) */}
+          {/* PRODUCTOS PREVIEW (CATÁLOGO MAYORISTA) */}
           <section className="section section-cream">
             <div className="container">
               <div className="section-header">
                 <span className="section-eyebrow">Catálogo Mayorista</span>
-                <h2 className="section-title">Nuestras 4 líneas de <em>producción</em></h2>
+                <h2 className="section-title">Nuestras líneas de <em>producción</em></h2>
                 <div className="section-line" />
                 <p className="section-subtitle">
                   Fibras recuperadas y productos textiles manufacturados en nuestra planta de Santa Teresa del Tuy
@@ -2133,6 +2133,48 @@
                     <h3 className="product-card-title">Paño Amarillo</h3>
                     <p className="product-card-desc">
                       Tela de limpieza industrial pesada (bayetilla) en rollos masivos sobre pallet. Ideal para talleres, mantenimiento y cadenas de suministro.
+                    </p>
+                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
+                      FICHA DE PRODUCTO →
+                    </button>
+                  </div>
+                </div>
+
+                {/* 5. HILOS DE COLORES POR ENCARGO (NUEVO) */}
+                <div className="product-card">
+                  <div className="product-card-image">
+                    <img 
+                      src="assets/img/producto-hilos-colores.jpg" 
+                      alt="Muestrario y paleta física de Hilos de colores por encargo" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <div className="product-card-content">
+                    <div className="product-card-tag">HILATURA ESPECIALIZADA</div>
+                    <h3 className="product-card-title">Hilos de colores por encargo</h3>
+                    <p className="product-card-desc">
+                      Hilado retorcido y personalizado según especificaciones de color y calibre. Ideal para confección, manualidades y empaques comerciales.
+                    </p>
+                    <button className="product-card-link" onClick={() => onNavigate('productos')}>
+                      FICHA DE PRODUCTO →
+                    </button>
+                  </div>
+                </div>
+
+                {/* 6. MICROFIBRA (NUEVO) */}
+                <div className="product-card">
+                  <div className="product-card-image">
+                    <img 
+                      src="assets/img/producto-microfibra-rollos.jpg" 
+                      alt="Rollos textiles de Microfibra (amarillo y azul)" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <div className="product-card-content">
+                    <div className="product-card-tag">LIMPIEZA & ABSORCIÓN</div>
+                    <h3 className="product-card-title">Microfibra</h3>
+                    <p className="product-card-desc">
+                      Tejido técnico de microfibras de máxima absorción y secado rápido, libre de pelusas y marcas abrasivas. Diseñado para limpieza industrial, técnica y automotriz.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2290,7 +2332,6 @@
           name: 'Cordón',
           subtitle: 'Bulto embalado con amarres • Fardos cilíndricos de 18 kg',
           desc: 'Hilo de algodón recuperado de alta absorción y torsión homogénea, presentado en fardos cilíndricos de 18 kg con control de lote.',
-          specs: 'Despacho habitual en fardos cilíndricos compactos de 18 kg con fleje reforzado y control de lote.',
           img: 'assets/img/producto-cordon-fardo-18kg.jpg'
         },
         {
@@ -2299,7 +2340,6 @@
           name: 'Pabilo Industrial',
           subtitle: 'Ovillos y madejas en presentación mayorista',
           desc: 'Descripción pendiente por redactar.',
-          specs: 'Presentación en ovillos, madejas y empaque individual para despacho mayorista.',
           img: 'assets/img/producto-pabilo-ovillos.jpg'
         },
         {
@@ -2308,17 +2348,31 @@
           name: 'Coleto',
           subtitle: 'Rollos de coleto apilados horizontalmente',
           desc: 'Tejido plano resistente de máxima absorción y rendimiento para distribución mayorista comercial e institucional.',
-          specs: 'Suministro en rollos continuos de tejido o piezas confeccionadas para cadenas de distribución y empresas de aseo.',
           img: 'assets/img/producto-coleto-rollos.jpg'
         },
         {
           id: 'pano-amarillo',
           tag: 'PRODUCTO ESTRELLA DE DESPACHO',
-          name: 'Paño Amarillo (Bayetilla Industrial)',
-          subtitle: 'Tela pesada en rollos para absorción industrial intensiva',
-          desc: 'Bayetilla amarilla de alto gramaje para absorción de grasas, solventes, aceites y limpieza pesada en talleres, plantas automotrices y líneas de ensamble. Es nuestro producto de mayor volumen de despacho a nivel nacional.',
-          specs: 'Rollos cilíndricos masivos estibados sobre pallets industriales con flejado reforzado para transporte directo en camión.',
+          name: 'Paño Amarillo',
+          subtitle: 'Rollos de Paño Amarillo en Pallet',
+          desc: 'Tela de limpieza industrial pesada (bayetilla) en rollos masivos sobre pallet. Ideal para talleres, mantenimiento y cadenas de suministro.',
           img: 'assets/img/producto-pano-amarillo-pallet.jpg'
+        },
+        {
+          id: 'hilos-colores',
+          tag: 'HILATURA ESPECIALIZADA',
+          name: 'Hilos de colores por encargo',
+          subtitle: 'Muestrario y paleta física con cartas de color',
+          desc: 'Hilado retorcido y personalizado según especificaciones de color y calibre. Ideal para confección, manualidades y empaques comerciales.',
+          img: 'assets/img/producto-hilos-colores.jpg'
+        },
+        {
+          id: 'microfibra',
+          tag: 'LIMPIEZA & ABSORCIÓN',
+          name: 'Microfibra',
+          subtitle: 'Rollos textiles de microfibra (amarillo y azul)',
+          desc: 'Tejido técnico de microfibras de máxima absorción y secado rápido, libre de pelusas y marcas abrasivas. Diseñado para limpieza industrial, técnica y automotriz.',
+          img: 'assets/img/producto-microfibra-rollos.jpg'
         }
       ];
 
@@ -2344,7 +2398,7 @@
                 Nuestros <em>Productos</em>
               </h1>
               <p className="subhero-subtitle">
-                Cuatro líneas esenciales respaldadas en 60 años de trayectoria fabril y entrega nacional.
+                Líneas de producción respaldadas en 60 años de trayectoria fabril y entrega nacional.
               </p>
             </div>
           </section>
@@ -2425,19 +2479,9 @@
                     <span className="section-eyebrow">{item.tag}</span>
                     <h3 style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.name}</h3>
                     <p>{item.desc}</p>
-                    <p style={{ fontSize: '0.86rem', color: idx % 2 === 0 ? 'var(--color-gray)' : 'rgba(255,255,255,0.7)', borderLeft: '2px solid var(--color-accent)', paddingLeft: '14px', margin: '18px 0', fontFamily: 'var(--font-headline)' }}>
-                      <strong style={{ color: idx % 2 === 0 ? 'var(--color-dark)' : 'var(--color-sand)' }}>Especificación de Despacho:</strong> {item.specs}
-                    </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center', marginTop: '24px' }}>
-                      <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
-                        <span>Cotizar este Producto</span>
-                        <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
-                          <g fill="currentColor">
-                            <rect x="-100" y="-19" width="200" height="38" />
-                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
-                            <rect x="-100" y="-19" width="200" height="38" transform="rotate(120)" />
-                          </g>
-                        </svg>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', alignItems: 'center', marginTop: '24px' }}>
+                      <button className="product-card-link" onClick={() => onNavigate('contacto')}>
+                        FICHA DE PRODUCTO →
                       </button>
 
                       <a 
@@ -2642,7 +2686,7 @@
     // ============================================
     const PortalClientes = ({ onNavigate }) => {
       const sectors = [
-        { name: 'Distribuidores Mayoristas de Limpieza', desc: 'Comercializadores de artículos de aseo que requieren pabilo por fardos de 18 kg y coleto confeccionado.' },
+        { name: 'Distribuidores Mayoristas de Limpieza', desc: 'Comercializadores de artículos de aseo que requieren cordón por fardos de 18 kg, pabilo y coleto confeccionado.' },
         { name: 'Talleres, Automotriz & Mantenimiento', desc: 'Líneas industriales que consumen paño amarillo (bayetilla) en rollos masivos sobre pallet para absorción.' },
         { name: 'Fábricas de Coletos y Mechas', desc: 'Fabricantes que usan nuestro pabilo de algodón recuperado de alta absorción como materia prima base.' },
         { name: 'Cordonerías e Industria de Empaque', desc: 'Empresas manufactureras y agrícolas que necesitan cordón de algodón resistente para amarres.' },
@@ -2914,10 +2958,12 @@
               <div className="footer-col">
                 <div className="footer-col-title">Líneas de Producto</div>
                 <ul>
-                  <li><button onClick={() => onNavigate('productos')}>Pabilo Industrial (18 kg)</button></li>
-                  <li><button onClick={() => onNavigate('productos')}>Coleto Terminado</button></li>
-                  <li><button onClick={() => onNavigate('productos')}>Cordón de Algodón</button></li>
-                  <li><button onClick={() => onNavigate('productos')}>Paño Amarillo en Pallets</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Cordón</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Pabilo Industrial</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Coleto</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Paño Amarillo</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Hilos de colores por encargo</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Microfibra</button></li>
                 </ul>
               </div>
 
