@@ -3,14 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description" content="Industrias Monnir C. A. — 60 Años transformando el futuro textil en Venezuela. Recuperado textil, pabilo, coleto, cordón, paño amarillo y microfibra con distribución mayorista nacional." />
+  <meta name="theme-color" content="#16283C" />
   <title>Monnir Flash1 — Industrias Monnir C. A. | 60 Años Transformando el Futuro Textil en Venezuela</title>
+
+  <!-- Preconnects & High-Speed CDN Edge Endpoints -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- LCP Hero Image Preload -->
+  <link rel="preload" as="image" href="assets/img/fachada-fabrica-antigua.jpg?v=20261111_v2" fetchpriority="high" />
+
+  <!-- High-Performance Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700&family=Lora:ital,wght@0,400;0,500&display=swap" rel="stylesheet" />
+
+  <!-- Core Libraries via Cloudflare CDN (Fastest global edge delivery) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.4/babel.min.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -58,6 +71,17 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       position: relative;
+    }
+
+    #root {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      animation: appFadeIn 0.28s ease-out;
+    }
+    @keyframes appFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* SIN grain / noise */
@@ -1827,27 +1851,9 @@
     };
 
     // ============================================
-    // LOADER INICIAL
+    // LOADER INICIAL (DESACTIVADO PARA APERTURA INMEDIATA)
     // ============================================
-    const Loader = ({ onComplete }) => {
-      const [fadeOut, setFadeOut] = useState(false);
-
-      useEffect(() => {
-        const timer = setTimeout(() => {
-          setFadeOut(true);
-          setTimeout(onComplete, 800);
-        }, 1600);
-        return () => clearTimeout(timer);
-      }, [onComplete]);
-
-      return (
-        <div className={`loader-overlay ${fadeOut ? 'fade-out' : ''}`}>
-          <div className="loader-logo">MONNIR</div>
-          <div className="loader-line" />
-          <div className="loader-subtitle">Industrias Monnir C. A. • 60 Años de Trayectoria</div>
-        </div>
-      );
-    };
+    const Loader = () => null;
 
     // ============================================
     // NAVBAR Y MENÚ MOBILE
@@ -2041,6 +2047,8 @@
                 src="assets/img/fachada-fabrica-antigua.jpg?v=20261111_v2"
                 alt="Fachada Histórica de la Planta — Industrias Monnir C. A."
                 className="hero-furrow-img"
+                fetchpriority="high"
+                decoding="async"
               />
               <div className="hero-furrow-overlay" />
             </div>
@@ -2152,6 +2160,8 @@
                 <img 
                   src="assets/img/fachada-fabrica-antigua.jpg?v=20261111_v2" 
                   alt="Fotografía Antigua en Blanco y Negro de la Fachada Fabril — Industrias Monnir C.A." 
+                  loading="lazy"
+                  decoding="async"
                   style={{ 
                     width: '100%', 
                     maxHeight: '520px', 
@@ -2203,6 +2213,8 @@
                 <div className="product-card">
                   <div className="product-card-image">
                     <img 
+                      loading="lazy"
+                      decoding="async"
                       src="assets/img/producto-cordon-fardo-18kg.jpg?v=20261111" 
                       alt="Fardos cilíndricos de Cordón con amarres" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -2224,6 +2236,8 @@
                 <div className="product-card">
                   <div className="product-card-image">
                     <img 
+                      loading="lazy"
+                      decoding="async"
                       src="assets/img/producto-pabilo-ovillos.jpg?v=20261111" 
                       alt="Ovillos de Pabilo Industrial" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -2245,6 +2259,8 @@
                 <div className="product-card">
                   <div className="product-card-image">
                     <img 
+                      loading="lazy"
+                      decoding="async"
                       src="assets/img/producto-coleto-rollos.jpg?v=20261111" 
                       alt="Rollos de Coleto apilados horizontalmente" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -2266,6 +2282,8 @@
                 <div className="product-card">
                   <div className="product-card-image">
                     <img 
+                      loading="lazy"
+                      decoding="async"
                       src="assets/img/producto-pano-amarillo-pallet.jpg" 
                       alt="Rollos de Paño Amarillo en Pallet" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -2287,6 +2305,8 @@
                 <div className="product-card">
                   <div className="product-card-image">
                     <img 
+                      loading="lazy"
+                      decoding="async"
                       src="assets/img/producto-hilos-colores.jpg?v=20261111" 
                       alt="Muestrario y paleta física de Hilos de colores por encargo" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -2308,6 +2328,8 @@
                 <div className="product-card">
                   <div className="product-card-image">
                     <img 
+                      loading="lazy"
+                      decoding="async"
                       src="assets/img/producto-microfibra-rollos.jpg?v=20261111" 
                       alt="Rollos textiles de Microfibra (amarillo y azul)" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -2358,6 +2380,8 @@
                 src="assets/img/planta-nave-almacen.jpg?v=20261111_v2"
                 alt="Instalaciones Industriales — Industrias Monnir C. A."
                 className="subhero-furrow-img"
+                loading="lazy"
+                decoding="async"
               />
               <div className="subhero-furrow-overlay" />
             </div>
@@ -2423,6 +2447,8 @@
                       src="assets/img/nosotros-fundadores-padre.jpg?v=20261111_v2" 
                       alt="Fundador — Primera Generación de Industrias Monnir C.A." 
                       className="founder-img"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="founder-caption">
@@ -2445,6 +2471,8 @@
                       src="assets/img/nosotros-fundadores-abuelo.jpg?v=20261111_v2" 
                       alt="Fundador — Raíces e Historia Familiar Monnir C.A." 
                       className="founder-img"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="founder-caption">
@@ -2488,6 +2516,8 @@
                 <img 
                   src="assets/img/planta-nave-almacen.jpg?v=20261111_v2" 
                   alt="Interior de la Fábrica y Almacén con Materiales Apilados — Industrias Monnir C.A." 
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '100%', maxHeight: '520px', objectFit: 'cover', objectPosition: 'center 40%', display: 'block' }}
                 />
                 <div style={{ 
@@ -2641,6 +2671,8 @@
                 src="assets/img/producto-pano-amarillo-pallet.jpg"
                 alt="Pallet de Paño Amarillo en Planta"
                 className="subhero-furrow-img"
+                loading="lazy"
+                decoding="async"
               />
               <div className="subhero-furrow-overlay" />
             </div>
@@ -2723,6 +2755,8 @@
                     <img 
                       src={item.img} 
                       alt={item.name} 
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', minHeight: '360px' }}
                     />
                     <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 16px', background: 'rgba(22,40,60,0.92)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(212,178,140,0.2)', fontSize: '0.7rem', letterSpacing: '0.14em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -2835,6 +2869,8 @@
                 src="assets/img/proceso-1-apertura-tolvas.jpg"
                 alt="Tren de Maquinaria de Planta Monnir"
                 className="subhero-furrow-img"
+                loading="lazy"
+                decoding="async"
               />
               <div className="subhero-furrow-overlay" />
             </div>
@@ -2881,7 +2917,7 @@
                     <div key={idx} className="filmstrip-card" style={{ borderRadius: '6px' }}>
                       <div className="filmstrip-img-wrap">
                         <span className="filmstrip-badge" style={{ borderRadius: '9999px', padding: '5px 12px', fontWeight: '600' }}>{item.phase}</span>
-                        <img src={item.img} alt={item.title} loading="lazy" />
+                        <img src={item.img} alt={item.title} loading="lazy" decoding="async" />
                       </div>
                       <div className="filmstrip-content">
                         <h4 className="filmstrip-title" style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.title}</h4>
@@ -2921,7 +2957,7 @@
               <p>Nuestra capacidad instalada asegura entregas programadas y consistencia lote a lote.</p>
               <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                 <span>Cotizar Suministro con Planta</span>
-                <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+                <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
                   <g fill="currentColor">
                     <rect x="-100" y="-19" width="200" height="38" />
                     <rect x="-100" y="-19" width="200" height="38" transform="rotate(60)" />
@@ -2957,6 +2993,8 @@
                 src="assets/img/proceso-6-despacho-pallet.jpg"
                 alt="Despacho y Paletizado en Planta Monnir"
                 className="subhero-furrow-img"
+                loading="lazy"
+                decoding="async"
               />
               <div className="subhero-furrow-overlay" />
             </div>
@@ -3044,6 +3082,8 @@
                 src="assets/img/proceso-6-despacho-pallet.jpg"
                 alt="Área de Despacho y Logística — Industrias Monnir C.A."
                 className="subhero-furrow-img"
+                loading="lazy"
+                decoding="async"
               />
               <div className="subhero-furrow-overlay" />
             </div>
@@ -3307,7 +3347,6 @@
     };
 
     const App = () => {
-      const [loading, setLoading] = useState(true);
       const [page, setPage] = useState('inicio');
       const [transitioning, setTransitioning] = useState(false);
       const curtainTopRef = useRef(null);
@@ -3321,18 +3360,24 @@
         // Prevenir scroll jump durante transición en iOS/Android
         document.body.style.overflow = 'hidden';
 
+        // Failsafe timer absoluto para que la UI jamás quede bloqueada
+        const safetyTimer = setTimeout(() => {
+          document.body.style.overflow = '';
+          setTransitioning(false);
+        }, 900);
+
         const tl = gsap.timeline();
         tl.to([curtainTopRef.current, curtainBottomRef.current], {
           height: '50.5%',
-          duration: 0.36,
+          duration: 0.28,
           ease: 'power3.inOut'
         })
         .to(glowRef.current, {
           opacity: 1,
           scale: 1,
-          duration: 0.2,
+          duration: 0.16,
           ease: 'power2.out'
-        }, '-=0.1')
+        }, '-=0.06')
         .add(() => {
           setPage(nextPage);
           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -3340,15 +3385,16 @@
         .to(glowRef.current, {
           opacity: 0,
           scale: 1.04,
-          duration: 0.16,
+          duration: 0.12,
           ease: 'power2.in'
-        }, '+=0.05')
+        }, '+=0.04')
         .to([curtainTopRef.current, curtainBottomRef.current], {
           height: '0%',
-          duration: 0.38,
+          duration: 0.28,
           ease: 'power3.inOut'
         })
         .add(() => {
+          clearTimeout(safetyTimer);
           document.body.style.overflow = '';
           setTransitioning(false);
         });
@@ -3356,8 +3402,6 @@
 
       return (
         <>
-          {loading && <Loader onComplete={() => setLoading(false)} />}
-
           {/* Telón Cinematográfico de Transición */}
           <div className="portal-transition-curtain">
             <div ref={curtainTopRef} className="curtain-panel-top" />
@@ -3402,6 +3446,14 @@
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
+  </script>
+  <script>
+    // Failsafe de desbloqueo: garantiza fluidez instantánea de navegación
+    (function() {
+      document.body.style.overflow = '';
+      var o = document.querySelectorAll('.loader-overlay');
+      for (var i = 0; i < o.length; i++) { o[i].parentNode && o[i].parentNode.removeChild(o[i]); }
+    })();
   </script>
 </body>
 </html>
