@@ -31,7 +31,7 @@
 | **6** | **Producto Estrella** | **Paño Amarillo:** Destacado visualmente con pallets masivos de rollos en fábrica como muestra de capacidad de despacho mayorista. |
 | **7** | **Infraestructura Fabril** | **Nave Central:** Se priorizan tomas de maquinaria pesada, hileras de hiladoras y líneas continuas de planta. |
 | **8** | **Titular de Portada** | *«60 Años Transformando el Futuro Textil en Venezuela»* (Encabezado principal con peso histórico). |
-| **9** | **Formato de Contacto** | Teléfonos con formato estándar: `0424-191-3561` y `0414-399-0682`. Correo `Industriasmonnir@gmail.com`. Botón flotante de WhatsApp directo. |
+| **9** | **Formato de Contacto** | Teléfono único de contacto: `04143127096`. Correo `Industriasmonnir@gmail.com`. Botón flotante de WhatsApp directo. |
 | **10** | **Unidades Mínimas B2B** | **No colocar límites numéricos explícitos:** La presencia ejecutiva y el tono industrial filtran naturalmente a clientes minoristas sin necesidad de barreras burocráticas. |
 
 ---
@@ -42,8 +42,7 @@
 * **Año de Fundación:** Década de 1960 (~60 años de trayectoria ininterrumpida).
 * **Ubicación de Planta:** Carretera la Raiza, Sector Industrial El Tomuso, Santa Teresa del Tuy, Estado Miranda, Venezuela.
 * **Canales de Atención Comercial:**
-  * WhatsApp Directo: `0424-191-3561`
-  * Teléfono de Planta: `0414-399-0682`
+  * WhatsApp Directo y Teléfono de Planta: `04143127096`
   * Correo Oficial: `Industriasmonnir@gmail.com`
   * Instagram: `@Industriasmonnir`
   * Facebook: `Industriasmonnir`
@@ -56,8 +55,8 @@
 ## 📦 4. CATÁLOGO OFICIAL DE PRODUCTOS (4 LÍNEAS REALES)
 
 ### 1. Pabilo Industrial
-* **Descripción:** Hilo de algodón recuperado de alta homogeneidad y absorción superior.
-* **Aplicación:** Elaboración de coletos industriales, mechas de limpieza y torcidos pesados.
+* **Descripción:** El pabilo es un cordón trenzado de algodón, resistente y absorbente. Se usa principalmente para las HALLACAS y en diversas manualidades o tejidos y como mecha para velas.
+* **Aplicación:** Elaboración de hallacas, manualidades, tejidos, mechas para velas y colectos industriales.
 * **Presentaciones:** Fardos cilíndricos amarrados de 18 kg con código de lote y ovillos compactos.
 
 ### 2. Coleto Terminado
@@ -75,6 +74,14 @@
 * **Aplicación:** Talleres mecánicos, líneas de manufactura y distribución mayorista.
 * **Presentaciones:** Rollos cilíndricos de gran metraje apilados y flejados sobre pallets industriales.
 
+### 5. Hilos de Colores por Encargo
+* **Descripción:** Hilado retorcido y personalizado según especificaciones de color y calibre.
+* **Aplicación:** Confección, manualidades y empaques comerciales.
+
+### 6. Telas de Microfibra
+* **Descripción:** Tejido técnico de microfibras de máxima absorción y secado rápido, libre de pelusas y marcas abrasivas.
+* **Aplicación:** Limpieza industrial, técnica y automotriz.
+
 ---
 
 ## 🎨 5. SISTEMA DE DISEÑO (DESIGN SYSTEM MONNIR)
@@ -90,8 +97,7 @@
   * `--color-cream`: `#F2ECE1` (Superficies de alto contraste)
   * `--color-off-white`: `#FAF7F2` (Texto principal legible)
 * **Tipografías:**
-  * *Títulos Display:* `EB Garamond` (Serif tradicional sólida)
-  * *Acentos Cursivos:* `Lora` (Itálica elegante para citas y filosofía)
+  * *Títulos y Encabezados (Estilo Único Unificado):* `Host Grotesk` (Sans-serif sólida de alto impacto)
   * *Cuerpo y UI:* `DM Sans` (Sans-serif limpia de alta legibilidad técnica)
 * **Animaciones & Transiciones:**
   * GSAP 3.12 con telón cinemático de dos paneles (`.curtain-panel-top` y `.curtain-panel-bottom`).

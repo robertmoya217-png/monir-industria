@@ -17,7 +17,7 @@
   <link rel="preload" as="image" href="assets/img/fachada-fabrica-antigua.jpg?v=20261111_v2" fetchpriority="high" />
 
   <!-- High-Performance Typography -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700&family=Lora:ital,wght@0,400;0,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
 
   <!-- Core Libraries via Cloudflare CDN (Fastest global edge delivery) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" crossorigin></script>
@@ -49,8 +49,8 @@
       --color-text-main: #142232;
       --color-text-muted: #33485E;
 
-      --font-display: 'EB Garamond', Georgia, serif;
-      --font-elegant: 'Lora', Garamond, serif;
+      --font-display: 'Host Grotesk', 'DM Sans', -apple-system, sans-serif;
+      --font-elegant: 'Host Grotesk', 'DM Sans', -apple-system, sans-serif;
       --font-headline: 'Host Grotesk', 'DM Sans', -apple-system, sans-serif;
       --font-body: 'DM Sans', -apple-system, sans-serif;
 
@@ -77,6 +77,11 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       position: relative;
+    }
+
+    strong {
+      font-weight: 700;
+      color: inherit;
     }
 
     #root {
@@ -245,7 +250,8 @@
       text-transform: uppercase;
       color: #D4B28C;
       margin-top: 2px;
-      font-weight: 400;
+      font-weight: 600;
+      white-space: nowrap;
     }
     
     .nav-links {
@@ -484,17 +490,19 @@
     .hero-headline {
       font-family: var(--font-headline);
       font-size: clamp(38px, 5.8vw, 84px);
-      font-weight: 500;
+      font-weight: 700;
+      font-style: normal;
       line-height: 1.03;
       letter-spacing: -0.035em;
       color: var(--color-white);
       max-width: 13.5em;
+      text-wrap: balance;
     }
     .hero-headline em {
-      font-family: var(--font-elegant);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--color-sand);
+      font-family: inherit;
+      font-style: normal;
+      font-weight: 700;
+      color: inherit;
     }
     .hero-furrow-bottom {
       display: grid;
@@ -572,12 +580,13 @@
       box-shadow: 0 0 8px #5cdb95;
     }
     .slip-copy {
-      font-family: var(--font-headline);
-      font-size: clamp(0.86rem, 1vw, 0.94rem);
-      line-height: 1.55;
-      color: rgba(255, 255, 255, 0.85);
+      font-family: var(--font-body);
+      font-size: clamp(0.88rem, 1vw, 0.96rem);
+      line-height: 1.62;
+      color: rgba(255, 255, 255, 0.88);
       font-weight: 400;
       letter-spacing: -0.01em;
+      text-wrap: pretty;
     }
     .slip-actions {
       display: flex;
@@ -697,17 +706,19 @@
     .hero-title {
       font-family: var(--font-headline);
       font-size: clamp(2.6rem, 5.5vw, 4.8rem);
-      font-weight: 500;
+      font-weight: 700;
+      font-style: normal;
       color: var(--color-white);
       line-height: 1.08;
       letter-spacing: -0.03em;
       margin-bottom: 18px;
+      text-wrap: balance;
     }
     .hero-title em {
-      font-family: var(--font-elegant);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--color-sand);
+      font-family: inherit;
+      font-weight: 700;
+      font-style: normal;
+      color: inherit;
     }
     .hero-subtitle {
       font-family: var(--font-body);
@@ -839,25 +850,29 @@
     .subhero-title {
       font-family: var(--font-headline);
       font-size: clamp(32px, 4.8vw, 62px);
-      font-weight: 500;
+      font-weight: 700;
+      font-style: normal;
       line-height: 1.06;
       letter-spacing: -0.03em;
       color: var(--color-white);
       max-width: 15em;
       margin-top: 10px;
       margin-bottom: 12px;
+      text-wrap: balance;
     }
     .subhero-title em {
-      font-family: var(--font-elegant);
-      font-style: italic;
-      color: var(--color-sand);
+      font-family: inherit;
+      font-style: normal;
+      font-weight: 700;
+      color: inherit;
     }
     .subhero-subtitle {
-      font-family: var(--font-headline);
+      font-family: var(--font-body);
       font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.78);
       max-width: 650px;
-      line-height: 1.5;
+      line-height: 1.55;
+      text-wrap: pretty;
     }
 
     /* Cards de Valores Furrow */
@@ -879,9 +894,11 @@
     .value-card-furrow .value-title {
       font-family: var(--font-headline);
       font-size: 1.55rem;
-      font-weight: 600;
+      font-weight: 700;
+      font-style: normal;
       color: var(--color-white);
       margin-bottom: 12px;
+      text-wrap: balance;
     }
     .value-card-furrow .value-desc {
       font-family: var(--font-body);
@@ -889,6 +906,7 @@
       line-height: 1.78;
       color: rgba(255, 255, 255, 0.92);
       font-weight: 400;
+      text-wrap: pretty;
     }
 
     /* ============================================
@@ -972,23 +990,27 @@
       color: #D4B28C;
     }
     .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4.2vw, 3.4rem);
-      font-weight: 500;
-      line-height: 1.18;
+      font-family: var(--font-headline);
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.16;
+      letter-spacing: -0.025em;
       margin-bottom: 16px;
       color: #0E1B2A;
+      text-wrap: balance;
     }
     .section-dark .section-title, .section-charcoal .section-title {
       color: #FFFFFF;
     }
     .section-title em {
-      font-family: var(--font-elegant);
-      font-style: italic;
-      color: #9A6A32;
+      font-family: inherit;
+      font-style: normal;
+      font-weight: 700;
+      color: inherit;
     }
     .section-dark .section-title em, .section-charcoal .section-title em {
-      color: #F2E8DC;
+      color: inherit;
     }
     .section-line {
       width: 48px;
@@ -1001,13 +1023,14 @@
     }
     .section-subtitle {
       font-family: var(--font-body);
-      font-size: 1.14rem;
+      font-size: 1.12rem;
       font-weight: 400;
       font-style: normal;
       color: #33485E;
-      max-width: 620px;
+      max-width: 640px;
       margin: 0 auto;
       line-height: 1.78;
+      text-wrap: pretty;
     }
     .section-dark .section-subtitle,
     .section-charcoal .section-subtitle {
@@ -1081,12 +1104,15 @@
       border-color: rgba(212, 178, 140, 0.35);
     }
     .product-card-title {
-      font-family: var(--font-display);
-      font-size: 1.85rem;
-      font-weight: 600;
+      font-family: var(--font-headline);
+      font-size: 1.75rem;
+      font-weight: 700;
+      font-style: normal;
       color: #0E1B2A;
-      line-height: 1.25;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
       margin-bottom: 12px;
+      text-wrap: balance;
     }
     .section-dark .product-card-title,
     .section-charcoal .product-card-title {
@@ -1100,6 +1126,7 @@
       margin-bottom: 24px;
       font-weight: 400;
       flex-grow: 1;
+      text-wrap: pretty;
     }
     .section-dark .product-card-desc,
     .section-charcoal .product-card-desc {
@@ -1228,15 +1255,19 @@
       flex-grow: 1;
     }
     .filmstrip-title {
-      font-family: var(--font-display);
+      font-family: var(--font-headline);
       font-size: 1.25rem;
+      font-weight: 700;
+      font-style: normal;
       color: var(--color-white);
       margin-bottom: 8px;
+      text-wrap: balance;
     }
     .filmstrip-desc {
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.65);
-      line-height: 1.6;
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.65;
+      text-wrap: pretty;
     }
 
     /* ============================================
@@ -1252,17 +1283,21 @@
       grid-template-columns: 0.85fr 1.15fr;
     }
     .two-col-text h3 {
-      font-family: var(--font-display);
+      font-family: var(--font-headline);
       font-size: clamp(2.1rem, 3.8vw, 2.9rem);
-      font-weight: 500;
-      line-height: 1.2;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
       color: #0E1B2A;
       margin-bottom: 20px;
+      text-wrap: balance;
     }
     .two-col-text h3 em {
-      font-family: var(--font-elegant);
-      font-style: italic;
-      color: #9A6A32;
+      font-family: inherit;
+      font-style: normal;
+      font-weight: 700;
+      color: inherit;
     }
     .section-dark .two-col-text h3,
     .section-charcoal .two-col-text h3 {
@@ -1270,7 +1305,7 @@
     }
     .section-dark .two-col-text h3 em,
     .section-charcoal .two-col-text h3 em {
-      color: var(--color-sand);
+      color: inherit;
     }
     .two-col-text p {
       font-family: var(--font-body);
@@ -1279,6 +1314,7 @@
       line-height: 1.82;
       color: #1E3146;
       margin-bottom: 18px;
+      text-wrap: pretty;
     }
     .section-dark .two-col-text p,
     .section-charcoal .two-col-text p {
@@ -1408,11 +1444,13 @@
       position: relative;
     }
     .value-title {
-      font-family: var(--font-display);
+      font-family: var(--font-headline);
       font-size: 1.55rem;
-      font-weight: 500;
+      font-weight: 700;
+      font-style: normal;
       color: #FAF7F2;
       margin-bottom: 12px;
+      text-wrap: balance;
     }
     .value-desc {
       font-family: var(--font-body);
@@ -1420,6 +1458,7 @@
       line-height: 1.78;
       color: rgba(255, 255, 255, 0.92);
       font-weight: 400;
+      text-wrap: pretty;
     }
     .section-dark .value-desc,
     .section-charcoal .value-desc {
@@ -1448,9 +1487,11 @@
       color: #D4B28C;
     }
     .timeline-heading {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 400;
+      font-family: var(--font-headline);
+      font-size: 1.38rem;
+      font-weight: 700;
+      font-style: normal;
+      text-wrap: balance;
     }
     .timeline-body {
       font-family: var(--font-body);
@@ -1458,6 +1499,7 @@
       line-height: 1.78;
       color: rgba(255,255,255,0.9);
       font-weight: 400;
+      text-wrap: pretty;
     }
 
     @media (max-width: 768px) {
@@ -1487,10 +1529,12 @@
       border-color: var(--color-tan);
     }
     .sector-name {
-      font-family: var(--font-display);
+      font-family: var(--font-headline);
       font-size: 1.25rem;
-      font-weight: 400;
+      font-weight: 700;
+      font-style: normal;
       margin-bottom: 8px;
+      text-wrap: balance;
     }
     .sector-desc {
       font-family: var(--font-body);
@@ -1567,25 +1611,30 @@
       border-bottom: 1px solid rgba(196, 167, 125, 0.15);
     }
     .cta-banner h2 {
-      font-family: var(--font-display);
+      font-family: var(--font-headline);
       font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 400;
+      font-weight: 700;
+      font-style: normal;
+      letter-spacing: -0.025em;
       color: var(--color-white);
       margin-bottom: 16px;
+      text-wrap: balance;
     }
     .cta-banner h2 em {
-      font-family: var(--font-elegant);
-      font-style: italic;
-      color: var(--color-sand);
+      font-family: inherit;
+      font-style: normal;
+      font-weight: 700;
+      color: inherit;
     }
     .cta-banner p {
       font-family: var(--font-body);
-      font-size: 0.92rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.65);
-      max-width: 520px;
+      font-size: 0.96rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
       margin: 0 auto 30px;
-      line-height: 1.7;
+      line-height: 1.72;
+      text-wrap: pretty;
     }
 
     /* ============================================
@@ -1603,19 +1652,21 @@
       margin-bottom: 50px;
     }
     .footer-brand {
-      font-family: var(--font-display);
+      font-family: var(--font-headline);
       font-size: 1.8rem;
+      font-weight: 700;
       letter-spacing: 0.16em;
       color: #D4B28C;
       margin-bottom: 14px;
     }
     .footer-brand-desc {
       font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.8;
-      max-width: 320px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.78;
+      max-width: 340px;
+      text-wrap: pretty;
     }
     .footer-col-title {
       font-family: var(--font-body);
@@ -2208,7 +2259,7 @@
                   <span>60 Años Liderando la Transformación Textil • Santa Teresa del Tuy</span>
                 </div>
                 <h1 className="hero-headline">
-                  Cada hilo cuenta una historia de <em>transformación y solidez industrial</em>.
+                  Cada hilo cuenta una historia de transformación y solidez industrial.
                 </h1>
               </div>
 
@@ -2236,7 +2287,7 @@
                     <span>Planta Activa • Despacho Nacional</span>
                   </div>
                   <p className="slip-copy">
-                    Pioneros en recuperación textil en Venezuela. Transformamos excedentes industriales en pabilo, coleto, cordón y paño amarillo con entrega continua y control de lote garantizado.
+                    Pioneros en <strong>recuperación textil en Venezuela</strong>. Transformamos excedentes industriales en <strong>pabilo</strong>, <strong>coleto</strong>, <strong>cordón</strong>, <strong>paño amarillo</strong>, <strong>hilos de colores</strong> y <strong>telas de microfibra</strong> con entrega continua y control de lote garantizado.
                   </p>
                   <div className="slip-actions">
                     <button className="m-btn-furrow" onClick={() => onNavigate('productos')}>
@@ -2265,11 +2316,11 @@
             <div className="container">
               <div style={{ maxWidth: '820px', margin: '0 auto', textAlign: 'center' }}>
                 <span className="section-eyebrow">Legado & Economía Circular</span>
-                <h3 style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)', margin: '14px 0 18px', color: 'var(--color-navy)' }}>
-                  El desperdicio de unos, es el <em>tesoro de otros</em>
+                <h3 className="section-title" style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)', margin: '14px 0 18px' }}>
+                  El desperdicio de unos, es el tesoro de otros
                 </h3>
-                <p style={{ fontSize: '1.05rem', lineHeight: '1.75', color: 'var(--color-dark)', fontWeight: '400', maxWidth: '720px', margin: '0 auto' }}>
-                  Con más de <strong>60 años de operación ininterrumpida</strong> en Santa Teresa del Tuy, <strong>Industrias Monnir C. A.</strong> transforma excedentes textiles en suministro industrial de alta rotación con control directo de fábrica y homogeneidad lote a lote.
+                <p style={{ fontSize: '1.05rem', lineHeight: '1.75', color: 'var(--color-dark)', fontWeight: '400', maxWidth: '720px', margin: '0 auto', textWrap: 'pretty' }}>
+                  Con más de <strong>60 años de operación ininterrumpida</strong> en Santa Teresa del Tuy, <strong>Industrias Monnir C. A.</strong> transforma excedentes textiles en <strong>suministro industrial de alta rotación</strong> con control directo de fábrica y <strong>homogeneidad lote a lote</strong>.
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '20px', alignItems: 'center', marginTop: '22px', marginBottom: '36px' }}>
                   <button className="m-btn-furrow" onClick={() => onNavigate('nosotros')}>
@@ -2349,10 +2400,10 @@
             <div className="container">
               <div className="section-header">
                 <span className="section-eyebrow">Catálogo Mayorista</span>
-                <h2 className="section-title">Nuestras líneas de <em>producción</em></h2>
+                <h2 className="section-title">Nuestras líneas de producción</h2>
                 <div className="section-line" />
                 <p className="section-subtitle">
-                  Fibras recuperadas y productos textiles manufacturados en nuestra planta de Santa Teresa del Tuy
+                  <strong>Fibras recuperadas y productos textiles manufacturados</strong> en nuestra planta de Santa Teresa del Tuy
                 </p>
               </div>
 
@@ -2372,7 +2423,7 @@
                     <div className="product-card-tag">TORCIDOS & AMARRES</div>
                     <h3 className="product-card-title">Cordón</h3>
                     <p className="product-card-desc">
-                      Hilo de algodón recuperado de alta absorción y torsión homogénea, presentado en fardos cilíndricos de 18 kg con control de lote.
+                      Hilo de <strong>algodón recuperado</strong> de alta absorción y torsión homogénea, presentado en <strong>fardos cilíndricos de 18 kg</strong> con control de lote.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2395,7 +2446,7 @@
                     <div className="product-card-tag">HILATURA & MECHAS</div>
                     <h3 className="product-card-title">Pabilo Industrial</h3>
                     <p className="product-card-desc">
-                      Descripción pendiente por redactar.
+                      El pabilo es un <strong>cordón trenzado de algodón</strong>, resistente y absorbente. Se usa principalmente para las <strong>HALLACAS</strong> y en diversas <strong>manualidades o tejidos</strong> y como <strong>mecha para velas</strong>
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2418,7 +2469,7 @@
                     <div className="product-card-tag">TEJIDO CONFECCIONADO</div>
                     <h3 className="product-card-title">Coleto</h3>
                     <p className="product-card-desc">
-                      Tejido plano resistente de máxima absorción y rendimiento para distribución mayorista comercial e institucional.
+                      <strong>Tejido plano resistente</strong> de máxima absorción y rendimiento para <strong>distribución mayorista comercial e institucional</strong>.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2441,7 +2492,7 @@
                     <div className="product-card-tag">PRODUCTO ESTRELLA DE DESPACHO</div>
                     <h3 className="product-card-title">Paño Amarillo</h3>
                     <p className="product-card-desc">
-                      Tela de limpieza industrial pesada (bayetilla) en rollos masivos sobre pallet. Ideal para talleres, mantenimiento y cadenas de suministro.
+                      Tela de limpieza industrial pesada (<strong>bayetilla</strong>) en <strong>rollos masivos sobre pallet</strong>. Ideal para talleres, mantenimiento y cadenas de suministro.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2464,7 +2515,7 @@
                     <div className="product-card-tag">HILATURA ESPECIALIZADA</div>
                     <h3 className="product-card-title">Hilos de colores por encargo</h3>
                     <p className="product-card-desc">
-                      Hilado retorcido y personalizado según especificaciones de color y calibre. Ideal para confección, manualidades y empaques comerciales.
+                      <strong>Hilado retorcido y personalizado</strong> según especificaciones de color y calibre. Ideal para <strong>confección, manualidades y empaques comerciales</strong>.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2487,7 +2538,7 @@
                     <div className="product-card-tag">LIMPIEZA & ABSORCIÓN</div>
                     <h3 className="product-card-title">Microfibra</h3>
                     <p className="product-card-desc">
-                      Tejido técnico de microfibras de máxima absorción y secado rápido, libre de pelusas y marcas abrasivas. Diseñado para limpieza industrial, técnica y automotriz.
+                      Tejido técnico de <strong>microfibras de máxima absorción y secado rápido</strong>, libre de pelusas y marcas abrasivas. Diseñado para <strong>limpieza industrial, técnica y automotriz</strong>.
                     </p>
                     <button className="product-card-link" onClick={() => onNavigate('productos')}>
                       FICHA DE PRODUCTO →
@@ -2501,8 +2552,8 @@
           {/* CTA */}
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Listo para abastecer su empresa con <em>calidad comprobada</em>?</h2>
-              <p>Conecte directamente con nuestra mesa comercial en Santa Teresa del Tuy.</p>
+              <h2>¿Listo para abastecer su empresa con calidad comprobada?</h2>
+              <p>Conecte directamente con nuestra <strong>mesa comercial en Santa Teresa del Tuy</strong>.</p>
               <button className="btn-primary" onClick={() => onNavigate('contacto')}>
                 Solicitar Cotización Mayorista
               </button>
@@ -2539,7 +2590,7 @@
                 <span>60 Años de Trayectoria Familiar • Santa Teresa del Tuy</span>
               </div>
               <h1 className="subhero-title">
-                Seis Décadas Liderando la <em>Transformación Textil</em>
+                Seis Décadas Liderando la Transformación Textil
               </h1>
               <p className="subhero-subtitle">
                 Solvencia fabril, economía circular y trato directo de planta para el suministro mayorista en Venezuela.
@@ -2555,11 +2606,11 @@
               {/* Bloque de texto editorial e institucional */}
               <div style={{ maxWidth: '860px', margin: '0 auto 36px' }}>
                 <span className="section-eyebrow">Solvencia & Tradición Fabril</span>
-                <h3 style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)', margin: '14px 0 18px', color: 'var(--color-navy)' }}>
-                  «El desperdicio de unos, es el <em>tesoro de otros</em>»
+                <h3 className="section-title" style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)', margin: '14px 0 18px' }}>
+                  «El desperdicio de unos, es el tesoro de otros»
                 </h3>
-                <p style={{ fontSize: '1.05rem', lineHeight: '1.75', color: 'var(--color-dark)', fontWeight: '400', marginBottom: '22px' }}>
-                  Con más de <strong>60 años de operación ininterrumpida</strong> en Venezuela, <strong>Industrias Monnir C. A.</strong> integra la tradición manufacturera familiar con la economía circular a escala industrial. Clasificamos, desfibramos e hilamos excedentes textiles para entregar materia prima y productos terminados con homogeneidad garantizada lote a lote.
+                <p style={{ fontSize: '1.05rem', lineHeight: '1.75', color: 'var(--color-dark)', fontWeight: '400', marginBottom: '22px', textWrap: 'pretty' }}>
+                  Con más de <strong>60 años de operación ininterrumpida</strong> en Venezuela, <strong>Industrias Monnir C. A.</strong> integra la <strong>tradición manufacturera familiar</strong> con la <strong>economía circular a escala industrial</strong>. Clasificamos, desfibramos e hilamos excedentes textiles para entregar materia prima y productos terminados con homogeneidad garantizada lote a lote.
                 </p>
 
                 {/* Micro-KPIs Ejecutivos B2B */}
@@ -2640,7 +2691,7 @@
             <div className="container">
               <div className="section-header" style={{ marginBottom: '32px' }}>
                 <span className="section-eyebrow">Capacidad Instalada & Almacén</span>
-                <h2 className="section-title">Infraestructura fabril y <em>nave de almacenamiento</em></h2>
+                <h2 className="section-title">Infraestructura fabril y nave de almacenamiento</h2>
                 <div className="section-line" />
                 <p className="section-subtitle">
                   Nave industrial activa en Santa Teresa del Tuy con acopio continuo de fardos, bobinas e hilados para despacho mayorista en todo el territorio nacional.
@@ -2698,7 +2749,7 @@
             <div className="container">
               <div className="section-header">
                 <span className="section-eyebrow">Directrices Corporativas</span>
-                <h2 className="section-title">Criterio industrial en <em>tres pilares</em></h2>
+                <h2 className="section-title">Criterio industrial en tres pilares</h2>
                 <div className="section-line" />
               </div>
 
@@ -2730,8 +2781,8 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>Asegure su abastecimiento con <em>respaldo directo de fábrica</em></h2>
-              <p>Seis décadas de continuidad operativa en Santa Teresa del Tuy al servicio de su cadena de suministro.</p>
+              <h2>Asegure su abastecimiento con respaldo directo de fábrica</h2>
+              <p>Seis décadas de <strong>continuidad operativa en Santa Teresa del Tuy</strong> al servicio de su cadena de suministro.</p>
               <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                 <span>Contactar a Nuestra Planta</span>
                 <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
@@ -2764,7 +2815,7 @@
           tag: 'TORCIDOS & AMARRES',
           name: 'Cordón',
           subtitle: 'Bulto embalado con amarres • Fardos cilíndricos de 18 kg',
-          desc: 'Hilo de algodón recuperado de alta absorción y torsión homogénea, presentado en fardos cilíndricos de 18 kg con control de lote.',
+          desc: (<>Hilo de <strong>algodón recuperado</strong> de alta absorción y torsión homogénea, presentado en <strong>fardos cilíndricos de 18 kg</strong> con control de lote.</>),
           img: 'assets/img/producto-cordon-fardo-18kg.jpg?v=20261111'
         },
         {
@@ -2772,7 +2823,7 @@
           tag: 'HILATURA & MECHAS',
           name: 'Pabilo Industrial',
           subtitle: 'Ovillos y madejas en presentación mayorista',
-          desc: 'Descripción pendiente por redactar.',
+          desc: (<>El pabilo es un <strong>cordón trenzado de algodón</strong>, resistente y absorbente. Se usa principalmente para las <strong>HALLACAS</strong> y en diversas <strong>manualidades o tejidos</strong> y como <strong>mecha para velas</strong></>),
           img: 'assets/img/producto-pabilo-ovillos.jpg?v=20261111'
         },
         {
@@ -2780,7 +2831,7 @@
           tag: 'TEJIDO CONFECCIONADO',
           name: 'Coleto',
           subtitle: 'Rollos de coleto apilados horizontalmente',
-          desc: 'Tejido plano resistente de máxima absorción y rendimiento para distribución mayorista comercial e institucional.',
+          desc: (<><strong>Tejido plano resistente</strong> de máxima absorción y rendimiento para <strong>distribución mayorista comercial e institucional</strong>.</>),
           img: 'assets/img/producto-coleto-rollos.jpg?v=20261111'
         },
         {
@@ -2788,7 +2839,7 @@
           tag: 'PRODUCTO ESTRELLA DE DESPACHO',
           name: 'Paño Amarillo',
           subtitle: 'Rollos de Paño Amarillo en Pallet',
-          desc: 'Tela de limpieza industrial pesada (bayetilla) en rollos masivos sobre pallet. Ideal para talleres, mantenimiento y cadenas de suministro.',
+          desc: (<>Tela de limpieza industrial pesada (<strong>bayetilla</strong>) en <strong>rollos masivos sobre pallet</strong>. Ideal para talleres, mantenimiento y cadenas de suministro.</>),
           img: 'assets/img/producto-pano-amarillo-pallet.jpg'
         },
         {
@@ -2796,7 +2847,7 @@
           tag: 'HILATURA ESPECIALIZADA',
           name: 'Hilos de colores por encargo',
           subtitle: 'Muestrario y paleta física con cartas de color',
-          desc: 'Hilado retorcido y personalizado según especificaciones de color y calibre. Ideal para confección, manualidades y empaques comerciales.',
+          desc: (<><strong>Hilado retorcido y personalizado</strong> según especificaciones de color y calibre. Ideal para <strong>confección, manualidades y empaques comerciales</strong>.</>),
           img: 'assets/img/producto-hilos-colores.jpg?v=20261111'
         },
         {
@@ -2804,7 +2855,7 @@
           tag: 'LIMPIEZA & ABSORCIÓN',
           name: 'Microfibra',
           subtitle: 'Rollos textiles de microfibra (amarillo y azul)',
-          desc: 'Tejido técnico de microfibras de máxima absorción y secado rápido, libre de pelusas y marcas abrasivas. Diseñado para limpieza industrial, técnica y automotriz.',
+          desc: (<>Tejido técnico de <strong>microfibras de máxima absorción y secado rápido</strong>, libre de pelusas y marcas abrasivas. Diseñado para <strong>limpieza industrial, técnica y automotriz</strong>.</>),
           img: 'assets/img/producto-microfibra-rollos.jpg?v=20261111'
         }
       ];
@@ -2830,7 +2881,7 @@
                 <span>Catálogo Mayorista B2B • Suministro Directo de Planta</span>
               </div>
               <h1 className="subhero-title">
-                Nuestros <em>Productos</em>
+                Nuestros Productos
               </h1>
               <p className="subhero-subtitle">
                 Líneas de producción respaldadas en 60 años de trayectoria fabril y entrega nacional.
@@ -2914,7 +2965,7 @@
                   </div>
                   <div className="two-col-text">
                     <span className="section-eyebrow">{item.tag}</span>
-                    <h3 style={{ fontFamily: 'var(--font-headline)', letterSpacing: '-0.02em' }}>{item.name}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-headline)', fontWeight: 700, letterSpacing: '-0.02em' }}>{item.name}</h3>
                     <p>{item.desc}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', alignItems: 'center', marginTop: '24px' }}>
                       <button className="product-card-link" onClick={() => onNavigate('contacto')}>
@@ -2922,7 +2973,7 @@
                       </button>
 
                       <a 
-                        href={`https://wa.me/584241913561?text=${encodeURIComponent(`Hola, deseo cotizar el producto ${item.name} en Industrias Monnir C.A.`)}`}
+                        href={`https://wa.me/584143127096?text=${encodeURIComponent(`Hola, deseo cotizar el producto ${item.name} en Industrias Monnir C.A.`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="m-link-furrow"
@@ -2939,8 +2990,8 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Requiere cotización de <em>lotes industriales</em>?</h2>
-              <p>Programamos despachos continuos en fardos, rollos o pallets completos a todo el país.</p>
+              <h2>¿Requiere cotización de lotes industriales?</h2>
+              <p>Programamos <strong>despachos continuos en fardos, rollos o pallets completos</strong> a todo el país.</p>
               <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                 <span>Hablar con un Asesor Comercial</span>
                 <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
@@ -3028,7 +3079,7 @@
                 <span>Infraestructura & Capacidad Fabril • Santa Teresa del Tuy</span>
               </div>
               <h1 className="subhero-title">
-                Nuestra <em>Planta</em> e Instalaciones
+                Nuestra Planta e Instalaciones
               </h1>
               <p className="subhero-subtitle">
                 Procesos de economía circular que garantizan solidez, regularidad y entrega programada lote a lote.
@@ -3043,7 +3094,7 @@
             <div className="container">
               <div className="section-header" style={{ marginBottom: '24px' }}>
                 <span className="section-eyebrow">Evidencia Operativa</span>
-                <h2 className="section-title">Instalaciones en <em>Santa Teresa del Tuy</em></h2>
+                <h2 className="section-title">Instalaciones en Santa Teresa del Tuy</h2>
                 <div className="section-line" />
                 <p className="section-subtitle">
                   Fotografía real de nuestra nave de producción, tren de cardado y zona de embalaje mayorista
@@ -3083,7 +3134,7 @@
             <div className="container">
               <div className="section-header">
                 <span className="section-eyebrow">Rigor de Manufactura</span>
-                <h2 className="section-title">El ciclo de la <em>economía circular</em></h2>
+                <h2 className="section-title">El ciclo de la economía circular</h2>
                 <div className="section-line" />
               </div>
 
@@ -3091,7 +3142,7 @@
                 {steps.map(s => (
                   <div key={s.num} className="timeline-row">
                     <div className="timeline-num" style={{ fontFamily: 'var(--font-headline)', fontWeight: '600' }}>{s.num}</div>
-                    <div className="timeline-heading" style={{ fontFamily: 'var(--font-headline)' }}>{s.title}</div>
+                    <div className="timeline-heading" style={{ fontFamily: 'var(--font-headline)', fontWeight: 700 }}>{s.title}</div>
                     <div className="timeline-body">{s.desc}</div>
                   </div>
                 ))}
@@ -3101,8 +3152,8 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>Garantice la continuidad de su <em>suministro</em></h2>
-              <p>Nuestra capacidad instalada asegura entregas programadas y consistencia lote a lote.</p>
+              <h2>Garantice la continuidad de su suministro</h2>
+              <p>Nuestra <strong>capacidad instalada</strong> asegura entregas programadas y consistencia lote a lote.</p>
               <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                 <span>Cotizar Suministro con Planta</span>
                 <svg className="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
@@ -3152,7 +3203,7 @@
                 <span>Sectores B2B Atendidos • Cobertura Nacional</span>
               </div>
               <h1 className="subhero-title">
-                Nuestros <em>Clientes</em> y Sectores
+                Nuestros Clientes y Sectores
               </h1>
               <p className="subhero-subtitle">
                 Alianzas comerciales estratégicas de suministro continuo en todo el territorio nacional.
@@ -3166,7 +3217,7 @@
             <div className="container">
               <div className="section-header">
                 <span className="section-eyebrow">Áreas de Aplicación</span>
-                <h2 className="section-title">Industrias que <em>abastecemos</em></h2>
+                <h2 className="section-title">Industrias que abastecemos</h2>
                 <div className="section-line" />
               </div>
 
@@ -3183,8 +3234,8 @@
 
           <section className="cta-banner">
             <div className="container">
-              <h2>¿Su empresa busca un proveedor <em>confiable y directo</em>?</h2>
-              <p>Atendemos requerimientos mayoristas sin intermediarios desde nuestra planta de Santa Teresa del Tuy.</p>
+              <h2>¿Su empresa busca un proveedor confiable y directo?</h2>
+              <p>Atendemos <strong>requerimientos mayoristas sin intermediarios</strong> desde nuestra planta de Santa Teresa del Tuy.</p>
               <button className="m-btn-furrow" onClick={() => onNavigate('contacto')}>
                 <span>Iniciar Relación Comercial</span>
                 <svg class="m-btn__star" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
@@ -3217,7 +3268,7 @@
       const handleSubmit = (e) => {
         e.preventDefault();
         const msg = `Hola, mi nombre es ${nombre} de la empresa ${empresa}. Deseamos solicitar cotización en Industrias Monnir:\n\n- Producto: ${producto}\n- Requerimiento / Volumen: ${volumen || 'A convenir'}\n- Teléfono: ${telefono}\n- Correo: ${correo}`;
-        const url = `https://wa.me/584241913561?text=${encodeURIComponent(msg)}`;
+        const url = `https://wa.me/584143127096?text=${encodeURIComponent(msg)}`;
         window.open(url, '_blank');
         setSent(true);
       };
@@ -3241,7 +3292,7 @@
                 <span>Atención Comercial B2B • Suministro Directo</span>
               </div>
               <h1 className="subhero-title">
-                Mesa Comercial y <em>Contacto</em>
+                Mesa Comercial y Contacto
               </h1>
               <p className="subhero-subtitle">
                 Conecte directamente con el equipo comercial de Industrias Monnir C. A. para cotizaciones mayoristas.
@@ -3256,26 +3307,28 @@
               <div className="contact-layout">
                 <div>
                   <span className="section-eyebrow">Mesa de Cotización</span>
-                  <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '2.2rem', marginBottom: '16px', letterSpacing: '-0.02em' }}>
-                    Converse con nuestro <em>equipo</em>
+                  <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '2.2rem', fontWeight: 700, marginBottom: '16px', letterSpacing: '-0.02em', textWrap: 'balance' }}>
+                    Converse con nuestro equipo
                   </h3>
-                  <p style={{ fontSize: '0.92rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.7)', marginBottom: '30px' }}>
-                    Indíquenos las características del producto que busca, volumen estimado y destino de entrega para coordinar su propuesta formal.
+                  <p style={{ fontSize: '0.94rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.78)', marginBottom: '30px', textWrap: 'pretty' }}>
+                    Indíquenos las <strong>características del producto que busca</strong>, <strong>volumen estimado</strong> y <strong>destino de entrega</strong> para coordinar su propuesta formal.
                   </p>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', borderTop: '1px solid rgba(212,178,140,0.2)', paddingTop: '24px' }}>
                     <div>
                       <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>WhatsApp Corporativo</div>
-                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '500' }}>
-                        <a href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
-                          0424-191-3561 →
+                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '600' }}>
+                        <a href="https://wa.me/584143127096?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
+                          04143127096 →
                         </a>
                       </div>
                     </div>
                     <div>
                       <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: 'var(--color-accent)', textTransform: 'uppercase', fontFamily: 'var(--font-headline)', fontWeight: '600' }}>Atención Telefónica de Planta</div>
-                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '500' }}>
-                        0414-399-0682
+                      <div style={{ fontSize: '1.2rem', fontFamily: 'var(--font-headline)', color: 'var(--color-white)', marginTop: '4px', fontWeight: '600' }}>
+                        <a href="tel:04143127096" style={{ color: 'var(--color-white)', textDecoration: 'none' }}>
+                          04143127096
+                        </a>
                       </div>
                     </div>
                     <div>
@@ -3382,8 +3435,12 @@
               <div>
                 <div className="footer-brand">MONNIR</div>
                 <p className="footer-brand-desc">
-                  <strong>Industrias Monnir C. A.</strong> — Seis décadas transformando el futuro textil en Venezuela. Recuperado textil, pabilo, coleto, cordón y paño amarillo con entrega nacional.
+                  <strong>Industrias Monnir C. A.</strong> — Seis décadas transformando el futuro textil en Venezuela. Recuperado textil, <strong>pabilo</strong>, <strong>coleto</strong>, <strong>cordón</strong>, <strong>paño amarillo</strong>, <strong>hilos de colores</strong> y <strong>telas de microfibra</strong> con entrega nacional.
                 </p>
+                <div style={{ marginTop: '12px', fontSize: '0.82rem', lineHeight: '1.7', color: 'rgba(255,255,255,0.85)' }}>
+                  <strong style={{ color: '#D4B28C', textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.74rem', display: 'block', marginBottom: '4px' }}>Materiales y Suministros:</strong>
+                  <strong>Pabilo</strong> • <strong>Coleto</strong> • <strong>Cordón</strong> • <strong>Paño amarillo</strong> • <strong>Hilos de colores</strong> • <strong>Telas de microfibra</strong>
+                </div>
               </div>
 
               <div className="footer-col">
@@ -3406,15 +3463,14 @@
                   <li><button onClick={() => onNavigate('productos')}>Coleto</button></li>
                   <li><button onClick={() => onNavigate('productos')}>Paño Amarillo</button></li>
                   <li><button onClick={() => onNavigate('productos')}>Hilos de colores por encargo</button></li>
-                  <li><button onClick={() => onNavigate('productos')}>Microfibra</button></li>
+                  <li><button onClick={() => onNavigate('productos')}>Telas de microfibra</button></li>
                 </ul>
               </div>
 
               <div className="footer-col">
                 <div className="footer-col-title">Contacto Directo</div>
                 <ul>
-                  <li><span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.84rem' }}>0424-191-3561</span></li>
-                  <li><span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.84rem' }}>0414-399-0682</span></li>
+                  <li><a href="tel:04143127096" style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.88rem', fontWeight: '600', textDecoration: 'none' }}>04143127096</a></li>
                   <li><span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.84rem' }}>Industriasmonnir@gmail.com</span></li>
                   <li><span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.78rem' }}>El Tomuso, Santa Teresa del Tuy</span></li>
                 </ul>
@@ -3468,7 +3524,7 @@
           </button>
 
           <a 
-            href="tel:04143990682"
+            href="tel:04143127096"
             className="dock-item"
             title="Llamar directamente a Planta Monnir"
           >
@@ -3477,7 +3533,7 @@
           </a>
 
           <a 
-            href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir"
+            href="https://wa.me/584143127096?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir"
             target="_blank"
             rel="noopener noreferrer"
             className="dock-item dock-whatsapp"
@@ -3577,7 +3633,7 @@
 
           {/* Botón WhatsApp Flotante */}
           <a
-            href="https://wa.me/584241913561?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir"
+            href="https://wa.me/584143127096?text=Hola,%20deseo%20solicitar%20cotizaci%C3%B3n%20mayorista%20en%20Industrias%20Monnir"
             target="_blank"
             rel="noopener noreferrer"
             className="whatsapp-btn"
